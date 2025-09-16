@@ -1,0 +1,23 @@
+ProjectFlow-API
+* iniciar projeto com suas dependencias                     - OK
+* ajustar lombok no pom.xml                                 - OK
+* adicionar maps struct para criar mappers                  - OK
+* construir models                                          - OK
+* mapear relacionamentos com jpa
+  - usuario  n - n equipe                    - OK
+  - equipe   1 - n projeto
+  - projeto  1 - n tarefa
+  - usuarios 1 - n tarefa (como cessionario)
+  - tarefa   1 - n comentario
+  - tarefa   1 - n anexo
+  - usuarios 1 - n comentario (como autor)
+* construir dto's
+* fazer mappers
+* construir repositories
+* construir services
+* controllers com response entity
+* tratador de erros
+* entender as dependencias de segurança a serem adicionadas
+* adicionar segurança
+* configurar roles
+* lembrar do swagger
