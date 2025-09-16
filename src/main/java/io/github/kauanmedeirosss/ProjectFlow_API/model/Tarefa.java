@@ -2,18 +2,33 @@ package io.github.kauanmedeirosss.ProjectFlow_API.model;
 
 import io.github.kauanmedeirosss.ProjectFlow_API.model.enums.Prioridade;
 import io.github.kauanmedeirosss.ProjectFlow_API.model.enums.StatusTarefa;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tarefas")
 public class Tarefa {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String titulo;
     private String descricao;
+    @Enumerated(EnumType.STRING)
     private Prioridade prioridade;
+    @Enumerated(EnumType.STRING)
     private StatusTarefa status;
     private Integer horasEstimadas;
-    // projeto
-    // usuario (cessionario)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "projeto_id", nullable = false)
+    private Projeto projeto;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cessionario_id")
+    private Usuario cessionario;
+    @OneToMany(mappedBy = "tarefa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Comentario> comentarios = new ArrayList<>();
+    @OneToMany(mappedBy = "tarefa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Anexo> anexos = new ArrayList<>();
 }

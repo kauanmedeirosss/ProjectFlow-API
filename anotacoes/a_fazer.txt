@@ -3,14 +3,15 @@ ProjectFlow-API
 * ajustar lombok no pom.xml                                 - OK
 * adicionar maps struct para criar mappers                  - OK
 * construir models                                          - OK
-* mapear relacionamentos com jpa
+* mapear relacionamentos com jpa                            - OK
   - usuario  n - n equipe                    - OK
-  - equipe   1 - n projeto
-  - projeto  1 - n tarefa
-  - usuarios 1 - n tarefa (como cessionario)
-  - tarefa   1 - n comentario
-  - tarefa   1 - n anexo
-  - usuarios 1 - n comentario (como autor)
+  - equipe   1 - n projeto                   - OK
+  - projeto  1 - n tarefa                    - OK
+  - usuarios 1 - n tarefa (como cessionario) - OK
+  - tarefa   1 - n comentario                - OK
+  - tarefa   1 - n anexo                     - OK
+  - usuarios 1 - n comentario (como autor)   - OK
+* construir comandos sql para criação de tabelas
 * construir dto's
 * fazer mappers
 * construir repositories

@@ -12,7 +12,7 @@
 	<artifactId>ProjectFlow-API</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ProjectFlow-API</name>
-	<description>aaaa</description>
+	<description>Esta API é o projeto final da disciplina de Desenvolvimento de Software Corporativo, se trata de um serviço RESTful para gerenciamento completo de projetos, tarefas e equipes.</description>
 	<url/>
 	<licenses>
 		<license/>
