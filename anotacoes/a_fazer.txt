@@ -17,13 +17,18 @@ ProjectFlow-API
 * construir comandos sql para criação de tabelas            - OK
 * construir repositories                                    - OK
 * construir services                                        - OK
-* construir dto's
+* construir dto's                                           - OK
+* aplicar validações nos dto's                              - OK
 * fazer mappers
 * controllers
   - CRUD básico
   - response entity
   - moldar repository e service para regras de négócio
   - ajustar service de relatorios
+  - OBS SOBRE: Equipe. Endpoint de adicionarMembros,
+    removerMembros, adicionarProjeto (sem remover,
+    já que eles irão ser um histórico)
+
 * tratador de erros
 * entender as dependencias de segurança a serem adicionadas
 * adicionar segurança
