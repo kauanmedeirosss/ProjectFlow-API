@@ -2,7 +2,10 @@ ProjectFlow-API
 * iniciar projeto com suas dependencias                     - OK
 * ajustar lombok no pom.xml                                 - OK
 * adicionar maps struct para criar mappers                  - OK
-* construir models                                          - OK
+* construir models e enums                                  - OK
+  - entidades                                          - OK
+  - enums                                              - OK
+  - entity listeners para atributos de data de criação - OK
 * mapear relacionamentos com jpa                            - OK
   - usuario  n - n equipe                    - OK
   - equipe   1 - n projeto                   - OK
@@ -11,14 +14,19 @@ ProjectFlow-API
   - tarefa   1 - n comentario                - OK
   - tarefa   1 - n anexo                     - OK
   - usuarios 1 - n comentario (como autor)   - OK
-* construir comandos sql para criação de tabelas
+* construir comandos sql para criação de tabelas            - OK
+* construir repositories                                    - OK
+* construir services                                        - OK
 * construir dto's
 * fazer mappers
-* construir repositories
-* construir services
-* controllers com response entity
+* controllers
+  - CRUD básico
+  - response entity
+  - moldar repository e service para regras de négócio
+  - ajustar service de relatorios
 * tratador de erros
 * entender as dependencias de segurança a serem adicionadas
 * adicionar segurança
+  - configurar service de segurança
 * configurar roles
 * lembrar do swagger

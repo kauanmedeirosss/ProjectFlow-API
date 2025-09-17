@@ -2,6 +2,7 @@ package io.github.kauanmedeirosss.ProjectFlow_API.model;
 
 import io.github.kauanmedeirosss.ProjectFlow_API.model.enums.StatusProjeto;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -10,12 +11,14 @@ import java.util.List;
 
 @Entity
 @Table(name = "projetos")
+@Data
 public class Projeto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
     private String descricao;
+    @Column(name = "data_inicio")
     private LocalDate dataInicio;
     private LocalDate deadline;
     private BigDecimal orcamento;
