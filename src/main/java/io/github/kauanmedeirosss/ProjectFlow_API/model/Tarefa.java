@@ -1,10 +1,10 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.github.kauanmedeirosss.ProjectFlow_API.model.enums.Prioridade;
 import io.github.kauanmedeirosss.ProjectFlow_API.model.enums.StatusTarefa;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;

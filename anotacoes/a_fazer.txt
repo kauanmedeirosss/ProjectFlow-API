@@ -20,7 +20,8 @@ ProjectFlow-API
 * construir dto's                                           - OK
 * aplicar validações nos dto's                              - OK
 * fazer mappers                                             - OK
-* controllers
+* controllers                                               - OK
+  - remover gets dos dtos e refatorar services e afins      - OK
   - CRUD básico
   - response entity
   - moldar repository e service para regras de négócio
@@ -35,3 +36,4 @@ ProjectFlow-API
   - configurar service de segurança
 * configurar roles
 * lembrar do swagger
+* tentar resolver o velho problema dos detalhamentos

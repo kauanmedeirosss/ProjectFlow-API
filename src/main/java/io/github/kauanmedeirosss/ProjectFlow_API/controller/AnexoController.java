@@ -1,13 +1,14 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.controller;
 
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.AnexoCriadoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.AnexoRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.service.AnexoService;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/anexos")
@@ -17,8 +18,19 @@ public class AnexoController {
     private final AnexoService service;
 
     @PostMapping
+    @Transactional
     public void cadastrar(@RequestBody @Valid AnexoCriadoDTO dto){
         service.salvar(dto);
+    }
+
+    @GetMapping("/{id}")
+    public AnexoRetornoDTO buscar(@PathVariable Long id){
+        return service.buscarPorId(id);
+    }
+
+    @GetMapping
+    public List<AnexoRetornoDTO> listar(){
+        return service.listarTodas();
     }
 
 }

@@ -1,5 +1,6 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;

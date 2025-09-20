@@ -1,5 +1,6 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.github.kauanmedeirosss.ProjectFlow_API.model.enums.StatusProjeto;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -19,7 +20,9 @@ public class Projeto {
     private String nome;
     private String descricao;
     @Column(name = "data_inicio")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataInicio;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate deadline;
     private BigDecimal orcamento;
     @Enumerated(EnumType.STRING)

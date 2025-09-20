@@ -33,4 +33,10 @@ public class UsuarioController {
         return service.listarTodos();
     }
 
+    /*
+    criar comentario
+
+    criar tarefa
+    */
+
 }

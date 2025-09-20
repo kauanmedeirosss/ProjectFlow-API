@@ -1,5 +1,6 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.controller.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
@@ -10,10 +11,12 @@ public record ProjetoCriadoDTO(
         String nome,
         String descricao,
         @NotNull(message = "Campo obrigatório")
-        @Future(message = "Data não pode ser passada")
+        @FutureOrPresent(message = "Data não pode ser passada")
+        @JsonFormat(pattern = "dd/MM/yyyy")
         LocalDate dataInicio,
         @NotNull(message = "Campo obrigatório")
         @Future(message = "Data não pode ser passada")
+        @JsonFormat(pattern = "dd/MM/yyyy")
         LocalDate deadline,
         @Positive(message = "Valor não pode ser negativo!")
         BigDecimal orcamento,
