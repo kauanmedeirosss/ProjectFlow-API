@@ -1,27 +1,22 @@
-## Criação de tabelas: ##
-CREATE TABLE anexos (
-    id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    nome_arquivo VARCHAR(255) NOT NULL,
-    url_arquivo VARCHAR(500) NOT NULL,
-    tarefa_id BIGINT NOT NULL,
-    upload_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (tarefa_id) REFERENCES tarefas(id) ON DELETE CASCADE,
-);
+## Criação e seleção do schema: ##
+CREATE SCHEMA projectflow_api;
+USE projectflow_api;
 
-CREATE TABLE comentarios (
+
+
+## Criação de tabelas: ##
+CREATE TABLE usuarios (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    conteudo TEXT NOT NULL,
-    tarefa_id BIGINT NOT NULL,
-    autor_id BIGINT NOT NULL,
-    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (tarefa_id) REFERENCES tarefas(id) ON DELETE CASCADE,
-    FOREIGN KEY (autor_id) REFERENCES usuarios(id) ON DELETE CASCADE
+    nome VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    senha VARCHAR(255) NOT NULL,
+    role VARCHAR(50) NOT NULL DEFAULT 'MEMBER'
 );
 
 CREATE TABLE equipes (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(255) NOT NULL,
-    descricao TEXT,
+    descricao TEXT
 );
 
 CREATE TABLE projetos (
@@ -49,17 +44,25 @@ CREATE TABLE tarefas (
     FOREIGN KEY (cessionario_id) REFERENCES usuarios(id) ON DELETE SET NULL
 );
 
-CREATE TABLE usuarios (
+CREATE TABLE anexos (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(255) NOT NULL,
-    email VARCHAR(255) UNIQUE NOT NULL,
-    senha VARCHAR(255) NOT NULL,
-    role VARCHAR(50) NOT NULL DEFAULT 'MEMBER'
+    nome_arquivo VARCHAR(255) NOT NULL,
+    url_arquivo VARCHAR(500) NOT NULL,
+    tarefa_id BIGINT NOT NULL,
+    upload_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (tarefa_id) REFERENCES tarefas(id) ON DELETE CASCADE
 );
 
+CREATE TABLE comentarios (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    conteudo TEXT NOT NULL,
+    tarefa_id BIGINT NOT NULL,
+    autor_id BIGINT NOT NULL,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (tarefa_id) REFERENCES tarefas(id) ON DELETE CASCADE,
+    FOREIGN KEY (autor_id) REFERENCES usuarios(id) ON DELETE CASCADE
+);
 
-
-## Tabela de junção criada automaticamente pelo JPA ##
 CREATE TABLE membros_equipe (
     equipe_id BIGINT NOT NULL,
     usuario_id BIGINT NOT NULL,
@@ -73,9 +76,9 @@ CREATE TABLE membros_equipe (
 ## Inserção de dados de exemplo ##
 INSERT INTO usuarios (nome, email, senha, role) VALUES
 ('Admin User', 'admin@projectflow.com', '$2a$10$exampleHash', 'ADMIN'),
-('Manager User', 'manager@projectflow.com', '$2a$10$exampleHash', 'MANAGER'),
-('John Developer', 'john@projectflow.com', '$2a$10$exampleHash', 'MEMBER'),
-('Jane Designer', 'jane@projectflow.com', '$2a$10$exampleHash', 'MEMBER');
+('Manager User', 'manager@projectflow.com', '$2a$10$exampleHash', 'GESTOR'),
+('John Developer', 'john@projectflow.com', '$2a$10$exampleHash', 'MEMBRO'),
+('Jane Designer', 'jane@projectflow.com', '$2a$10$exampleHash', 'MEMBRO');
 
 INSERT INTO equipes (nome, descricao) VALUES
 ('Equipe Desenvolvimento', 'Time responsável pelo desenvolvimento do software'),
@@ -85,12 +88,12 @@ INSERT INTO membros_equipe (equipe_id, usuario_id) VALUES
 (1, 1), (1, 2), (1, 3),  -- Admin, Manager e John na equipe Dev
 (2, 4);                   -- Jane na equipe Design
 
-INSERT INTO projetos (nome, descricao, status, data_inicio, deadline, team_id) VALUES
+INSERT INTO projetos (nome, descricao, status, data_inicio, deadline, equipe_id) VALUES
 ('API ProjectFlow', 'Desenvolvimento da API de gestão de projetos', 'EM_PROGRESSO', '2025-09-16', '2026-01-01', 1),
 ('Redesign Interface', 'Redesign completo da interface do usuário', 'PLANEJAMENTO', '2025-09-16', '2026-01-01', 2);
 
 INSERT INTO tarefas (titulo, descricao, status, prioridade, horas_estimadas, projeto_id, cessionario_id) VALUES
-('Criar entidade User', 'Implementar model User com JPA', 'FEITO', 'ALTA', 8, 1, 3),
+('Criar entidade User', 'Implementar model User com JPA', 'FEITA', 'ALTA', 8, 1, 3),
 ('Implementar autenticação JWT', 'Configurar Spring Security com JWT', 'EM_PROGRESSO', 'ALTA', 16, 1, 3),
 ('Criar design sistema', 'Desenvolver wireframes do sistema', 'A_FAZER', 'MEDIA', 24, 2, 4);
 

@@ -6,6 +6,6 @@ public record ProjetoRetornoDTO(
         Long id,
         String nome,
         String descricao,
-        StatusProjeto status,
+        StatusProjeto status
 ) {
 }

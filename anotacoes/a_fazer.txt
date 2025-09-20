@@ -19,7 +19,7 @@ ProjectFlow-API
 * construir services                                        - OK
 * construir dto's                                           - OK
 * aplicar validações nos dto's                              - OK
-* fazer mappers
+* fazer mappers                                             - OK
 * controllers
   - CRUD básico
   - response entity
@@ -28,9 +28,9 @@ ProjectFlow-API
   - OBS SOBRE: Equipe. Endpoint de adicionarMembros,
     removerMembros, adicionarProjeto (sem remover,
     já que eles irão ser um histórico)
-
 * tratador de erros
 * entender as dependencias de segurança a serem adicionadas
+* reabilitar segurança nas properties
 * adicionar segurança
   - configurar service de segurança
 * configurar roles

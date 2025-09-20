@@ -4,10 +4,7 @@ import io.github.kauanmedeirosss.ProjectFlow_API.model.enums.Role;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "usuarios")
@@ -21,7 +18,7 @@ public class Usuario {
     private String senha;
     @Enumerated(EnumType.STRING)
     private Role role;
-    @ManyToMany(mappedBy = "membros")
+    @ManyToMany(mappedBy = "membros", fetch = FetchType.LAZY)
     private Set<Equipe> equipe = new HashSet<>();
     @OneToMany(mappedBy = "cessionario", fetch = FetchType.LAZY)
     private List<Tarefa> tarefas = new ArrayList<>();

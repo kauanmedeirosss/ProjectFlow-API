@@ -22,4 +22,12 @@ public record TarefaCriadaDTO(
         @NotNull(message = "Campo obrigatório")
         Long cessionario
 ) {
+        public Long getProjeto_id() {
+                return projeto_id;
+        }
+
+
+        public Long getCessionario() {
+                return cessionario;
+        }
 }
