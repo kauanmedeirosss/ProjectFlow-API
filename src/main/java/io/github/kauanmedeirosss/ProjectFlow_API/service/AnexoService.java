@@ -1,7 +1,9 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.service;
 
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.AnexoAtualizadoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.AnexoCriadoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.AnexoRetornoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.exception.ResourceNotFoundException;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper.AnexoMapper;
 import io.github.kauanmedeirosss.ProjectFlow_API.repository.AnexoRepository;
 import io.github.kauanmedeirosss.ProjectFlow_API.repository.TarefaRepository;
@@ -24,7 +26,7 @@ public class AnexoService {
         var anexo = mapper.toEntity(dto);
 
         var tarefa = tarefaRepository.findById(dto.tarefa_id())
-                        .orElseThrow(() -> new RuntimeException("Tarefa não encontrada!"));
+                        .orElseThrow(() -> new ResourceNotFoundException("Tarefa não encontrada!"));
 
         anexo.setTarefa(tarefa);
         anexo.setUploadEm(LocalDateTime.now());
@@ -32,7 +34,8 @@ public class AnexoService {
     }
 
     public AnexoRetornoDTO buscarPorId(Long id){
-        var anexo = repository.getReferenceById(id);
+        var anexo = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Anexo não encontrado!"));
         return mapper.toRetornoDTO(anexo);
     }
 
@@ -41,6 +44,20 @@ public class AnexoService {
         return lista.stream()
                 .map(mapper::toRetornoDTO)
                 .toList();
+    }
+
+    public void atualizar(AnexoAtualizadoDTO dto){
+        var anexo = repository.findById(dto.id())
+                .orElseThrow(() -> new ResourceNotFoundException("Anexo não encontrado!"));
+        anexo.setNomeArquivo(dto.nomeArquivo());
+        anexo.setURLarquivo(dto.URLarquivo());
+        repository.save(anexo);
+    }
+
+    public void deletar(Long id){
+        var anexo = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Anexo não encontrado!"));
+        repository.delete(anexo);
     }
 
 }

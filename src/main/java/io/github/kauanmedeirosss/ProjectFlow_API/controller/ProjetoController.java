@@ -1,5 +1,7 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.controller;
 
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.ProjetoAtualizadoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.ProjetoAtualizadoStatusDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.ProjetoCriadoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.ProjetoRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.service.ProjetoService;
@@ -33,12 +35,22 @@ public class ProjetoController {
         return service.listarTodas();
     }
 
-    /*
-    alguma forma de adicionar tarefas ao projeto (acho que no usuario)
+    @PutMapping
+    @Transactional
+    public void atualizar(@RequestBody @Valid ProjetoAtualizadoDTO dto){
+        service.atualizar(dto);
+    }
 
-    avançar o status (só avança pra frente)
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void deletar(@PathVariable Long id){
+        service.deletar(id);
+    }
 
-    put de orçamento, ja que pode receber nulo
-    */
+    @PutMapping("/{id}")
+    @Transactional
+    public void atualizarStatus(@RequestBody @PathVariable @Valid Long id, ProjetoAtualizadoStatusDTO dto){
+        service.atualizarStatus(id, dto);
+    }
 
 }

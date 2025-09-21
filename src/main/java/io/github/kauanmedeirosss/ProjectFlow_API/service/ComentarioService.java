@@ -1,7 +1,9 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.service;
 
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.ComentarioAtualizadoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.ComentarioCriadoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.ComentarioRetornoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.exception.ResourceNotFoundException;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper.ComentarioMapper;
 import io.github.kauanmedeirosss.ProjectFlow_API.repository.ComentarioRepository;
 import io.github.kauanmedeirosss.ProjectFlow_API.repository.TarefaRepository;
@@ -25,9 +27,9 @@ public class ComentarioService {
         var comentario = mapper.toEntity(dto);
 
         var tarefa = tarefaRepository.findById(dto.tarefa_id())
-                        .orElseThrow(() -> new RuntimeException("Tarefa não encontrada!"));
+                        .orElseThrow(() -> new ResourceNotFoundException("Tarefa não encontrada!"));
         var usuario = usuarioRepository.findById(dto.autor_id())
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado!"));
+                .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado!"));
 
         comentario.setTarefa(tarefa);
         comentario.setAutor(usuario);
@@ -37,7 +39,8 @@ public class ComentarioService {
     }
 
     public ComentarioRetornoDTO buscarPorId(Long id){
-        var comentario = repository.getReferenceById(id);
+        var comentario = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Comentário não encontrado!"));
         return mapper.toRetornoDTO(comentario);
     }
 
@@ -47,5 +50,18 @@ public class ComentarioService {
                 .map(mapper::toRetornoDTO)
                 .toList();
     }
-    
+
+    public void atualizar(ComentarioAtualizadoDTO dto){
+        var comentario = repository.findById(dto.id())
+                .orElseThrow(() -> new ResourceNotFoundException("Comentário não encontrado!"));
+        comentario.setConteudo(dto.conteudo());
+        repository.save(comentario);
+    }
+
+    public void deletar(Long id){
+        var comentario = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Comentário não encontrado!"));
+        repository.delete(comentario);
+    }
+
 }

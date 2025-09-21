@@ -30,8 +30,8 @@ public class Tarefa {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cessionario_id")
     private Usuario cessionario;
-    @OneToMany(mappedBy = "tarefa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "tarefa", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Comentario> comentarios = new ArrayList<>();
-    @OneToMany(mappedBy = "tarefa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "tarefa", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Anexo> anexos = new ArrayList<>();
 }

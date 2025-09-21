@@ -7,6 +7,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class RelatorioService {
 
-    // pensar no que colocar nos benditos relatórios
+
 
 }

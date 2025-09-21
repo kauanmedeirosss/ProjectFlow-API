@@ -1,7 +1,10 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.service;
 
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.ProjetoAtualizadoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.ProjetoAtualizadoStatusDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.ProjetoCriadoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.ProjetoRetornoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.exception.ResourceNotFoundException;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper.ProjetoMapper;
 import io.github.kauanmedeirosss.ProjectFlow_API.model.enums.StatusProjeto;
 import io.github.kauanmedeirosss.ProjectFlow_API.repository.EquipeRepository;
@@ -24,7 +27,7 @@ public class ProjetoService {
         projeto.setStatus(StatusProjeto.valueOf("PLANEJAMENTO"));
 
         var equipe = equipeRepository.findById(dto.equipe_id())
-                .orElseThrow(() -> new RuntimeException("Equipe não encontrada"));
+                .orElseThrow(() -> new ResourceNotFoundException("Equipe não encontrada!"));
 
         projeto.setEquipe(equipe);
 
@@ -32,7 +35,8 @@ public class ProjetoService {
     }
 
     public ProjetoRetornoDTO buscarPorId(Long id){
-        var projeto = repository.getReferenceById(id);
+        var projeto = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Projeto não encontrado!"));
         return mapper.toRetornoDTO(projeto);
     }
 
@@ -41,6 +45,30 @@ public class ProjetoService {
         return lista.stream()
                 .map(mapper::toRetornoDTO)
                 .toList();
+    }
+
+    public void atualizar(ProjetoAtualizadoDTO dto){
+        var projeto = repository.findById(dto.id())
+                .orElseThrow(() -> new ResourceNotFoundException("Projeto não encontrado!"));
+
+        projeto.setNome(dto.nome());
+        projeto.setDescricao(dto.descricao());
+        projeto.setDeadline(dto.deadline());
+        projeto.setOrcamento(dto.orcamento());
+        repository.save(projeto);
+    }
+
+    public void deletar(Long id){
+        var projeto = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Projeto não encontrado!"));
+        repository.delete(projeto);
+    }
+
+    public void atualizarStatus(Long id, ProjetoAtualizadoStatusDTO dto){
+        var projeto = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Projeto não encontrado!"));
+        projeto.setStatus(dto.status());
+        repository.save(projeto);
     }
 
 }

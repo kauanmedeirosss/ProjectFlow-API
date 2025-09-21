@@ -1,5 +1,6 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.controller;
 
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.UsuarioAtualizadoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.UsuarioCriadoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.UsuarioRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.service.UsuarioService;
@@ -33,10 +34,16 @@ public class UsuarioController {
         return service.listarTodos();
     }
 
-    /*
-    criar comentario
+    @PutMapping
+    @Transactional
+    public void atualizar(@RequestBody @Valid UsuarioAtualizadoDTO dto){
+        service.atualizar(dto);
+    }
 
-    criar tarefa
-    */
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void deletar(@PathVariable Long id){
+        service.deletar(id);
+    }
 
 }

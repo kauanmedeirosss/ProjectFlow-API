@@ -1,7 +1,10 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.service;
 
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.TarefaAtualizadaDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.TarefaAtualizadaStatusDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.TarefaCriadaDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.TarefaRetornoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.exception.ResourceNotFoundException;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper.TarefaMapper;
 import io.github.kauanmedeirosss.ProjectFlow_API.model.Tarefa;
 import io.github.kauanmedeirosss.ProjectFlow_API.model.enums.StatusTarefa;
@@ -25,16 +28,16 @@ public class TarefaService {
 
     public Tarefa obterPorId(Long id){
         return repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException());
+                .orElseThrow(() -> new ResourceNotFoundException("Tarefa não encontrada!"));
     }
 
     public void salvar(TarefaCriadaDTO dto){
         var tarefa = mapper.toEntity(dto, usuarioRepository, projetoRepository);
 
         var projeto = projetoRepository.findById(dto.projeto_id())
-                .orElseThrow(() -> new RuntimeException("Projeto não encontrado!"));
+                .orElseThrow(() -> new ResourceNotFoundException("Projeto não encontrado!"));
         var usuario = usuarioRepository.findById(dto.cessionario())
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado!"));
+                .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado!"));
 
         tarefa.setProjeto(projeto);
         tarefa.setCessionario(usuario);
@@ -44,8 +47,9 @@ public class TarefaService {
     }
 
     public TarefaRetornoDTO buscarPorId(Long id){
-        var equipe = repository.getReferenceById(id);
-        return mapper.toRetornoDTO(equipe);
+        var tarefa = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Tarefa não encontrada!"));
+        return mapper.toRetornoDTO(tarefa);
     }
 
     public List<TarefaRetornoDTO> listarTodas(){
@@ -53,6 +57,29 @@ public class TarefaService {
         return lista.stream()
                 .map(mapper::toRetornoDTO)
                 .toList();
+    }
+
+    public void atualizar(TarefaAtualizadaDTO dto){
+        var tarefa = repository.findById(dto.id())
+                .orElseThrow(() -> new ResourceNotFoundException("Tarefa não encontrada!"));
+
+        tarefa.setTitulo(dto.titulo());
+        tarefa.setDescricao(dto.descricao());
+        tarefa.setHorasEstimadas(dto.horasEstimadas());
+        repository.save(tarefa);
+    }
+
+    public void atualizarStatus(Long id, TarefaAtualizadaStatusDTO dto){
+        var tarefa = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Tarefa não encontrada!"));
+        tarefa.setStatus(dto.status());
+        repository.save(tarefa);
+    }
+
+    public void deletar(Long id){
+        var tarefa = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Tarefa não encontrada!"));
+        repository.delete(tarefa);
     }
 
 }

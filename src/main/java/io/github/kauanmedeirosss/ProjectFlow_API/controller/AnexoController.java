@@ -1,5 +1,6 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.controller;
 
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.AnexoAtualizadoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.AnexoCriadoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.AnexoRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.service.AnexoService;
@@ -32,5 +33,19 @@ public class AnexoController {
     public List<AnexoRetornoDTO> listar(){
         return service.listarTodas();
     }
+
+    @PutMapping
+    @Transactional
+    public void atualizar(@RequestBody @Valid AnexoAtualizadoDTO dto){
+        service.atualizar(dto);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void deletar(@PathVariable Long id){
+        service.deletar(id);
+    }
+
+    //métodos marcados serão acessados por Tarefa
 
 }

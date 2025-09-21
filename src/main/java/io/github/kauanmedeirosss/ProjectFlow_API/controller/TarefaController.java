@@ -1,5 +1,7 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.controller;
 
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.TarefaAtualizadaDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.TarefaAtualizadaStatusDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.TarefaCriadaDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.TarefaRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.service.TarefaService;
@@ -31,6 +33,24 @@ public class TarefaController {
     @GetMapping
     public List<TarefaRetornoDTO> listar(){
         return service.listarTodas();
+    }
+
+    @PutMapping
+    @Transactional
+    public void atualizar(@RequestBody @Valid TarefaAtualizadaDTO dto){
+        service.atualizar(dto);
+    }
+
+    @PutMapping("/{id}")
+    @Transactional
+    public void atualizarStatus(@RequestBody @PathVariable @Valid Long id, TarefaAtualizadaStatusDTO dto){
+        service.atualizarStatus(id, dto);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void deletar(@PathVariable Long id){
+        service.deletar(id);
     }
 
 }

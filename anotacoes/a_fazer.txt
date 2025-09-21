@@ -22,13 +22,11 @@ ProjectFlow-API
 * fazer mappers                                             - OK
 * controllers                                               - OK
   - remover gets dos dtos e refatorar services e afins      - OK
-  - CRUD básico
+  - CRUD básico                                             - OK
+  - Revisar endpoints com proposta
   - response entity
-  - moldar repository e service para regras de négócio
+  - moldar repository e service para regras de négócio      - OK
   - ajustar service de relatorios
-  - OBS SOBRE: Equipe. Endpoint de adicionarMembros,
-    removerMembros, adicionarProjeto (sem remover,
-    já que eles irão ser um histórico)
 * tratador de erros
 * entender as dependencias de segurança a serem adicionadas
 * reabilitar segurança nas properties

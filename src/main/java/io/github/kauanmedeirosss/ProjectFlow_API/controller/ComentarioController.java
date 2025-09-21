@@ -1,5 +1,6 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.controller;
 
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.ComentarioAtualizadoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.ComentarioCriadoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.ComentarioRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.service.ComentarioService;
@@ -32,5 +33,19 @@ public class ComentarioController {
     public List<ComentarioRetornoDTO> listar(){
         return service.listarTodas();
     }
+
+    @PutMapping
+    @Transactional
+    public void atualizar(@RequestBody @Valid ComentarioAtualizadoDTO dto){
+        service.atualizar(dto);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void deletar(@PathVariable Long id){
+        service.deletar(id);
+    }
+
+    //métodos marcados serão acessados por Tarefa
 
 }

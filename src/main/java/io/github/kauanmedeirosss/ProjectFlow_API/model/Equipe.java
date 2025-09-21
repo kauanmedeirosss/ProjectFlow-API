@@ -21,6 +21,6 @@ public class Equipe {
             inverseJoinColumns = @JoinColumn(name = "usuario_id")
     )
     private Set<Usuario> membros = new HashSet<>();
-    @OneToMany(mappedBy = "equipe", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "equipe", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Projeto> projetos = new ArrayList<>();
 }

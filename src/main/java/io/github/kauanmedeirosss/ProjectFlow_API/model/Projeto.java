@@ -30,6 +30,6 @@ public class Projeto {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "equipe_id", nullable = false)
     private Equipe equipe;
-    @OneToMany(mappedBy = "projeto", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "projeto", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Tarefa> tarefas = new ArrayList<>();
 }
