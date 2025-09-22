@@ -23,11 +23,11 @@ ProjectFlow-API
 * controllers                                               - OK
   - remover gets dos dtos e refatorar services e afins      - OK
   - CRUD básico                                             - OK
-  - Revisar endpoints com proposta
+  - Revisar endpoints com proposta                          - OK
   - response entity
   - moldar repository e service para regras de négócio      - OK
-  - ajustar service de relatorios
-* tratador de erros
+  - ajustar service de relatorios                           - OK
+* tratador de erros                                         - OK
 * entender as dependencias de segurança a serem adicionadas
 * reabilitar segurança nas properties
 * adicionar segurança

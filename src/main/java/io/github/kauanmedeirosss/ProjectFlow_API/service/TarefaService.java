@@ -1,13 +1,12 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.service;
 
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.TarefaAtualizadaDTO;
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.TarefaAtualizadaStatusDTO;
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.TarefaCriadaDTO;
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.TarefaRetornoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.*;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.exception.ResourceNotFoundException;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper.AnexoMapper;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper.TarefaMapper;
 import io.github.kauanmedeirosss.ProjectFlow_API.model.Tarefa;
 import io.github.kauanmedeirosss.ProjectFlow_API.model.enums.StatusTarefa;
+import io.github.kauanmedeirosss.ProjectFlow_API.repository.AnexoRepository;
 import io.github.kauanmedeirosss.ProjectFlow_API.repository.ProjetoRepository;
 import io.github.kauanmedeirosss.ProjectFlow_API.repository.TarefaRepository;
 import io.github.kauanmedeirosss.ProjectFlow_API.repository.UsuarioRepository;
@@ -16,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -23,8 +23,10 @@ public class TarefaService {
 
     private final TarefaRepository repository;
     private final TarefaMapper mapper;
+    private final AnexoMapper anexoMapper;
     private final UsuarioRepository usuarioRepository;
     private final ProjetoRepository projetoRepository;
+    private final AnexoRepository anexoRepository;
 
     public Tarefa obterPorId(Long id){
         return repository.findById(id)
@@ -57,6 +59,15 @@ public class TarefaService {
         return lista.stream()
                 .map(mapper::toRetornoDTO)
                 .toList();
+    }
+
+    public List<AnexoRetornoDTO> listarAnexosDaTarefaId(Long id){
+        var tarefa = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Tarefa não encontrada!"));
+        var lista = anexoRepository.findByTarefaId(id);
+        return lista.stream()
+                .map(anexoMapper::toRetornoDTO)
+                .collect(Collectors.toList());
     }
 
     public void atualizar(TarefaAtualizadaDTO dto){

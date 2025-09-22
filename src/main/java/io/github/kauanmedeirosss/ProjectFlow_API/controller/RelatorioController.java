@@ -1,18 +1,24 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.controller;
 
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.ProjetoProgressoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.service.RelatorioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/relatorios")
 @RequiredArgsConstructor
 public class RelatorioController {
 
-    @GetMapping
-    public void progressoProjeto(){
+    private final RelatorioService service;
 
+    @GetMapping("/progresso-projetos")
+    public List<ProjetoProgressoDTO> progressoProjeto(){
+        return service.listarProgressosProjetos();
     }
 
 }

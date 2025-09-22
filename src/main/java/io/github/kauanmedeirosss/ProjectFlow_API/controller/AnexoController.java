@@ -46,6 +46,4 @@ public class AnexoController {
         service.deletar(id);
     }
 
-    //métodos marcados serão acessados por Tarefa
-
 }

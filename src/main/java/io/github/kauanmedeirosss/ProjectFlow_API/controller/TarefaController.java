@@ -1,9 +1,6 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.controller;
 
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.TarefaAtualizadaDTO;
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.TarefaAtualizadaStatusDTO;
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.TarefaCriadaDTO;
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.TarefaRetornoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.*;
 import io.github.kauanmedeirosss.ProjectFlow_API.service.TarefaService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -41,7 +38,7 @@ public class TarefaController {
         service.atualizar(dto);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}/status")
     @Transactional
     public void atualizarStatus(@RequestBody @PathVariable @Valid Long id, TarefaAtualizadaStatusDTO dto){
         service.atualizarStatus(id, dto);
@@ -51,6 +48,11 @@ public class TarefaController {
     @Transactional
     public void deletar(@PathVariable Long id){
         service.deletar(id);
+    }
+
+    @GetMapping("/{id}/anexos")
+    public List<AnexoRetornoDTO> listarAnexosTarefa(@PathVariable Long id){
+        return service.listarAnexosDaTarefaId(id);
     }
 
 }

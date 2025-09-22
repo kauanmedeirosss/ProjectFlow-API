@@ -46,6 +46,4 @@ public class ComentarioController {
         service.deletar(id);
     }
 
-    //métodos marcados serão acessados por Tarefa
-
 }

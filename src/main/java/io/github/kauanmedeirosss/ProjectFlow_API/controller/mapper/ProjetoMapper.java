@@ -1,6 +1,7 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper;
 
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.ProjetoCriadoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.ProjetoProgressoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.ProjetoRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.model.Projeto;
 import org.mapstruct.Mapper;
@@ -13,5 +14,7 @@ public interface ProjetoMapper {
     Projeto toEntity(ProjetoCriadoDTO dto);
 
     ProjetoRetornoDTO toRetornoDTO(Projeto projeto);
+
+    ProjetoProgressoDTO toProgressoDTO(Projeto projeto);
 
 }

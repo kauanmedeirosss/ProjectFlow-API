@@ -47,7 +47,7 @@ public class ProjetoController {
         service.deletar(id);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}/status")
     @Transactional
     public void atualizarStatus(@RequestBody @PathVariable @Valid Long id, ProjetoAtualizadoStatusDTO dto){
         service.atualizarStatus(id, dto);
