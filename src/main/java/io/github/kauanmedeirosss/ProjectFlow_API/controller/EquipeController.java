@@ -8,7 +8,9 @@ import io.github.kauanmedeirosss.ProjectFlow_API.service.EquipeService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -21,50 +23,59 @@ public class EquipeController {
 
     @PostMapping
     @Transactional
-    public void cadastrar(@RequestBody @Valid EquipeCriadaDTO dto){
-        service.salvar(dto);
+    public ResponseEntity<EquipeRetornoDTO> cadastrar(@RequestBody @Valid EquipeCriadaDTO dto, UriComponentsBuilder uriBuilder){
+        var equipe = service.salvar(dto);
+        var uri = uriBuilder.path("/equipes/{id}").buildAndExpand(equipe.id()).toUri();
+        return ResponseEntity.created(uri).body(equipe);
     }
 
     @GetMapping("/{id}")
-    public EquipeRetornoDTO buscar(@PathVariable Long id){
-        return service.buscarPorId(id);
+    public ResponseEntity<EquipeRetornoDTO> buscar(@PathVariable Long id){
+        var equipe = service.buscarPorId(id);
+        return ResponseEntity.ok(equipe);
     }
 
     @GetMapping
-    public List<EquipeRetornoDTO> listar(){
-        return service.listarTodas();
+    public ResponseEntity<List<EquipeRetornoDTO>> listar(){
+        var equipes = service.listarTodas();
+        return ResponseEntity.ok(equipes);
     }
 
     @PutMapping
     @Transactional
-    public void atualizar(@RequestBody @Valid EquipeAtualizadaDTO dto){
-        service.atualizar(dto);
+    public ResponseEntity<EquipeRetornoDTO> atualizar(@RequestBody @Valid EquipeAtualizadaDTO dto){
+        var equipe = service.atualizar(dto);
+        return ResponseEntity.ok(equipe);
     }
 
     @PostMapping("/{equipeId}/membros/{usuarioaId}")
     @Transactional
-    public void adicionarMembro(@PathVariable Long equipeId,
+    public ResponseEntity<Void> adicionarMembro(@PathVariable Long equipeId,
                                 @PathVariable Long usuarioId){
         service.adicionarMembro(equipeId, usuarioId);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public void deletar(@PathVariable Long id){
+    public ResponseEntity<Void> deletar(@PathVariable Long id){
         service.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{equipeId}/membros/{usuarioaId}")
     @Transactional
-    public void removerMembro(@PathVariable Long equipeId,
+    public ResponseEntity<Void> removerMembro(@PathVariable Long equipeId,
                               @PathVariable Long usuarioId){
         service.removerMembro(equipeId, usuarioId);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{equipeId}/membros")
-    public List<UsuarioRetornoDTO> listarMembros(
+    public ResponseEntity<List<UsuarioRetornoDTO>> listarMembros(
             @PathVariable Long equipeId) {
-        return service.listarMembros(equipeId);
+        var membros = service.listarMembros(equipeId);
+        return ResponseEntity.ok(membros);
     }
 
 }

@@ -5,7 +5,9 @@ import io.github.kauanmedeirosss.ProjectFlow_API.service.TarefaService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -18,41 +20,49 @@ public class TarefaController {
 
     @PostMapping
     @Transactional
-    public void cadastrar(@RequestBody @Valid TarefaCriadaDTO dto){
-        service.salvar(dto);
+    public ResponseEntity<TarefaRetornoDTO> cadastrar(@RequestBody @Valid TarefaCriadaDTO dto, UriComponentsBuilder uriBuilder){
+        var tarefa = service.salvar(dto);
+        var uri = uriBuilder.path("/tarefas/{id}").buildAndExpand(tarefa.id()).toUri();
+        return ResponseEntity.created(uri).body(tarefa);
     }
 
     @GetMapping("/{id}")
-    public TarefaRetornoDTO buscar(@PathVariable Long id){
-        return service.buscarPorId(id);
+    public ResponseEntity<TarefaRetornoDTO> buscar(@PathVariable Long id){
+        var tarefa = service.buscarPorId(id);
+        return ResponseEntity.ok(tarefa);
     }
 
     @GetMapping
-    public List<TarefaRetornoDTO> listar(){
-        return service.listarTodas();
+    public ResponseEntity<List<TarefaRetornoDTO>> listar(){
+        var tarefas = service.listarTodas();
+        return ResponseEntity.ok(tarefas);
     }
 
     @PutMapping
     @Transactional
-    public void atualizar(@RequestBody @Valid TarefaAtualizadaDTO dto){
-        service.atualizar(dto);
+    public ResponseEntity<TarefaRetornoDTO> atualizar(@RequestBody @Valid TarefaAtualizadaDTO dto){
+        var tarefa = service.atualizar(dto);
+        return ResponseEntity.ok(tarefa);
     }
 
     @PutMapping("/{id}/status")
     @Transactional
-    public void atualizarStatus(@RequestBody @PathVariable @Valid Long id, TarefaAtualizadaStatusDTO dto){
+    public ResponseEntity<Void> atualizarStatus(@RequestBody @PathVariable @Valid Long id, TarefaAtualizadaStatusDTO dto){
         service.atualizarStatus(id, dto);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public void deletar(@PathVariable Long id){
+    public ResponseEntity<Void> deletar(@PathVariable Long id){
         service.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}/anexos")
-    public List<AnexoRetornoDTO> listarAnexosTarefa(@PathVariable Long id){
-        return service.listarAnexosDaTarefaId(id);
+    public ResponseEntity<List<AnexoRetornoDTO>> listarAnexosTarefa(@PathVariable Long id){
+        var anexos = service.listarAnexosDaTarefaId(id);
+        return ResponseEntity.ok(anexos);
     }
 
 }

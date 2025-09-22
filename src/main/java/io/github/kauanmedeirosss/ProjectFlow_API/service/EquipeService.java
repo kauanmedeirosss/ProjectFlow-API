@@ -25,9 +25,10 @@ public class EquipeService {
     private final UsuarioService usuarioService;
     private final UsuarioMapper usuarioMapper;
 
-    public void salvar(EquipeCriadaDTO dto){
+    public EquipeRetornoDTO salvar(EquipeCriadaDTO dto){
         var equipe = mapper.toEntity(dto);
         repository.save(equipe);
+        return mapper.toRetornoDTO(equipe);
     }
 
     public EquipeRetornoDTO buscarPorId(Long id){
@@ -43,12 +44,13 @@ public class EquipeService {
                 .toList();
     }
 
-    public void atualizar(EquipeAtualizadaDTO dto){
+    public EquipeRetornoDTO atualizar(EquipeAtualizadaDTO dto){
         var equipe = repository.findById(dto.id())
                 .orElseThrow(() -> new ResourceNotFoundException("Equipe não encontrada!"));
         equipe.setNome(dto.nome());
         equipe.setDescricao(dto.descricao());
         repository.save(equipe);
+        return mapper.toRetornoDTO(equipe);
     }
 
     public void deletar(Long id){

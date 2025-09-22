@@ -23,7 +23,7 @@ public class ComentarioService {
     private final UsuarioRepository usuarioRepository;
     private final ComentarioMapper mapper;
 
-    public void salvar(ComentarioCriadoDTO dto){
+    public ComentarioRetornoDTO salvar(ComentarioCriadoDTO dto){
         var comentario = mapper.toEntity(dto);
 
         var tarefa = tarefaRepository.findById(dto.tarefa_id())
@@ -36,6 +36,7 @@ public class ComentarioService {
         comentario.setCriadoEm(LocalDateTime.now());
 
         repository.save(comentario);
+        return mapper.toRetornoDTO(comentario);
     }
 
     public ComentarioRetornoDTO buscarPorId(Long id){
@@ -51,11 +52,12 @@ public class ComentarioService {
                 .toList();
     }
 
-    public void atualizar(ComentarioAtualizadoDTO dto){
+    public ComentarioRetornoDTO atualizar(ComentarioAtualizadoDTO dto){
         var comentario = repository.findById(dto.id())
                 .orElseThrow(() -> new ResourceNotFoundException("Comentário não encontrado!"));
         comentario.setConteudo(dto.conteudo());
         repository.save(comentario);
+        return mapper.toRetornoDTO(comentario);
     }
 
     public void deletar(Long id){

@@ -19,9 +19,10 @@ public class UsuarioService {
     private final UsuarioRepository repository;
     private final UsuarioMapper mapper;
 
-    public void salvar(UsuarioCriadoDTO dto) {
+    public UsuarioRetornoDTO salvar(UsuarioCriadoDTO dto) {
         var usuario = mapper.toEntity(dto);
         repository.save(usuario);
+        return mapper.toRetornoDTO(usuario);
     }
 
     public UsuarioRetornoDTO buscarPorId(Long id){
@@ -43,13 +44,14 @@ public class UsuarioService {
         return usuario;
     }
 
-    public void atualizar(UsuarioAtualizadoDTO dto){
+    public UsuarioRetornoDTO atualizar(UsuarioAtualizadoDTO dto){
         var usuario = repository.findById(dto.id())
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado!"));
 
         usuario.setNome(dto.nome());
         usuario.setEmail(dto.email());
         repository.save(usuario);
+        return mapper.toRetornoDTO(usuario);
     }
 
     public void deletar(Long id){

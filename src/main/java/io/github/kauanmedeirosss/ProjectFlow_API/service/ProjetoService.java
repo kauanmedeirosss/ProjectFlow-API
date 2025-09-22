@@ -22,7 +22,7 @@ public class ProjetoService {
     private final EquipeRepository equipeRepository;
     private final ProjetoMapper mapper;
 
-    public void salvar(ProjetoCriadoDTO dto){
+    public ProjetoRetornoDTO salvar(ProjetoCriadoDTO dto){
         var projeto = mapper.toEntity(dto);
         projeto.setStatus(StatusProjeto.valueOf("PLANEJAMENTO"));
 
@@ -30,8 +30,8 @@ public class ProjetoService {
                 .orElseThrow(() -> new ResourceNotFoundException("Equipe não encontrada!"));
 
         projeto.setEquipe(equipe);
-
         repository.save(projeto);
+        return mapper.toRetornoDTO(projeto);
     }
 
     public ProjetoRetornoDTO buscarPorId(Long id){
@@ -47,7 +47,7 @@ public class ProjetoService {
                 .toList();
     }
 
-    public void atualizar(ProjetoAtualizadoDTO dto){
+    public ProjetoRetornoDTO atualizar(ProjetoAtualizadoDTO dto){
         var projeto = repository.findById(dto.id())
                 .orElseThrow(() -> new ResourceNotFoundException("Projeto não encontrado!"));
 
@@ -56,6 +56,7 @@ public class ProjetoService {
         projeto.setDeadline(dto.deadline());
         projeto.setOrcamento(dto.orcamento());
         repository.save(projeto);
+        return mapper.toRetornoDTO(projeto);
     }
 
     public void deletar(Long id){

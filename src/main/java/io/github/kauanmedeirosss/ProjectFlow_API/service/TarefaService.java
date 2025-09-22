@@ -33,7 +33,7 @@ public class TarefaService {
                 .orElseThrow(() -> new ResourceNotFoundException("Tarefa não encontrada!"));
     }
 
-    public void salvar(TarefaCriadaDTO dto){
+    public TarefaRetornoDTO salvar(TarefaCriadaDTO dto){
         var tarefa = mapper.toEntity(dto, usuarioRepository, projetoRepository);
 
         var projeto = projetoRepository.findById(dto.projeto_id())
@@ -46,6 +46,7 @@ public class TarefaService {
         tarefa.setStatus(StatusTarefa.valueOf("A_FAZER"));
 
         repository.save(tarefa);
+        return mapper.toRetornoDTO(tarefa);
     }
 
     public TarefaRetornoDTO buscarPorId(Long id){
@@ -70,7 +71,7 @@ public class TarefaService {
                 .collect(Collectors.toList());
     }
 
-    public void atualizar(TarefaAtualizadaDTO dto){
+    public TarefaRetornoDTO atualizar(TarefaAtualizadaDTO dto){
         var tarefa = repository.findById(dto.id())
                 .orElseThrow(() -> new ResourceNotFoundException("Tarefa não encontrada!"));
 
@@ -78,6 +79,7 @@ public class TarefaService {
         tarefa.setDescricao(dto.descricao());
         tarefa.setHorasEstimadas(dto.horasEstimadas());
         repository.save(tarefa);
+        return mapper.toRetornoDTO(tarefa);
     }
 
     public void atualizarStatus(Long id, TarefaAtualizadaStatusDTO dto){
