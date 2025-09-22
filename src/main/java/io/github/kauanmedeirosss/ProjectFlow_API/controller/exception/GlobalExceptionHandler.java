@@ -3,6 +3,8 @@ package io.github.kauanmedeirosss.ProjectFlow_API.controller.exception;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -29,6 +31,24 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<String> handleResourceNotFoundException(ResourceNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<?> trata404(){
+        return ResponseEntity.notFound().build();
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<?> trata400(MethodArgumentNotValidException exception){
+        var erros = exception.getFieldErrors();
+
+        return ResponseEntity.badRequest().body(erros.stream().map(DadosErros::new).toList());
+    }
+
+    public record DadosErros(String campo, String mensagem){
+        public DadosErros(FieldError erro){
+            this(erro.getField(), erro.getDefaultMessage());
+        }
     }
 
 }

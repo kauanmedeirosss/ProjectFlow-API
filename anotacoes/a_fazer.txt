@@ -28,10 +28,9 @@ ProjectFlow-API
   - moldar repository e service para regras de négócio      - OK
   - ajustar service de relatorios                           - OK
 * tratador de erros                                         - OK
-* entender as dependencias de segurança a serem adicionadas
-* reabilitar segurança nas properties
-* adicionar segurança
-  - configurar service de segurança
+* entender as dependencias de segurança a serem adicionadas - OK
+* reabilitar segurança nas properties                       - OK
+* adicionar segurança                                       - OK
 * configurar roles
 * lembrar do swagger
 * tentar resolver o velho problema dos detalhamentos
