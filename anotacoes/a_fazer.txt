@@ -33,3 +33,4 @@ ProjectFlow-API
 * adicionar segurança                                       - OK
 * configurar roles                                          - OK
 * lembrar do swagger
+* testar endpoints
