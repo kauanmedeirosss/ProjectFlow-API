@@ -3,11 +3,13 @@ package io.github.kauanmedeirosss.ProjectFlow_API.service;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.UsuarioAtualizadoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.UsuarioCriadoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.UsuarioRetornoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.exception.BusinessRuleException;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.exception.ResourceNotFoundException;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper.UsuarioMapper;
 import io.github.kauanmedeirosss.ProjectFlow_API.model.Usuario;
 import io.github.kauanmedeirosss.ProjectFlow_API.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,9 +20,14 @@ public class UsuarioService {
 
     private final UsuarioRepository repository;
     private final UsuarioMapper mapper;
+    private final PasswordEncoder encoder;
 
     public UsuarioRetornoDTO salvar(UsuarioCriadoDTO dto) {
+        if (repository.existsByEmail(dto.email())) {
+            throw new BusinessRuleException("Email já cadastrado");
+        }
         var usuario = mapper.toEntity(dto);
+        usuario.setSenha(encoder.encode(usuario.getSenha()));
         repository.save(usuario);
         return mapper.toRetornoDTO(usuario);
     }

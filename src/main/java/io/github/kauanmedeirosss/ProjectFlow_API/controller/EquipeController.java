@@ -9,6 +9,7 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -23,6 +24,7 @@ public class EquipeController {
 
     @PostMapping
     @Transactional
+    @PreAuthorize("hasAnyRole('ADMIN', 'GERENTE')")
     public ResponseEntity<EquipeRetornoDTO> cadastrar(@RequestBody @Valid EquipeCriadaDTO dto, UriComponentsBuilder uriBuilder){
         var equipe = service.salvar(dto);
         var uri = uriBuilder.path("/equipes/{id}").buildAndExpand(equipe.id()).toUri();
@@ -43,6 +45,7 @@ public class EquipeController {
 
     @PutMapping
     @Transactional
+    @PreAuthorize("hasAnyRole('ADMIN', 'GERENTE')")
     public ResponseEntity<EquipeRetornoDTO> atualizar(@RequestBody @Valid EquipeAtualizadaDTO dto){
         var equipe = service.atualizar(dto);
         return ResponseEntity.ok(equipe);
@@ -50,6 +53,7 @@ public class EquipeController {
 
     @PostMapping("/{equipeId}/membros/{usuarioaId}")
     @Transactional
+    @PreAuthorize("hasAnyRole('ADMIN', 'GERENTE')")
     public ResponseEntity<Void> adicionarMembro(@PathVariable Long equipeId,
                                 @PathVariable Long usuarioId){
         service.adicionarMembro(equipeId, usuarioId);
@@ -58,6 +62,7 @@ public class EquipeController {
 
     @DeleteMapping("/{id}")
     @Transactional
+    @PreAuthorize("hasAnyRole('ADMIN', 'GERENTE')")
     public ResponseEntity<Void> deletar(@PathVariable Long id){
         service.deletar(id);
         return ResponseEntity.noContent().build();
@@ -65,6 +70,7 @@ public class EquipeController {
 
     @DeleteMapping("/{equipeId}/membros/{usuarioaId}")
     @Transactional
+    @PreAuthorize("hasAnyRole('ADMIN', 'GERENTE')")
     public ResponseEntity<Void> removerMembro(@PathVariable Long equipeId,
                               @PathVariable Long usuarioId){
         service.removerMembro(equipeId, usuarioId);

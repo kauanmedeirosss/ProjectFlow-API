@@ -16,7 +16,6 @@ import java.io.IOException;
 public class FiltroSeguranca extends OncePerRequestFilter {
 
     private final TokenService tokenService;
-
     private final UsuarioRepository repository;
 
     @Override
@@ -24,12 +23,18 @@ public class FiltroSeguranca extends OncePerRequestFilter {
         var tokenJWT = recuperarToken(request);
 
         if (tokenJWT != null) {
-            var subject = tokenService.getSubject(tokenJWT);
-            var usuario = repository.findByEmail(subject);
+            try {
+                var subject = tokenService.getSubject(tokenJWT);
+                var usuario = repository.findByEmail(subject);
 
-            var authentication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
 
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+                var authentication = new UsernamePasswordAuthenticationToken(
+                        usuario, null, usuario.getAuthorities());
+
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            } catch (Exception e) {
+                logger.error("Erro na autenticação JWT", e);
+            }
         }
 
         filterChain.doFilter(request, response);
@@ -37,12 +42,9 @@ public class FiltroSeguranca extends OncePerRequestFilter {
 
     private String recuperarToken(HttpServletRequest request) {
         var authHeader = request.getHeader("Authorization");
-
-        if (authHeader != null){
-            return authHeader.replace("Bearer ", "");
-        }
-
-        return null;
+        return (authHeader != null && authHeader.startsWith("Bearer "))
+                ? authHeader.replace("Bearer ", "")
+                : null;
     }
 
 }

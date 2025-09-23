@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -42,6 +43,7 @@ public class UsuarioController {
 
     @PutMapping
     @Transactional
+    @PreAuthorize("hasAnyRole('ADMIN', 'GERENTE')")
     public ResponseEntity<UsuarioRetornoDTO> atualizar(@RequestBody @Valid UsuarioAtualizadoDTO dto){
         var usuario = service.atualizar(dto);
         return ResponseEntity.ok(usuario);
@@ -49,6 +51,7 @@ public class UsuarioController {
 
     @DeleteMapping("/{id}")
     @Transactional
+    @PreAuthorize("hasAnyRole('ADMIN', 'GERENTE')")
     public ResponseEntity<Void> deletar(@PathVariable Long id){
         service.deletar(id);
         return ResponseEntity.noContent().build();

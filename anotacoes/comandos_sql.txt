@@ -76,7 +76,7 @@ CREATE TABLE membros_equipe (
 ## Inserção de dados de exemplo ##
 INSERT INTO usuarios (nome, email, senha, role) VALUES
 ('Admin User', 'admin@projectflow.com', '$2a$10$exampleHash', 'ADMIN'),
-('Manager User', 'manager@projectflow.com', '$2a$10$exampleHash', 'GESTOR'),
+('Manager User', 'manager@projectflow.com', '$2a$10$exampleHash', 'GERENTE'),
 ('John Developer', 'john@projectflow.com', '$2a$10$exampleHash', 'MEMBRO'),
 ('Jane Designer', 'jane@projectflow.com', '$2a$10$exampleHash', 'MEMBRO');
 

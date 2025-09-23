@@ -9,6 +9,7 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -23,6 +24,7 @@ public class ProjetoController {
 
     @PostMapping
     @Transactional
+    @PreAuthorize("hasAnyRole('ADMIN', 'GERENTE')")
     public ResponseEntity<ProjetoRetornoDTO> cadastrar(@RequestBody @Valid ProjetoCriadoDTO dto, UriComponentsBuilder uriBuilder){
         var projeto = service.salvar(dto);
         var uri = uriBuilder.path("/projetos/{id}").buildAndExpand(projeto.id()).toUri();
@@ -43,6 +45,7 @@ public class ProjetoController {
 
     @PutMapping
     @Transactional
+    @PreAuthorize("hasAnyRole('ADMIN', 'GERENTE')")
     public ResponseEntity<ProjetoRetornoDTO> atualizar(@RequestBody @Valid ProjetoAtualizadoDTO dto){
         var projeto = service.atualizar(dto);
         return ResponseEntity.ok(projeto);
@@ -50,6 +53,7 @@ public class ProjetoController {
 
     @DeleteMapping("/{id}")
     @Transactional
+    @PreAuthorize("hasAnyRole('ADMIN', 'GERENTE')")
     public ResponseEntity<Void> deletar(@PathVariable Long id){
         service.deletar(id);
         return ResponseEntity.noContent().build();
@@ -57,6 +61,7 @@ public class ProjetoController {
 
     @PutMapping("/{id}/status")
     @Transactional
+    @PreAuthorize("hasAnyRole('ADMIN', 'GERENTE')")
     public ResponseEntity<Void> atualizarStatus(@RequestBody @PathVariable @Valid Long id, ProjetoAtualizadoStatusDTO dto){
         service.atualizarStatus(id, dto);
         return ResponseEntity.noContent().build();

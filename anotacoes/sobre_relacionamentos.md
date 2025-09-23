@@ -25,12 +25,7 @@
 * Ao salvar o projeto herda automaticamente a equipe
 
 ## 3. Projeto 1 -- N Tarefa
-Nada novo
 ## 4. Usuario 1 -- N Tarefa (como cessionario)
-Nada novo
 ## 5. Tarefa 1 -- N Comentario
-Nada novo
 ## 6. Tarefa 1 -- N Anexo
-Nada novo
 ## 7. Usuario 1 -- N Comentario (como autor)
-Nada novo

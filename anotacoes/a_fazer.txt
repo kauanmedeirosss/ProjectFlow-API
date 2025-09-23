@@ -31,6 +31,5 @@ ProjectFlow-API
 * entender as dependencias de segurança a serem adicionadas - OK
 * reabilitar segurança nas properties                       - OK
 * adicionar segurança                                       - OK
-* configurar roles
+* configurar roles                                          - OK
 * lembrar do swagger
-* tentar resolver o velho problema dos detalhamentos

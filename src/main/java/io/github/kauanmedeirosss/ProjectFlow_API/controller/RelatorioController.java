@@ -4,6 +4,7 @@ import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.ProjetoProgresso
 import io.github.kauanmedeirosss.ProjectFlow_API.service.RelatorioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/relatorios")
 @RequiredArgsConstructor
+@PreAuthorize("hasAnyRole('ADMIN', 'GERENTE')")
 public class RelatorioController {
 
     private final RelatorioService service;

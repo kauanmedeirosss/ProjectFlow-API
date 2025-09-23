@@ -4,11 +4,14 @@ import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.AutenticacaoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.RetornaTokenJwtDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.model.Usuario;
 import io.github.kauanmedeirosss.ProjectFlow_API.seguranca.TokenService;
+import io.github.kauanmedeirosss.ProjectFlow_API.service.AutenticacaoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,17 +22,24 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AutenticacaoController {
 
-    private final AuthenticationManager manager;
-
+    private final AuthenticationManager authenticationManager;
     private final TokenService tokenService;
+    private final AutenticacaoService autenticacaoService;
 
     @PostMapping
-    public ResponseEntity<?> efetuarLogin(@RequestBody @Valid AutenticacaoDTO dto){
-        var token = new UsernamePasswordAuthenticationToken(dto.login(), dto.senha());
-        var autenticacao = manager.authenticate(token);
-        var tokenJWT = tokenService.gerarToken((Usuario) autenticacao.getPrincipal());
+    public ResponseEntity<?> efetuarLogin(@RequestBody @Valid AutenticacaoDTO dto) {
+        try {
+            var authenticationToken = new UsernamePasswordAuthenticationToken(dto.login(), dto.senha());
+            var authentication = authenticationManager.authenticate(authenticationToken);
 
-        return ResponseEntity.ok(new RetornaTokenJwtDTO(tokenJWT));
+            var usuario = (Usuario) authentication.getPrincipal();
+            var tokenJWT = tokenService.gerarToken(usuario);
+
+            return ResponseEntity.ok(new RetornaTokenJwtDTO(tokenJWT, usuario.getRole().name()));
+
+        } catch (AuthenticationException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais inválidas");
+        }
     }
 
 }

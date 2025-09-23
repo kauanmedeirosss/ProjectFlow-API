@@ -25,10 +25,14 @@ public class ConfigSeguranca {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf(Customizer.withDefaults())
-                .sessionManagement(customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(authorize -> authorize
+                .csrf(csrf -> csrf.disable())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/usuarios").permitAll() // Cadastro público
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll() // Swagger
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/gerente/**").hasAnyRole("ADMIN", "GERENTE")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(filtro, UsernamePasswordAuthenticationFilter.class)
