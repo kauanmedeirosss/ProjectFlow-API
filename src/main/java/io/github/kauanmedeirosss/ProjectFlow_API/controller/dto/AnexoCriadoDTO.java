@@ -16,4 +16,7 @@ public record AnexoCriadoDTO(
         @NotNull(message = "Campo obrigatório!")
         Long tarefa_id
 ) {
+        public Long getTarefaId(){
+                return tarefa_id();
+        }
 }

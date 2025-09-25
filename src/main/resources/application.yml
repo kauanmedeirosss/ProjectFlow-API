@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: ProjectFlow-API
+  datasource:
+    url: jdbc:mysql://localhost/projectflow_api
+    username: root
+    password: '0000'
+server:
+  error:
+    include-stacktrace: never
+api:
+  security:
+    token:
+      secret: ${JWT_Secret:123456}
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+  info:
+    title: ProjectFlow API
+    description: Sistema de gestão de projetos e tarefas
+    version: 1.0.0
+    contact:
+      name: Kauan Medeiros
+      email: kauanmedeirosdev@gmail.com
+  packages-to-scan: io.github.kauanmedeirosss.ProjectFlow_API.controller
+  paths-to-match: /api/v1/**
