@@ -36,8 +36,8 @@ public class UsuarioController {
     @Transactional
     public ResponseEntity<UsuarioRetornoDTO> cadastrar(@io.swagger.v3.oas.annotations.parameters.RequestBody(
             description = "Dados do usuário a ser criado",
-            required = true
-    ) @RequestBody @Valid UsuarioCriadoDTO dto, UriComponentsBuilder uriBuilder){
+            required = true)
+            @RequestBody @Valid UsuarioCriadoDTO dto, UriComponentsBuilder uriBuilder){
         var usuario = service.salvar(dto);
         var uri = uriBuilder.path("/usuarios/{id}").buildAndExpand(usuario.id()).toUri();
         return ResponseEntity.created(uri).body(usuario);
@@ -73,6 +73,8 @@ public class UsuarioController {
     )
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Usuário atualizado com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos"),
+            @ApiResponse(responseCode = "404", description = "Usuário não encontrado"),
             @ApiResponse(responseCode = "403", description = "Acesso negado - requer role ADMIN ou GERENTE")
     })
     @PutMapping
@@ -80,8 +82,7 @@ public class UsuarioController {
     @PreAuthorize("hasAnyRole('ADMIN', 'GERENTE')")
     public ResponseEntity<UsuarioRetornoDTO> atualizar(@io.swagger.v3.oas.annotations.parameters.RequestBody(
             description = "Dados do usuário a ser atualizado",
-            required = true
-    )
+            required = true)
             @RequestBody @Valid UsuarioAtualizadoDTO dto){
         var usuario = service.atualizar(dto);
         return ResponseEntity.ok(usuario);
@@ -90,6 +91,7 @@ public class UsuarioController {
     @Operation(summary = "Deletar usuário por ID")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Usuário deletado"),
+            @ApiResponse(responseCode = "404", description = "Usuário não encontrado"),
             @ApiResponse(responseCode = "403", description = "Acesso negado - requer role ADMIN ou GERENTE")
     })
     @DeleteMapping("/{id}")

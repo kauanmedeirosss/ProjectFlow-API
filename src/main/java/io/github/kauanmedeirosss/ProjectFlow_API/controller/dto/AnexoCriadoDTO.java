@@ -2,6 +2,7 @@ package io.github.kauanmedeirosss.ProjectFlow_API.controller.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
 
 public record AnexoCriadoDTO(
         @NotBlank(message = "Campo obrigatório!")

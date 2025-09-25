@@ -33,4 +33,13 @@ ProjectFlow-API
 * adicionar segurança                                       - OK
 * configurar roles                                          - OK
 * lembrar do swagger
+  + Controllers:
+    - Autenticação - OK
+    - Usuarios     - OK
+    - Projetos     - OK
+    - Equipes      - OK
+    - Tarefas      - OK
+    - Comentatios
+    - Anexos
+    - Relatorios
 * testar endpoints
