@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "anexos")
 @Data
-@EntityListeners(AuditingEntityListener.class)
 public class Anexo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +21,6 @@ public class Anexo {
     @Column(name = "url_arquivo")
     private String URLarquivo;
 
-    @CreatedDate
     @Column(name = "upload_em")
     private LocalDateTime uploadEm;
 

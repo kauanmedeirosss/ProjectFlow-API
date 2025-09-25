@@ -2,6 +2,9 @@ package io.github.kauanmedeirosss.ProjectFlow_API.controller;
 
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.ProjetoProgressoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.service.RelatorioService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,10 +18,16 @@ import java.util.List;
 @RequestMapping("/relatorios")
 @RequiredArgsConstructor
 @PreAuthorize("hasAnyRole('ADMIN', 'GERENTE')")
+@Tag(name = "7. Relatórios", description = "Obtenção de relatórios")
 public class RelatorioController {
 
     private final RelatorioService service;
 
+    @Operation(
+            summary = "Busca progressos dos projetos",
+            description = "Retorna progressos de projetos cadastrados no sistema"
+    )
+    @ApiResponse(responseCode = "200", description = "Progressos obtidos com sucesso")
     @GetMapping("/progresso-projetos")
     public ResponseEntity<List<ProjetoProgressoDTO>> progressoProjeto(){
         var relatorio = service.listarProgressosProjetos();

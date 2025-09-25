@@ -73,7 +73,10 @@ public class TarefaController {
     })
     @PutMapping
     @Transactional
-    public ResponseEntity<TarefaRetornoDTO> atualizar(@RequestBody @Valid TarefaAtualizadaDTO dto){
+    public ResponseEntity<TarefaRetornoDTO> atualizar(@io.swagger.v3.oas.annotations.parameters.RequestBody(
+            description = "Dados da tarefa a ser atualizada",
+            required = true)
+            @RequestBody @Valid TarefaAtualizadaDTO dto){
         var tarefa = service.atualizar(dto);
         return ResponseEntity.ok(tarefa);
     }

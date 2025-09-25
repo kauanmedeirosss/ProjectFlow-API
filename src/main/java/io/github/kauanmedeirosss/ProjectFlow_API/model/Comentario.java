@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "comentarios")
 @Data
-@EntityListeners(AuditingEntityListener.class)
 public class Comentario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +18,6 @@ public class Comentario {
 
     private String conteudo;
 
-    @CreatedDate
     @Column(name = "criado_em")
     private LocalDateTime criadoEm;
 
