@@ -2,9 +2,26 @@ spring:
   application:
     name: ProjectFlow-API
   datasource:
-    url: jdbc:mysql://localhost/projectflow_api
-    username: root
-    password: '0000'
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        trace: false
+        web-allow-others: false
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
 server:
   error:
     include-stacktrace: never
@@ -12,19 +29,3 @@ api:
   security:
     token:
       secret: ${JWT_Secret:123456}
-springdoc:
-  api-docs:
-    path: /api-docs
-  swagger-ui:
-    path: /swagger-ui.html
-    operations-sorter: method
-    tags-sorter: alpha
-  info:
-    title: ProjectFlow API
-    description: Sistema de gestão de projetos e tarefas
-    version: 1.0.0
-    contact:
-      name: Kauan Medeiros
-      email: kauanmedeirosdev@gmail.com
-  packages-to-scan: io.github.kauanmedeirosss.ProjectFlow_API.controller
-  paths-to-match: /api/v1/**

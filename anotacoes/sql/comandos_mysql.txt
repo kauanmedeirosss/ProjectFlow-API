@@ -75,10 +75,11 @@ CREATE TABLE membros_equipe (
 
 ## Inserção de dados de exemplo ##
 INSERT INTO usuarios (nome, email, senha, role) VALUES
-('Admin User', 'admin@projectflow.com', '$2a$10$exampleHash', 'ADMIN'),
-('Manager User', 'manager@projectflow.com', '$2a$10$exampleHash', 'GERENTE'),
-('John Developer', 'john@projectflow.com', '$2a$10$exampleHash', 'MEMBRO'),
-('Jane Designer', 'jane@projectflow.com', '$2a$10$exampleHash', 'MEMBRO');
+('Admin User', 'admin@projectflow.com', '$2a$12$OKQaASAcaYrou8EhW9DaYeAMQl6zokdJfJcrmDOnZ/mDEiZjG0t8W', 'ADMIN'),
+('Manager User', 'manager@projectflow.com', '$2a$12$OKQaASAcaYrou8EhW9DaYeAMQl6zokdJfJcrmDOnZ/mDEiZjG0t8W', 'GERENTE'),
+('John Developer', 'john@projectflow.com', '$2a$12$OKQaASAcaYrou8EhW9DaYeAMQl6zokdJfJcrmDOnZ/mDEiZjG0t8W', 'MEMBRO'),
+('Kauan', 'kauanmedeirosdev@gmail.com', '$2a$12$OKQaASAcaYrou8EhW9DaYeAMQl6zokdJfJcrmDOnZ/mDEiZjG0t8W', 'ADMIN'),
+('Jane Designer', 'jane@projectflow.com', '$2a$12$OKQaASAcaYrou8EhW9DaYeAMQl6zokdJfJcrmDOnZ/mDEiZjG0t8W', 'MEMBRO'); -- senha123456
 
 INSERT INTO equipes (nome, descricao) VALUES
 ('Equipe Desenvolvimento', 'Time responsável pelo desenvolvimento do software'),

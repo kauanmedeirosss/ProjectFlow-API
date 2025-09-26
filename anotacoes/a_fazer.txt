@@ -32,7 +32,9 @@ ProjectFlow-API
 * reabilitar segurança nas properties                       - OK
 * adicionar segurança                                       - OK
 * configurar roles                                          - OK
-* lembrar do swagger
+* lembrar de configurar tags swagger
   - Controllers          - OK
   - DTO's de recebimento - OK
-* testar endpoints
+* testar endpoints                                          - OK
+* concertar o swagger
+* trocar db local por relacional

@@ -10,10 +10,4 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ProjetoRepository extends JpaRepository<Projeto, Long> {
-    // Deleta todas as tarefas de um projeto
-    @Modifying
-    @Query("DELETE FROM Tarefa t WHERE t.projeto.id = :projetoId")
-    void deleteByProjetoId(@Param("projetoId") Long projetoId);
-    // Encontra tarefas por projeto
-    List<Tarefa> findByProjetoId(Long projetoId);
 }

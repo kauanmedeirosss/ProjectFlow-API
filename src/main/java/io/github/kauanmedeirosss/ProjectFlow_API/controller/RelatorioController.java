@@ -28,7 +28,8 @@ public class RelatorioController {
             description = "Retorna progressos de projetos cadastrados no sistema"
     )
     @ApiResponse(responseCode = "200", description = "Progressos obtidos com sucesso")
-    @GetMapping("/progresso-projetos")
+    @PreAuthorize("hasAnyRole('ADMIN', 'GERENTE')")
+    @GetMapping("/progresso")
     public ResponseEntity<List<ProjetoProgressoDTO>> progressoProjeto(){
         var relatorio = service.listarProgressosProjetos();
         return ResponseEntity.ok(relatorio);
