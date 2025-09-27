@@ -36,5 +36,5 @@ ProjectFlow-API
   - Controllers          - OK
   - DTO's de recebimento - OK
 * testar endpoints                                          - OK
-* concertar o swagger
-* trocar db local por relacional
+* concertar o swagger                                       - OK
+* trocar db local por relacional                            - OK

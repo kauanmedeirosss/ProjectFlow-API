@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/tarefas")
 @RequiredArgsConstructor
-@Tag(name = "4. Tarefas", description = "Operações de gerenciamento de tarefas")
+@Tag(name = "Tarefas", description = "Operações de gerenciamento de tarefas")
 public class TarefaController {
 
     private final TarefaService service;

@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/equipes")
 @RequiredArgsConstructor
-@Tag(name = "2. Equipes", description = "Operações de gerenciamento de equipes")
+@Tag(name = "Equipes", description = "Operações de gerenciamento de equipes")
 public class EquipeController {
 
     private final EquipeService service;

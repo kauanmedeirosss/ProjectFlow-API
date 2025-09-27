@@ -18,7 +18,7 @@ import java.util.List;
 @RequestMapping("/relatorios")
 @RequiredArgsConstructor
 @PreAuthorize("hasAnyRole('ADMIN', 'GERENTE')")
-@Tag(name = "7. Relatórios", description = "Obtenção de relatórios")
+@Tag(name = "Relatórios", description = "Obtenção de relatórios")
 public class RelatorioController {
 
     private final RelatorioService service;

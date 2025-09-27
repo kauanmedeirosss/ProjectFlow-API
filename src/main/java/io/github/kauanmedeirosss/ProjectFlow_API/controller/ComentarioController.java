@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/comentarios")
 @RequiredArgsConstructor
-@Tag(name = "5. Comentários", description = "Operações de gerenciamento de comentários")
+@Tag(name = "Comentários", description = "Operações de gerenciamento de comentários")
 public class ComentarioController {
 
     private final ComentarioService service;

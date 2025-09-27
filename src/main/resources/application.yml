@@ -2,21 +2,12 @@ spring:
   application:
     name: ProjectFlow-API
   datasource:
-    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    driverClassName: org.h2.Driver
-    username: sa
-    password:
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-      settings:
-        trace: false
-        web-allow-others: false
+    url: jdbc:postgresql://localhost:5432/projectflow_api
+    username: postgres
+    password: '0000'
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
@@ -29,3 +20,8 @@ api:
   security:
     token:
       secret: ${JWT_Secret:123456}
+logging:
+  level:
+    org:
+      springframework:
+        jdbc: DEBUG

@@ -21,7 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/anexos")
 @RequiredArgsConstructor
-@Tag(name = "6. Anexos", description = "Operações de gerenciamento de anexos")
+@Tag(name = "Anexos", description = "Operações de gerenciamento de anexos")
 public class AnexoController {
 
     private final AnexoService service;

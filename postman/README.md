@@ -1,44 +1,32 @@
-# Postman Collection - ProjectFlow API
+# 📌 Tutorial: Importando Requisições no Postman
 
-Esta pasta contém as collections e environments para testar a API ProjectFlow.
+Este projeto possui os arquivos necessários para importar as requisições no **Postman**.
 
-## 📋 Collections Disponíveis
+## 📂 Arquivos Disponíveis
+- **`ProjectFlow_API.postman_collection.json`** → contém todas as requisições da API (login, usuários, equipes, projetos etc.).
+- **`ProjectFlow-API-Environment.json`** → define variáveis de ambiente como `baseUrl` e `token`.
+- **`import-postman.js`** → script auxiliar para listar os arquivos JSON (opcional, não necessário para o Postman).
 
-- `ProjectFlow-API.postman_collection.json` - Collection completa com todos os endpoints
+---
 
-## 🌐 Environments
+## 🚀 Passo a Passo para Importar no Postman
 
-- `ProjectFlow-API-Environment.json` - Para ambiente local (http://localhost:8080)
+1. Abra o **Postman**.
+2. Clique no botão **Import** (canto superior esquerdo).
+3. Selecione o arquivo:
+   - `ProjectFlow_API.postman_collection.json`
+4. Repita o processo e importe também o arquivo:
+   - `ProjectFlow-API-Environment.json`
+5. No canto superior direito do Postman, selecione o ambiente **`ProjectFlow-API-Environment`**.
+6. Atualize o valor das variáveis se necessário:
+   - **`baseUrl`** → URL da sua API (ex.: `http://localhost:8080`)
+   - **`token`** → insira o JWT válido após autenticação
 
-## 🚀 Como Usar
+---
 
-1. **Importe a collection:**
-    - Abra o Postman
-    - Clique em "Import"
-    - Selecione `ProjectFlow-API.postman_collection.json`
+## ✅ Conclusão
 
-2. **Importe o environment:**
-    - Clique no botão de environments (olhinho)
-    - "Import" → Selecione o arquivo de environment desejado
+Após seguir os passos:
+- Todas as requisições estarão organizadas no Postman.
+- Você poderá executar testes facilmente apenas ajustando o **token** e o **baseUrl** no ambiente.
 
-3. **Configure as variáveis:**
-    - `baseUrl`: URL base da API
-    - `token`: Token JWT (será automaticamente atualizado no login)
-
-## 🔐 Autenticação
-
-1. Execute o request "Login" na collection de Autenticação
-2. Copie o token retornado
-3. Cole na variável `token` do environment
-4. Todos os requests subsequentes usarão automaticamente o token
-
-## 📊 Endpoints Incluídos
-
-- ✅ Autenticação (Login)
-- ✅ Usuários (CRUD)
-- ✅ Equipes (CRUD + gerenciamento de membros)
-- ✅ Projetos (CRUD)
-- ✅ Tarefas (CRUD)
-- ✅ Comentários (CRUD)
-- ✅ Anexos (CRUD)
-- ✅ Relatórios
