@@ -1,0 +1,104 @@
+-- Criação e seleção do schema
+CREATE SCHEMA projectflow_api;
+SET search_path TO projectflow_api;
+
+-- Criação de tabelas
+CREATE TABLE usuarios (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    nome VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    senha VARCHAR(255) NOT NULL,
+    role VARCHAR(50) NOT NULL DEFAULT 'MEMBER'
+);
+
+CREATE TABLE equipes (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    nome VARCHAR(255) NOT NULL,
+    descricao TEXT
+);
+
+CREATE TABLE projetos (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    nome VARCHAR(255) NOT NULL,
+    descricao TEXT,
+    status VARCHAR(50) DEFAULT 'PLANEJAMENTO',
+    data_inicio DATE,
+    deadline DATE,
+    orcamento DECIMAL(10,2),
+    equipe_id BIGINT NOT NULL,
+    FOREIGN KEY (equipe_id) REFERENCES equipes(id) ON DELETE CASCADE
+);
+
+CREATE TABLE tarefas (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    titulo VARCHAR(255) NOT NULL,
+    descricao TEXT,
+    status VARCHAR(50),
+    prioridade VARCHAR(50),
+    horas_estimadas INT,
+    projeto_id BIGINT NOT NULL,
+    cessionario_id BIGINT,
+    FOREIGN KEY (projeto_id) REFERENCES projetos(id) ON DELETE CASCADE,
+    FOREIGN KEY (cessionario_id) REFERENCES usuarios(id) ON DELETE SET NULL
+);
+
+CREATE TABLE anexos (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    nome_arquivo VARCHAR(255) NOT NULL,
+    url_arquivo VARCHAR(500) NOT NULL,
+    tarefa_id BIGINT NOT NULL,
+    upload_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (tarefa_id) REFERENCES tarefas(id) ON DELETE CASCADE
+);
+
+CREATE TABLE comentarios (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    conteudo TEXT NOT NULL,
+    tarefa_id BIGINT NOT NULL,
+    autor_id BIGINT NOT NULL,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (tarefa_id) REFERENCES tarefas(id) ON DELETE CASCADE,
+    FOREIGN KEY (autor_id) REFERENCES usuarios(id) ON DELETE CASCADE
+);
+
+CREATE TABLE membros_equipe (
+    equipe_id BIGINT NOT NULL,
+    usuario_id BIGINT NOT NULL,
+    PRIMARY KEY (equipe_id, usuario_id),
+    FOREIGN KEY (equipe_id) REFERENCES equipes(id) ON DELETE CASCADE,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+);
+
+-- Inserção de dados de exemplo
+INSERT INTO usuarios (nome, email, senha, role) VALUES
+('Admin User', 'admin@projectflow.com', '$2a$12$OKQaASAcaYrou8EhW9DaYeAMQl6zokdJfJcrmDOnZ/mDEiZjG0t8W', 'ADMIN'),
+('Manager User', 'manager@projectflow.com', '$2a$12$OKQaASAcaYrou8EhW9DaYeAMQl6zokdJfJcrmDOnZ/mDEiZjG0t8W', 'GERENTE'),
+('John Developer', 'john@projectflow.com', '$2a$12$OKQaASAcaYrou8EhW9DaYeAMQl6zokdJfJcrmDOnZ/mDEiZjG0t8W', 'MEMBRO'),
+('Kauan', 'kauanmedeirosdev@gmail.com', '$2a$12$OKQaASAcaYrou8EhW9DaYeAMQl6zokdJfJcrmDOnZ/mDEiZjG0t8W', 'ADMIN'),
+('Jane Designer', 'jane@projectflow.com', '$2a$12$OKQaASAcaYrou8EhW9DaYeAMQl6zokdJfJcrmDOnZ/mDEiZjG0t8W', 'MEMBRO');
+
+INSERT INTO equipes (nome, descricao) VALUES
+('Equipe Desenvolvimento', 'Time responsável pelo desenvolvimento do software'),
+('Equipe Design', 'Time responsável pelo design e UX');
+
+INSERT INTO membros_equipe (equipe_id, usuario_id) VALUES
+(1, 1), (1, 2), (1, 3),  -- Admin, Manager e John na equipe Dev
+(2, 4);                   -- Jane na equipe Design
+
+INSERT INTO projetos (nome, descricao, status, data_inicio, deadline, equipe_id) VALUES
+('API ProjectFlow', 'Desenvolvimento da API de gestão de projetos', 'EM_PROGRESSO', '2025-09-16', '2026-01-01', 1),
+('Redesign Interface', 'Redesign completo da interface do usuário', 'PLANEJAMENTO', '2025-09-16', '2026-01-01', 2);
+
+INSERT INTO tarefas (titulo, descricao, status, prioridade, horas_estimadas, projeto_id, cessionario_id) VALUES
+('Criar entidade User', 'Implementar model User com JPA', 'FEITA', 'ALTA', 8, 1, 3),
+('Implementar autenticação JWT', 'Configurar Spring Security com JWT', 'EM_PROGRESSO', 'ALTA', 16, 1, 3),
+('Criar design sistema', 'Desenvolver wireframes do sistema', 'A_FAZER', 'MEDIA', 24, 2, 4);
+
+INSERT INTO comentarios (conteudo, tarefa_id, autor_id) VALUES
+('Entidade User criada com sucesso!', 1, 3),
+('Preciso revisar as annotations de validação', 1, 2),
+('Vou começar os wireframes na próxima semana', 3, 4);
+
+INSERT INTO anexos (nome_arquivo, url_arquivo, tarefa_id) VALUES
+('user_entity.png', 'https://storage.com/user_entity.png', 1),
+('jwt_diagram.pdf', 'https://storage.com/jwt_diagram.pdf', 2);
