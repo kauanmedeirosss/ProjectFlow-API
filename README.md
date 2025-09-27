@@ -113,4 +113,32 @@ O ProjectFlow API é um sistema completo para gerenciamento de tarefas, equipes 
 
 ## 📊 Módulos da API
 
-### 
+### 1. Autenticação
+* Login e geração de tokens JWT
+* Controle de sessões e segurança
+
+### 2. Gerenciamento de Equipes
+* CRUD completo de equipes
+* Associação de usuários às equipes
+* Controle hierárquico de acesso
+
+### 3. Gerenciamento de Tarefas
+* Criação, edição e exclusão de tarefas
+* Controle de status e prazos
+
+### 4. Gerenciamento de Anexos
+* Upload e download de arquivos
+* Controle de storage
+
+### 5. Gerenciamento de Comentários
+* CRUD completo de comentários
+
+### 6. Gerenciamento de Projetos
+* Criação, edição e exclusão de projetos
+* Atualização de status
+
+### 7. Gerenciamento de Usuários
+* CRUD hierarquico completo de usuários
+
+### 8. Relatórios
+* Relatórios de progesso de projetos
