@@ -95,7 +95,7 @@ public class EquipeController {
             @ApiResponse(responseCode = "404", description = "Equipe ou membro não encontrados"),
             @ApiResponse(responseCode = "403", description = "Acesso negado - requer role ADMIN ou GERENTE")
     })
-    @PostMapping("/{equipeId}/membros/{usuarioaId}")
+    @PostMapping("/{equipeId}/membros/{usuarioId}")
     @Transactional
     @PreAuthorize("hasAnyRole('ADMIN', 'GERENTE')")
     public ResponseEntity<Void> adicionarMembro(@PathVariable Long equipeId,
@@ -124,7 +124,7 @@ public class EquipeController {
             @ApiResponse(responseCode = "404", description = "Equipe ou membro não encontrados"),
             @ApiResponse(responseCode = "403", description = "Acesso negado - requer role ADMIN ou GERENTE")
     })
-    @DeleteMapping("/{equipeId}/membros/{usuarioaId}")
+    @DeleteMapping("/{equipeId}/membros/{usuarioId}")
     @Transactional
     @PreAuthorize("hasAnyRole('ADMIN', 'GERENTE')")
     public ResponseEntity<Void> removerMembro(@PathVariable Long equipeId,

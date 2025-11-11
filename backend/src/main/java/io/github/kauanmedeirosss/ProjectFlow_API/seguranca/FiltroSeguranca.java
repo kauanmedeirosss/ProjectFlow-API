@@ -23,18 +23,6 @@ public class FiltroSeguranca extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        //
-        String path = request.getRequestURI();
-        String method = request.getMethod();
-
-        // DEBUG - Log todas as requisições
-        System.out.println("=== FILTRO SEGURANÇA ===");
-        System.out.println("Método: " + method);
-        System.out.println("Path: " + path);
-        System.out.println("Authorization: " + request.getHeader("Authorization"));
-        System.out.println("=========================");
-        //
-
         var tokenJWT = recuperarToken(request);
 
         if (tokenJWT != null) {

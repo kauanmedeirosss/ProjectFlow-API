@@ -119,7 +119,7 @@ public class ProjetoController {
     public ResponseEntity<Void> atualizarStatus(@io.swagger.v3.oas.annotations.parameters.RequestBody(
             description = "Dados do projeto a ter status atualizado",
             required = true)
-            @RequestBody @PathVariable @Valid Long id, ProjetoAtualizadoStatusDTO dto){
+            @PathVariable Long id, @RequestBody @Valid ProjetoAtualizadoStatusDTO dto){
         service.atualizarStatus(id, dto);
         return ResponseEntity.noContent().build();
     }

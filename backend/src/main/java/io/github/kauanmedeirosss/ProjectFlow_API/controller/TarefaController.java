@@ -95,7 +95,7 @@ public class TarefaController {
     public ResponseEntity<Void> atualizarStatus(@io.swagger.v3.oas.annotations.parameters.RequestBody(
             description = "Dados da tarefa a ter status atualizado",
             required = true)
-            @RequestBody @PathVariable @Valid Long id, TarefaAtualizadaStatusDTO dto){
+             @PathVariable Long id, @RequestBody @Valid TarefaAtualizadaStatusDTO dto){
         service.atualizarStatus(id, dto);
         return ResponseEntity.noContent().build();
     }
