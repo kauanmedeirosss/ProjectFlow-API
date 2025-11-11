@@ -1,16 +1,21 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.controller;
 
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.PaginaResponseDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.comentario.ComentarioAtualizadoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.comentario.ComentarioCriadoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.comentario.ComentarioRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.service.ComentarioService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -55,12 +60,22 @@ public class ComentarioController {
 
     @Operation(
             summary = "Listar todos os comentários",
-            description = "Retorna uma lista de todos os comentários cadastrados no sistema"
+            description = "Retorna uma lista paginada de todos os comentários cadastrados no sistema"
     )
     @ApiResponse(responseCode = "200", description = "Comentários listados com sucesso")
     @GetMapping
-    public ResponseEntity<List<ComentarioRetornoDTO>> listar(){
-        var comentarios = service.listarTodas();
+    public ResponseEntity<PaginaResponseDTO<ComentarioRetornoDTO>> listar(
+            @Parameter(description = "Número da página (0-based)", example = "0")
+            @RequestParam(defaultValue = "0") int pagina,
+
+            @Parameter(description = "Tamanho da página", example = "10")
+            @RequestParam(defaultValue = "10") int tamanho,
+
+            @Parameter(description = "Campo para ordenação", example = "nome")
+            @RequestParam(defaultValue = "nome") String ordenarPor) {
+
+        Pageable pageable = PageRequest.of(pagina, tamanho, Sort.by(ordenarPor));
+        var comentarios = service.listarTodas(pageable);
         return ResponseEntity.ok(comentarios);
     }
 

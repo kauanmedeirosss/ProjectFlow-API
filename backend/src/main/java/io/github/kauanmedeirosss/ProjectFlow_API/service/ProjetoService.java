@@ -1,15 +1,19 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.service;
 
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.PaginaResponseDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoAtualizadoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoAtualizadoStatusDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoCriadoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.exception.ResourceNotFoundException;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper.ProjetoMapper;
+import io.github.kauanmedeirosss.ProjectFlow_API.model.Projeto;
 import io.github.kauanmedeirosss.ProjectFlow_API.model.enums.StatusProjeto;
 import io.github.kauanmedeirosss.ProjectFlow_API.repository.EquipeRepository;
 import io.github.kauanmedeirosss.ProjectFlow_API.repository.ProjetoRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,11 +44,21 @@ public class ProjetoService {
         return mapper.toRetornoDTO(projeto);
     }
 
-    public List<ProjetoRetornoDTO> listarTodas(){
-        var lista = repository.findAll();
-        return lista.stream()
+    public PaginaResponseDTO<ProjetoRetornoDTO> listarTodas(Pageable pageable) {
+        Page<Projeto> pagina = repository.findAll(pageable);
+
+        List<ProjetoRetornoDTO> conteudo = pagina.getContent()
+                .stream()
                 .map(mapper::toRetornoDTO)
                 .toList();
+
+        return PaginaResponseDTO.of(
+                conteudo,
+                pagina.getNumber(),
+                pagina.getSize(),
+                pagina.getTotalElements(),
+                pagina.getTotalPages()
+        );
     }
 
     public ProjetoRetornoDTO atualizar(ProjetoAtualizadoDTO dto){

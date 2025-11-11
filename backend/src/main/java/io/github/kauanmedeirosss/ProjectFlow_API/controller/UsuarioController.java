@@ -1,5 +1,6 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.controller;
 
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.PaginaResponseDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.usuario.UsuarioAtualizadoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.usuario.UsuarioCriadoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.usuario.UsuarioRetornoDTO;
@@ -12,6 +13,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -56,14 +60,28 @@ public class UsuarioController {
        return ResponseEntity.ok(usuario);
     }
 
+    /*
+    Exemplo de uso:
+    GET /usuarios?pagina=0&tamanho=5&ordenarPor=email
+    */
     @Operation(
             summary = "Listar todos os usuários",
-            description = "Retorna uma lista de todos os usuários cadastrados no sistema"
+            description = "Retorna uma lista paginada de todos os usuários cadastrados no sistema"
     )
     @ApiResponse(responseCode = "200", description = "Usuários listados com sucesso")
     @GetMapping
-    public ResponseEntity<List<UsuarioRetornoDTO>> listar(){
-        var usuarios = service.listarTodos();
+    public ResponseEntity<PaginaResponseDTO<UsuarioRetornoDTO>> listar(
+            @Parameter(description = "Número da página (0-based)", example = "0")
+            @RequestParam(defaultValue = "0") int pagina,
+
+            @Parameter(description = "Tamanho da página", example = "10")
+            @RequestParam(defaultValue = "10") int tamanho,
+
+            @Parameter(description = "Campo para ordenação", example = "nome")
+            @RequestParam(defaultValue = "nome") String ordenarPor)
+    {
+        Pageable pageable = PageRequest.of(pagina, tamanho, Sort.by(ordenarPor));
+        var usuarios = service.listarTodos(pageable);
         return ResponseEntity.ok(usuarios);
     }
 

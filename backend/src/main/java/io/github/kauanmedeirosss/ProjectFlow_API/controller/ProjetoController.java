@@ -1,17 +1,22 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.controller;
 
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.PaginaResponseDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoAtualizadoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoAtualizadoStatusDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoCriadoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.service.ProjetoService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -59,12 +64,22 @@ public class ProjetoController {
 
     @Operation(
             summary = "Listar todos os projetos",
-            description = "Retorna uma lista de todos os projetos cadastrados no sistema"
+            description = "Retorna uma lista paginada de todos os projetos cadastrados no sistema"
     )
     @ApiResponse(responseCode = "200", description = "Projetos listados com sucesso")
     @GetMapping
-    public ResponseEntity<List<ProjetoRetornoDTO>> listar(){
-        var projetos = service.listarTodas();
+    public ResponseEntity<PaginaResponseDTO<ProjetoRetornoDTO>> listar(
+            @Parameter(description = "Número da página (0-based)", example = "0")
+            @RequestParam(defaultValue = "0") int pagina,
+
+            @Parameter(description = "Tamanho da página", example = "10")
+            @RequestParam(defaultValue = "10") int tamanho,
+
+            @Parameter(description = "Campo para ordenação", example = "nome")
+            @RequestParam(defaultValue = "nome") String ordenarPor)
+    {
+        Pageable pageable = PageRequest.of(pagina, tamanho, Sort.by(ordenarPor));
+        var projetos = service.listarTodas(pageable);
         return ResponseEntity.ok(projetos);
     }
 

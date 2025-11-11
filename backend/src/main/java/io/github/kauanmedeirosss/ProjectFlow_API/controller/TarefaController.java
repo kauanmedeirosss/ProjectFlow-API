@@ -1,5 +1,6 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.controller;
 
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.PaginaResponseDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.anexo.AnexoRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa.TarefaAtualizadaDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa.TarefaAtualizadaStatusDTO;
@@ -7,12 +8,16 @@ import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa.TarefaCri
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa.TarefaRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.service.TarefaService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -57,12 +62,22 @@ public class TarefaController {
 
     @Operation(
             summary = "Listar todas as tarefas",
-            description = "Retorna uma lista de todas as tarefas cadastradas no sistema"
+            description = "Retorna uma lista paginada de todas as tarefas cadastradas no sistema"
     )
     @ApiResponse(responseCode = "200", description = "Tarefas listadas com sucesso")
     @GetMapping
-    public ResponseEntity<List<TarefaRetornoDTO>> listar(){
-        var tarefas = service.listarTodas();
+    public ResponseEntity<PaginaResponseDTO<TarefaRetornoDTO>> listar(
+            @Parameter(description = "Número da página (0-based)", example = "0")
+            @RequestParam(defaultValue = "0") int pagina,
+
+            @Parameter(description = "Tamanho da página", example = "10")
+            @RequestParam(defaultValue = "10") int tamanho,
+
+            @Parameter(description = "Campo para ordenação", example = "titulo")
+            @RequestParam(defaultValue = "titulo") String ordenarPor) {
+
+        Pageable pageable = PageRequest.of(pagina, tamanho, Sort.by(ordenarPor));
+        var tarefas = service.listarTodas(pageable);
         return ResponseEntity.ok(tarefas);
     }
 
@@ -122,8 +137,17 @@ public class TarefaController {
             @ApiResponse(responseCode = "404", description = "Tarefa não encontrada")
     })
     @GetMapping("/{id}/anexos")
-    public ResponseEntity<List<AnexoRetornoDTO>> listarAnexosTarefa(@PathVariable Long id){
-        var anexos = service.listarAnexosDaTarefaId(id);
+    public ResponseEntity<PaginaResponseDTO<AnexoRetornoDTO>> listarAnexosTarefa(
+            @PathVariable Long id,
+            @Parameter(description = "Número da página (0-based)", example = "0")
+            @RequestParam(defaultValue = "0") int pagina,
+
+            @Parameter(description = "Tamanho da página", example = "10")
+            @RequestParam(defaultValue = "10") int tamanho) {
+
+
+        Pageable pageable = PageRequest.of(pagina, tamanho);
+        var anexos = service.listarAnexosDaTarefaId(id, pageable);
         return ResponseEntity.ok(anexos);
     }
 

@@ -1,21 +1,24 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.controller;
 
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.PaginaResponseDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.anexo.AnexoAtualizadoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.anexo.AnexoCriadoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.anexo.AnexoRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.service.AnexoService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/anexos")
@@ -55,12 +58,22 @@ public class AnexoController {
 
     @Operation(
             summary = "Listar todos os anexos",
-            description = "Retorna uma lista de todos os anexos cadastrados no sistema"
+            description = "Retorna uma lista paginada de todos os anexos cadastrados no sistema"
     )
     @ApiResponse(responseCode = "200", description = "Anexos listados com sucesso")
     @GetMapping
-    public ResponseEntity<List<AnexoRetornoDTO>> listar(){
-        var anexos = service.listarTodas();
+    public ResponseEntity<PaginaResponseDTO<AnexoRetornoDTO>> listar(
+            @Parameter(description = "Número da página (0-based)", example = "0")
+            @RequestParam(defaultValue = "0") int pagina,
+
+            @Parameter(description = "Tamanho da página", example = "10")
+            @RequestParam(defaultValue = "10") int tamanho,
+
+            @Parameter(description = "Campo para ordenação", example = "nome")
+            @RequestParam(defaultValue = "nome") String ordenarPor) {
+
+        Pageable pageable = PageRequest.of(pagina, tamanho, Sort.by(ordenarPor));
+        var anexos = service.listarTodas(pageable);
         return ResponseEntity.ok(anexos);
     }
 

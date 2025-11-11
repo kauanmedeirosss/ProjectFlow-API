@@ -1,5 +1,6 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.service;
 
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.PaginaResponseDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.anexo.AnexoRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa.TarefaAtualizadaDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa.TarefaAtualizadaStatusDTO;
@@ -8,6 +9,7 @@ import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa.TarefaRet
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.exception.ResourceNotFoundException;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper.AnexoMapper;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper.TarefaMapper;
+import io.github.kauanmedeirosss.ProjectFlow_API.model.Anexo;
 import io.github.kauanmedeirosss.ProjectFlow_API.model.Tarefa;
 import io.github.kauanmedeirosss.ProjectFlow_API.model.enums.StatusTarefa;
 import io.github.kauanmedeirosss.ProjectFlow_API.repository.AnexoRepository;
@@ -15,6 +17,8 @@ import io.github.kauanmedeirosss.ProjectFlow_API.repository.ProjetoRepository;
 import io.github.kauanmedeirosss.ProjectFlow_API.repository.TarefaRepository;
 import io.github.kauanmedeirosss.ProjectFlow_API.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -58,20 +62,38 @@ public class TarefaService {
         return mapper.toRetornoDTO(tarefa);
     }
 
-    public List<TarefaRetornoDTO> listarTodas(){
-        var lista = repository.findAll();
-        return lista.stream()
+    public PaginaResponseDTO<TarefaRetornoDTO> listarTodas(Pageable pageable) {
+        Page<Tarefa> pagina = repository.findAll(pageable);
+
+        List<TarefaRetornoDTO> conteudo = pagina.getContent()
+                .stream()
                 .map(mapper::toRetornoDTO)
                 .toList();
+
+        return PaginaResponseDTO.of(
+                conteudo,
+                pagina.getNumber(),
+                pagina.getSize(),
+                pagina.getTotalElements(),
+                pagina.getTotalPages()
+        );
     }
 
-    public List<AnexoRetornoDTO> listarAnexosDaTarefaId(Long id){
-        var tarefa = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Tarefa não encontrada!"));
-        var lista = anexoRepository.findByTarefaId(id);
-        return lista.stream()
+    public PaginaResponseDTO<AnexoRetornoDTO> listarAnexosDaTarefaId(Long id, Pageable pageable) {
+        Page<Anexo> pagina = anexoRepository.findByTarefaIdPaginado(id, pageable);
+
+        List<AnexoRetornoDTO> conteudo = pagina.getContent()
+                .stream()
                 .map(anexoMapper::toRetornoDTO)
                 .collect(Collectors.toList());
+
+        return PaginaResponseDTO.of(
+                conteudo,
+                pagina.getNumber(),
+                pagina.getSize(),
+                pagina.getTotalElements(),
+                pagina.getTotalPages()
+        );
     }
 
     public TarefaRetornoDTO atualizar(TarefaAtualizadaDTO dto){

@@ -1,14 +1,18 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.service;
 
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.PaginaResponseDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.comentario.ComentarioAtualizadoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.comentario.ComentarioCriadoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.comentario.ComentarioRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.exception.ResourceNotFoundException;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper.ComentarioMapper;
+import io.github.kauanmedeirosss.ProjectFlow_API.model.Comentario;
 import io.github.kauanmedeirosss.ProjectFlow_API.repository.ComentarioRepository;
 import io.github.kauanmedeirosss.ProjectFlow_API.repository.TarefaRepository;
 import io.github.kauanmedeirosss.ProjectFlow_API.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -45,11 +49,21 @@ public class ComentarioService {
         return mapper.toRetornoDTO(comentario);
     }
 
-    public List<ComentarioRetornoDTO> listarTodas(){
-        var lista = repository.findAll();
-        return lista.stream()
+    public PaginaResponseDTO<ComentarioRetornoDTO> listarTodas(Pageable pageable) {
+        Page<Comentario> pagina = repository.findAll(pageable);
+
+        List<ComentarioRetornoDTO> conteudo = pagina.getContent()
+                .stream()
                 .map(mapper::toRetornoDTO)
                 .toList();
+
+        return PaginaResponseDTO.of(
+                conteudo,
+                pagina.getNumber(),
+                pagina.getSize(),
+                pagina.getTotalElements(),
+                pagina.getTotalPages()
+        );
     }
 
     public ComentarioRetornoDTO atualizar(ComentarioAtualizadoDTO dto){

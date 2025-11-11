@@ -1,5 +1,6 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.service;
 
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.PaginaResponseDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.usuario.UsuarioAtualizadoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.usuario.UsuarioCriadoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.usuario.UsuarioRetornoDTO;
@@ -9,6 +10,8 @@ import io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper.UsuarioMapper
 import io.github.kauanmedeirosss.ProjectFlow_API.model.Usuario;
 import io.github.kauanmedeirosss.ProjectFlow_API.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -38,11 +41,21 @@ public class UsuarioService {
         return mapper.toRetornoDTO(usuario);
     }
 
-    public List<UsuarioRetornoDTO> listarTodos(){
-        var lista = repository.findAll();
-        return lista.stream()
+    public PaginaResponseDTO<UsuarioRetornoDTO> listarTodos(Pageable pageable) {
+        Page<Usuario> pagina = repository.findAll(pageable);
+
+        List<UsuarioRetornoDTO> conteudo = pagina.getContent()
+                .stream()
                 .map(mapper::toRetornoDTO)
                 .toList();
+
+        return PaginaResponseDTO.of(
+                conteudo,
+                pagina.getNumber(),
+                pagina.getSize(),
+                pagina.getTotalElements(),
+                pagina.getTotalPages()
+        );
     }
 
     public Usuario retornaEntidade(Long id){

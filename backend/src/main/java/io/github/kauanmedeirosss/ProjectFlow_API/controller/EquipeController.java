@@ -1,17 +1,22 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.controller;
 
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.PaginaResponseDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.equipe.EquipeAtualizadaDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.equipe.EquipeCriadaDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.equipe.EquipeRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.usuario.UsuarioRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.service.EquipeService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -58,12 +63,22 @@ public class EquipeController {
 
     @Operation(
             summary = "Listar todas as equipes",
-            description = "Retorna uma lista de todas as equipes cadastradas no sistema"
+            description = "Retorna uma lista paginada de todas as equipes cadastradas no sistema"
     )
     @ApiResponse(responseCode = "200", description = "Equipes listadas com sucesso")
     @GetMapping
-    public ResponseEntity<List<EquipeRetornoDTO>> listar(){
-        var equipes = service.listarTodas();
+    public ResponseEntity<PaginaResponseDTO<EquipeRetornoDTO>> listar(
+            @Parameter(description = "Número da página (0-based)", example = "0")
+            @RequestParam(defaultValue = "0") int pagina,
+
+            @Parameter(description = "Tamanho da página", example = "10")
+            @RequestParam(defaultValue = "10") int tamanho,
+
+            @Parameter(description = "Campo para ordenação", example = "nome")
+            @RequestParam(defaultValue = "nome") String ordenarPor) {
+
+        Pageable pageable = PageRequest.of(pagina, tamanho, Sort.by(ordenarPor));
+        var equipes = service.listarTodas(pageable);
         return ResponseEntity.ok(equipes);
     }
 
@@ -139,9 +154,19 @@ public class EquipeController {
             @ApiResponse(responseCode = "404", description = "Equipe não encontrada")
     })
     @GetMapping("/{equipeId}/membros")
-    public ResponseEntity<List<UsuarioRetornoDTO>> listarMembros(
-            @PathVariable Long equipeId) {
-        var membros = service.listarMembros(equipeId);
+    public ResponseEntity<PaginaResponseDTO<UsuarioRetornoDTO>> listarMembros(
+            @PathVariable Long equipeId,
+            @Parameter(description = "Número da página (0-based)", example = "0")
+            @RequestParam(defaultValue = "0") int pagina,
+
+            @Parameter(description = "Tamanho da página", example = "10")
+            @RequestParam(defaultValue = "10") int tamanho,
+
+            @Parameter(description = "Campo para ordenação", example = "nome")
+            @RequestParam(defaultValue = "nome") String ordenarPor) {
+
+        Pageable pageable = PageRequest.of(pagina, tamanho, Sort.by(ordenarPor));
+        var membros = service.listarMembros(equipeId, pageable);
         return ResponseEntity.ok(membros);
     }
 

@@ -1,13 +1,17 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.service;
 
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.PaginaResponseDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.anexo.AnexoAtualizadoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.anexo.AnexoCriadoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.anexo.AnexoRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.exception.ResourceNotFoundException;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper.AnexoMapper;
+import io.github.kauanmedeirosss.ProjectFlow_API.model.Anexo;
 import io.github.kauanmedeirosss.ProjectFlow_API.repository.AnexoRepository;
 import io.github.kauanmedeirosss.ProjectFlow_API.repository.TarefaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -41,11 +45,21 @@ public class AnexoService {
         return mapper.toRetornoDTO(anexo);
     }
 
-    public List<AnexoRetornoDTO> listarTodas(){
-        var lista = repository.findAll();
-        return lista.stream()
+    public PaginaResponseDTO<AnexoRetornoDTO> listarTodas(Pageable pageable) {
+        Page<Anexo> pagina = repository.findAll(pageable);
+
+        List<AnexoRetornoDTO> conteudo = pagina.getContent()
+                .stream()
                 .map(mapper::toRetornoDTO)
                 .toList();
+
+        return PaginaResponseDTO.of(
+                conteudo,
+                pagina.getNumber(),
+                pagina.getSize(),
+                pagina.getTotalElements(),
+                pagina.getTotalPages()
+        );
     }
 
     public AnexoRetornoDTO atualizar(AnexoAtualizadoDTO dto){

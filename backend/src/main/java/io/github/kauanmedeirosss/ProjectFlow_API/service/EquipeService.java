@@ -1,5 +1,6 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.service;
 
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.PaginaResponseDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.equipe.EquipeAtualizadaDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.equipe.EquipeCriadaDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.equipe.EquipeRetornoDTO;
@@ -8,9 +9,12 @@ import io.github.kauanmedeirosss.ProjectFlow_API.controller.exception.BusinessRu
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.exception.ResourceNotFoundException;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper.EquipeMapper;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper.UsuarioMapper;
+import io.github.kauanmedeirosss.ProjectFlow_API.model.Equipe;
+import io.github.kauanmedeirosss.ProjectFlow_API.model.Usuario;
 import io.github.kauanmedeirosss.ProjectFlow_API.repository.EquipeRepository;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Hibernate;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,11 +41,21 @@ public class EquipeService {
         return mapper.toRetornoDTO(equipe);
     }
 
-    public List<EquipeRetornoDTO> listarTodas(){
-        var lista = repository.findAll();
-        return lista.stream()
+    public PaginaResponseDTO<EquipeRetornoDTO> listarTodas(Pageable pageable) {
+        Page<Equipe> pagina = repository.findAll(pageable);
+
+        List<EquipeRetornoDTO> conteudo = pagina.getContent()
+                .stream()
                 .map(mapper::toRetornoDTO)
                 .toList();
+
+        return PaginaResponseDTO.of(
+                conteudo,
+                pagina.getNumber(),
+                pagina.getSize(),
+                pagina.getTotalElements(),
+                pagina.getTotalPages()
+        );
     }
 
     public EquipeRetornoDTO atualizar(EquipeAtualizadaDTO dto){
@@ -95,16 +109,21 @@ public class EquipeService {
         repository.save(equipe);
     }
 
-    public List<UsuarioRetornoDTO> listarMembros(Long equipeId) {
-        var equipe = repository.findById(equipeId)
-                .orElseThrow(() -> new ResourceNotFoundException("Equipe não encontrada"));
+    public PaginaResponseDTO<UsuarioRetornoDTO> listarMembros(Long equipeId, Pageable pageable) {
+        Page<Usuario> pagina = repository.findMembrosByEquipeId(equipeId, pageable);
 
-        // Forçar carregamento da coleção LAZY
-        Hibernate.initialize(equipe.getMembros());
-
-        return equipe.getMembros().stream()
+        List<UsuarioRetornoDTO> conteudo = pagina.getContent()
+                .stream()
                 .map(usuarioMapper::toRetornoDTO)
                 .collect(Collectors.toList());
+
+        return PaginaResponseDTO.of(
+                conteudo,
+                pagina.getNumber(),
+                pagina.getSize(),
+                pagina.getTotalElements(),
+                pagina.getTotalPages()
+        );
     }
 
 }
