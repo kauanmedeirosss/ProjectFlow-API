@@ -1,10 +1,8 @@
 spring:
   application:
     name: ProjectFlow-API
-  datasource:
-    url: jdbc:postgresql://localhost:5432/projectflow_api
-    username: postgres
-    password: '0000'
+  profiles:
+    active: dev
   jpa:
     hibernate:
       ddl-auto: update
@@ -13,15 +11,35 @@ spring:
       hibernate:
         format_sql: true
         use_sql_comments: true
-server:
-  error:
-    include-stacktrace: never
-api:
-  security:
-    token:
-      secret: ${JWT_Secret:123456}
-logging:
-  level:
-    org:
-      springframework:
-        jdbc: DEBUG
+
+---
+# Perfil de desenvolvimento com H2
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: jdbc:h2:mem:projectflow_db
+    username: sa
+    password: ''
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+
+---
+# Perfil de produção com PostgreSQL
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    url: jdbc:postgresql://localhost:5432/projectflow_api
+    username: postgres
+    password: '0000'
