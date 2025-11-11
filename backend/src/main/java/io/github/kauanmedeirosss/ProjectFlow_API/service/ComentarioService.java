@@ -1,8 +1,8 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.service;
 
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.ComentarioAtualizadoDTO;
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.ComentarioCriadoDTO;
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.ComentarioRetornoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.comentario.ComentarioAtualizadoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.comentario.ComentarioCriadoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.comentario.ComentarioRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.exception.ResourceNotFoundException;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper.ComentarioMapper;
 import io.github.kauanmedeirosss.ProjectFlow_API.repository.ComentarioRepository;

@@ -1,8 +1,8 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.controller;
 
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.UsuarioAtualizadoDTO;
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.UsuarioCriadoDTO;
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.UsuarioRetornoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.usuario.UsuarioAtualizadoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.usuario.UsuarioCriadoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.usuario.UsuarioRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

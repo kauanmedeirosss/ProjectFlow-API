@@ -1,4 +1,4 @@
-package io.github.kauanmedeirosss.ProjectFlow_API.controller.dto;
+package io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.usuario;
 
 import io.github.kauanmedeirosss.ProjectFlow_API.model.enums.Role;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -7,8 +7,6 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-
-import java.util.List;
 
 public record UsuarioCriadoDTO(
         @Schema(description = "Nome do usuário", example = "John Doe", required = true)

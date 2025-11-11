@@ -1,7 +1,7 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper;
 
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.ComentarioCriadoDTO;
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.ComentarioRetornoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.comentario.ComentarioCriadoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.comentario.ComentarioRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.model.Comentario;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

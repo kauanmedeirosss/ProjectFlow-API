@@ -1,8 +1,8 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.controller;
 
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.AnexoAtualizadoDTO;
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.AnexoCriadoDTO;
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.AnexoRetornoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.anexo.AnexoAtualizadoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.anexo.AnexoCriadoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.anexo.AnexoRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.service.AnexoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -12,7 +12,6 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 

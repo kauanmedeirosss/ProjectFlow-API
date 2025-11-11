@@ -1,4 +1,4 @@
-package io.github.kauanmedeirosss.ProjectFlow_API.controller.dto;
+package io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa;
 
 import io.github.kauanmedeirosss.ProjectFlow_API.model.enums.StatusTarefa;
 import io.swagger.v3.oas.annotations.media.Schema;

@@ -1,9 +1,9 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.controller;
 
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.EquipeAtualizadaDTO;
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.EquipeCriadaDTO;
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.EquipeRetornoDTO;
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.UsuarioRetornoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.equipe.EquipeAtualizadaDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.equipe.EquipeCriadaDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.equipe.EquipeRetornoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.usuario.UsuarioRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.service.EquipeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

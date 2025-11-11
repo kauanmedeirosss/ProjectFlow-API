@@ -1,4 +1,4 @@
-package io.github.kauanmedeirosss.ProjectFlow_API.controller.dto;
+package io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa;
 
 import io.github.kauanmedeirosss.ProjectFlow_API.model.enums.Prioridade;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -6,9 +6,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
-import lombok.Getter;
-
-import java.util.List;
 
 public record TarefaCriadaDTO(
         @Schema(description = "Título da tarefa", example = "Implementar model User com JPA", required = true)

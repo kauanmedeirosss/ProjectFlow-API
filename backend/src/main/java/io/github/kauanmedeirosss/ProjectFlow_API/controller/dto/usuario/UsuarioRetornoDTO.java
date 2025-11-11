@@ -1,8 +1,6 @@
-package io.github.kauanmedeirosss.ProjectFlow_API.controller.dto;
+package io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.usuario;
 
 import io.github.kauanmedeirosss.ProjectFlow_API.model.enums.Role;
-
-import java.util.List;
 
 public record UsuarioRetornoDTO(
         Long id,

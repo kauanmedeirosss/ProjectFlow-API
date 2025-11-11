@@ -1,6 +1,10 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.controller;
 
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.*;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.anexo.AnexoRetornoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa.TarefaAtualizadaDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa.TarefaAtualizadaStatusDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa.TarefaCriadaDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa.TarefaRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.service.TarefaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

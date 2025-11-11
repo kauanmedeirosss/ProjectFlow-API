@@ -1,7 +1,7 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper;
 
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.AnexoCriadoDTO;
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.AnexoRetornoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.anexo.AnexoCriadoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.anexo.AnexoRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.model.Anexo;
 
 import io.github.kauanmedeirosss.ProjectFlow_API.model.Tarefa;

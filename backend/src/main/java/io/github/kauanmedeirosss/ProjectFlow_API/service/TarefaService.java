@@ -1,6 +1,10 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.service;
 
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.*;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.anexo.AnexoRetornoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa.TarefaAtualizadaDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa.TarefaAtualizadaStatusDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa.TarefaCriadaDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa.TarefaRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.exception.ResourceNotFoundException;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper.AnexoMapper;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper.TarefaMapper;
@@ -10,7 +14,6 @@ import io.github.kauanmedeirosss.ProjectFlow_API.repository.AnexoRepository;
 import io.github.kauanmedeirosss.ProjectFlow_API.repository.ProjetoRepository;
 import io.github.kauanmedeirosss.ProjectFlow_API.repository.TarefaRepository;
 import io.github.kauanmedeirosss.ProjectFlow_API.repository.UsuarioRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

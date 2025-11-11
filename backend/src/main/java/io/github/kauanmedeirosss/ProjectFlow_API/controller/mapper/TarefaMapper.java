@@ -1,7 +1,7 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper;
 
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.TarefaCriadaDTO;
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.TarefaRetornoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa.TarefaCriadaDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa.TarefaRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.model.Projeto;
 import io.github.kauanmedeirosss.ProjectFlow_API.model.Tarefa;
 import io.github.kauanmedeirosss.ProjectFlow_API.model.Usuario;

@@ -1,9 +1,9 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.service;
 
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.ProjetoAtualizadoDTO;
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.ProjetoAtualizadoStatusDTO;
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.ProjetoCriadoDTO;
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.ProjetoRetornoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoAtualizadoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoAtualizadoStatusDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoCriadoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.exception.ResourceNotFoundException;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper.ProjetoMapper;
 import io.github.kauanmedeirosss.ProjectFlow_API.model.enums.StatusProjeto;

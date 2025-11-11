@@ -1,8 +1,8 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.service;
 
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.AnexoAtualizadoDTO;
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.AnexoCriadoDTO;
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.AnexoRetornoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.anexo.AnexoAtualizadoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.anexo.AnexoCriadoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.anexo.AnexoRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.exception.ResourceNotFoundException;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper.AnexoMapper;
 import io.github.kauanmedeirosss.ProjectFlow_API.repository.AnexoRepository;

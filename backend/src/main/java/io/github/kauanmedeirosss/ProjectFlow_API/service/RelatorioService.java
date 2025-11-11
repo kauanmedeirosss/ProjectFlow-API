@@ -1,6 +1,6 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.service;
 
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.ProjetoProgressoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoProgressoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper.ProjetoMapper;
 import io.github.kauanmedeirosss.ProjectFlow_API.repository.ProjetoRepository;
 import lombok.RequiredArgsConstructor;

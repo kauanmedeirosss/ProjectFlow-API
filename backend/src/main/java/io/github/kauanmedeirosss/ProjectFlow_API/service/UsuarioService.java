@@ -1,8 +1,8 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.service;
 
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.UsuarioAtualizadoDTO;
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.UsuarioCriadoDTO;
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.UsuarioRetornoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.usuario.UsuarioAtualizadoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.usuario.UsuarioCriadoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.usuario.UsuarioRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.exception.BusinessRuleException;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.exception.ResourceNotFoundException;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper.UsuarioMapper;

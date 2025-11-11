@@ -1,4 +1,4 @@
-package io.github.kauanmedeirosss.ProjectFlow_API.controller.dto;
+package io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto;
 
 import io.github.kauanmedeirosss.ProjectFlow_API.model.enums.StatusProjeto;
 import io.swagger.v3.oas.annotations.media.Schema;

@@ -1,9 +1,8 @@
-package io.github.kauanmedeirosss.ProjectFlow_API.controller.dto;
+package io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.anexo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
 
 public record AnexoCriadoDTO(
         @Schema(description = "Nome do arquivo", example = "comandos_docker.txt", required = true)
