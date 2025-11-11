@@ -19,3 +19,7 @@ spring:
 logging:
   level:
     org.hibernate.SQL: DEBUG
+api:
+  security:
+    token:
+      secret: "minha-chave-ultra-secreta-super-segura-para-ambiente-de-desenvolvimento-2025"

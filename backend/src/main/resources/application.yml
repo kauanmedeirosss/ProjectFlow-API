@@ -1,45 +1,34 @@
 spring:
-  application:
-    name: ProjectFlow-API
-  profiles:
-    active: dev
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-        use_sql_comments: true
-
----
-# Perfil de desenvolvimento com H2
-spring:
   config:
     activate:
       on-profile: dev
   datasource:
-    url: jdbc:h2:mem:projectflow_db
+    url: jdbc:h2:mem:projectflow_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     username: sa
     password: ''
     driver-class-name: org.h2.Driver
   jpa:
     hibernate:
       ddl-auto: create-drop
+    show-sql: true
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true
+        use_sql_comments: true
+        show_sql: true
   h2:
     console:
       enabled: true
+      path: /h2-console
+      settings:
+        trace: false
+        web-allow-others: false
 
----
-# Perfil de produção com PostgreSQL
-spring:
-  config:
-    activate:
-      on-profile: prod
-  datasource:
-    url: jdbc:postgresql://localhost:5432/projectflow_api
-    username: postgres
-    password: '0000'
+# Configurações específicas do ambiente de desenvolvimento
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+debug: true
