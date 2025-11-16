@@ -1,0 +1,53 @@
+# Criação do projeto
+#### Iniciando o projeto com Vite
+````bash
+npm create vite@latest
+````
+#### Em seguida digitamos o nome do projeto (vai ser o nome da pastinha)
+* digitado: `frontend`
+#### Escolhemos a framework
+* escolhida: React
+#### Variant
+* escolhida: JavaScript
+#### Rolldown-vite
+* escolhido: No
+#### Instalar com npm e startar?
+* escolhido: Yes
+#### Parando o projeto
+* `Ctrl + C`
+#### Instalando dependencias
+````bash
+npm i
+````
+#### Testar se está tudo ok
+````bash
+npm run dev
+````
+
+# Preparando a estrutura base antes de iniciar codificação
+#### Na pasta `public`, excluímos a logo do vite (`vite.svg`)
+#### Na pasta `src`, excluímos `index.css`, `app.jsx`, `app.css`
+#### Na pasta `assets`, excluímos a logo do react (`react.svg`)
+#### Com isso, resta apenas o `main.jsx` na pasta `src`
+* Podemos até mudar o nome do main, lembrando de depois mudar também no index.html
+* Para mudar no index.html: No <body>, mudamos o nome do main (se mudar) na src para não conflitar nome antigo com novo
+#### No index, se quisermos alterar a logo que aparece na guia da página web
+* index.html > head > link > conteúdo em aspas do `href`
+#### No index, se quisermos alterar o nome do projeto que aparece na guia da página web
+* index.html > head > title > conteúdo da tag
+#### No main
+* apagamos o import do `index.css`
+* apagamos o import do `App.jsx`
+* comentamos o conteúdo nas chaves dentro da tag <React.StrictMode>, pois vai dar erro (vai ser mudado posteriormente)
+* se quiser já pode criar dentro da tag <React.StrictMode> o comando para apontar para Home (<Home />)
+#### Criação da pasta `containers` ou `pages` para armazenar as páginas web (dentro de src)
+#### Criação da pasta `services` para as chamadas da api (dentro de src)
+#### Criação da pasta `components` para componentes que normalmente são reutilizados dentro de código, como botões (dentro de src)
+#### Criação da pasta `styles` para os estilos globais da aplicação
+#### Criação da pasta `hooks` para armazenar os estados compartilhados
+#### Outras pastas: `utils`, `theme` e `routes`
+#### Para o vscode reconhecer css dentro de js, instalar a extensão "vscode-styled-components"
+
+# Comandos úteis
+#### Quer parar o projeto no terminal?
+* `Ctrl + C`, em seguida: `s`

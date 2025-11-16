@@ -1,0 +1,19 @@
+.pf-btn {
+  width: 100%;
+  background: #0090ff;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.pf-btn:hover {
+  background: #0077d6;
+}
+
+.pf-btn:active {
+  background: #005fa8;
+}

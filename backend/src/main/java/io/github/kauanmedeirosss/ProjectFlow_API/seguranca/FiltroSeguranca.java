@@ -43,6 +43,17 @@ public class FiltroSeguranca extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String path = request.getServletPath();
+        return path.startsWith("/h2-console") ||
+                path.startsWith("/swagger-ui") ||
+                path.startsWith("/api-docs") ||
+                (path.equals("/login") && request.getMethod().equals("POST")) ||
+                (path.equals("/usuarios") && request.getMethod().equals("POST"));
+    }
+
+
     private String recuperarToken(HttpServletRequest request) {
         var authHeader = request.getHeader("Authorization");
         return (authHeader != null && authHeader.startsWith("Bearer "))

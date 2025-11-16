@@ -1,0 +1,64 @@
+/* Fundo geral escuro */
+body {
+  background: #0d1117; /* tom dark do como o do GitHub */
+  color: #c9d1d9;
+}
+
+/* Card */
+.login-card {
+  background: #161b22;
+  border: 1px solid #21262d;
+  border-radius: 12px;
+  transition: 0.2s;
+}
+
+.login-card:hover {
+  border-color: #2387ff55;
+  box-shadow: 0 0 18px #085bcb33;
+}
+
+/* Títulos */
+.login-title {
+  color: #58a6ff;
+}
+
+/* Inputs */
+.form-control {
+  background: #0d1117;
+  border: 1px solid #30363d;
+  color: #c9d1d9;
+}
+
+.form-control:focus {
+  background: #0d1117;
+  border-color: #2387ff;
+  box-shadow: 0 0 0 0.2rem #2387ff55;
+  color: #fff;
+}
+
+/* Botão */
+.btn-primary {
+  background: #2387ff;
+  border-color: #2387ff;
+}
+
+.btn-primary:hover {
+  background: #1c6ed6;
+  border-color: #1c6ed6;
+}
+
+/* Placeholder */
+::placeholder {
+  color: #8b949e;
+}
+
+/* Letras mais claras para contraste */
+.form-label {
+  color: #e6edf3 !important;
+  font-weight: 500;
+}
+
+/* alinhando icones com tema dark */
+.icon-glow {
+  text-shadow: 0 0 12px #2387ff55;
+}
