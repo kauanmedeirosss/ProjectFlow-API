@@ -2,12 +2,14 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import icon from "../assets/icon.png";
 import Button from "../components/Button";
+import { useAuth } from "../context/AuthContext"; // Importa o contexto
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState("");
   const navigate = useNavigate();
+  const { login } = useAuth(); // Pega a função de login do contexto
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -30,11 +32,12 @@ export default function Login() {
 
       if (response.ok) {
         const data = await response.json();
-        // salvar token e role
-        localStorage.setItem("tokenJWT", data.tokenJWT);
+
+        // Salva token e role no contexto e localStorage
+        login(data.tokenJWT); // função do AuthContext
         localStorage.setItem("role", data.role);
 
-        // redirecionar para home
+        // Redireciona para Home
         navigate("/home");
       } else if (response.status === 400) {
         const errData = await response.json();
@@ -62,7 +65,6 @@ export default function Login() {
       style={{ background: "#0d1117" }}
     >
       <div className="card p-4 shadow" style={{ width: "350px", background: "#161b22", border: "1px solid #30363d" }}>
-        
         <div className="text-center mb-3">
           <img
             src={icon}

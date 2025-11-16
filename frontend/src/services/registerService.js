@@ -9,7 +9,7 @@ export async function registrarUsuario(usuario) {
         "Content-Type": "application/json",
       },
     });
-    return response.data; // retorna UsuarioRetornoDTO
+    return response.data;
   } catch (error) {
     // erro de validação vem em error.response.data
     throw error.response?.data || { message: "Erro desconhecido" };

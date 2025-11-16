@@ -4,6 +4,8 @@ import SplashScreen from "./pages/SplashScreen";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
+import { AuthProvider } from "./context/AuthContext";
+import PrivateRoute from "./utils/PrivateRoute";
 
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -13,11 +15,17 @@ export default function App() {
   }
 
   return (
-    <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/home" element={ <Home />} />
-      <Route path="/register" element={<Register />} />
-    </Routes>
+    <AuthProvider>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
+        {/* Rotas protegidas */}
+        <Route element={<PrivateRoute />}>
+          <Route path="/home" element={<Home />} />
+        </Route>
+      </Routes>
+    </AuthProvider>
   );
 }
