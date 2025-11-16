@@ -80,4 +80,11 @@ public class UsuarioService {
         repository.delete(usuario);
     }
 
+    public UsuarioRetornoDTO buscarPorEmail(String email) {
+        var usuario = repository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado!"));
+        return mapper.toRetornoDTO(usuario);
+    }
+
+
 }

@@ -1,38 +1,42 @@
-import { useState } from "react";
-import "./Home.css";
 import { useAuth } from "../context/AuthContext";
-import ButtonLogout from "../components/ButtonLogout";
+import "./home.css";
 
-export default function HomeMembro() {
-  const [open, setOpen] = useState(false);
-  const { logout } = useAuth();
+export default function HomeUsuario() {
+  const { user } = useAuth();
+
+  if (!user) return <p className="loading">Carregando...</p>;
 
   return (
-    <div className="home-wrapper">
-      <aside className={`sidebar ${open ? "open" : ""}`}>
-        <h2 className="sidebar-title">ProjectFlow</h2>
-        <ul className="sidebar-menu">
-          <li>Meus Projetos</li>
-          <li>Minhas Tarefas</li>
-          <li>Equipe</li>
-          <li>Perfil</li>
-        </ul>
-      </aside>
+    <div className="home-container">
+      <h1 className="home-title">
+        Olá, <span>{user.nome}</span> 👋
+      </h1>
 
-      <nav className="navbar">
-        <button className="hamburger-btn" onClick={() => setOpen(!open)}>
-          <span className="bar"></span>
-          <span className="bar"></span>
-          <span className="bar"></span>
-        </button>
+      <p className="home-subtitle">
+        Aqui estão os seus dados e informações gerais da conta.
+      </p>
 
-        <ButtonLogout onClick={logout} />
-      </nav>
+      <div className="cards-grid">
+        <div className="card">
+          <h2>Email</h2>
+          <p>{user.email}</p>
+        </div>
 
-      <main className="home-content">
-        <h2 className="home-title">Bem-vindo ao ProjectFlow (Membro)</h2>
-        <p className="home-description">Aqui você pode acompanhar suas tarefas e projetos.</p>
-      </main>
+        <div className="card">
+          <h2>Função</h2>
+          <p>{user.role}</p>
+        </div>
+
+        <div className="card">
+          <h2>Status</h2>
+          <p>Usuário padrão</p>
+        </div>
+
+        <div className="card highlight">
+          <h2>Bem-vindo ao sistema</h2>
+          <p>Explore as funcionalidades disponíveis para você.</p>
+        </div>
+      </div>
     </div>
   );
 }

@@ -28,7 +28,7 @@ public class FiltroSeguranca extends OncePerRequestFilter {
         if (tokenJWT != null) {
             try {
                 var subject = tokenService.getSubject(tokenJWT);
-                var usuario = repository.findByEmail(subject);
+                var usuario = repository.findByEmail(subject).orElseThrow();;
 
 
                 var authentication = new UsernamePasswordAuthenticationToken(

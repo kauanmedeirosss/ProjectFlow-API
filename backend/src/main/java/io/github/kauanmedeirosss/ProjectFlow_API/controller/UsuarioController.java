@@ -18,6 +18,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -118,6 +120,20 @@ public class UsuarioController {
     public ResponseEntity<Void> deletar(@PathVariable Long id){
         service.deletar(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "Buscar usuário logado")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Usuário encontrado"),
+            @ApiResponse(responseCode = "401", description = "Não autenticado")
+    })
+    @GetMapping("/me")
+    public ResponseEntity<UsuarioRetornoDTO> buscarUsuarioLogado(
+            @AuthenticationPrincipal UserDetails userDetails
+    ) {
+        String email = userDetails.getUsername();
+        var usuario = service.buscarPorEmail(email);
+        return ResponseEntity.ok(usuario);
     }
 
 }
