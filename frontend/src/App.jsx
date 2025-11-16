@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import SplashScreen from "./pages/SplashScreen";
 import Login from "./pages/Login";
-import Home from "./pages/Home";
 import Register from "./pages/Register";
+import HomeAdmin from "./pages/HomeAdmin";
+import HomeMembro from "./pages/HomeMembro";
 import { AuthProvider } from "./context/AuthContext";
 import PrivateRoute from "./utils/PrivateRoute";
 
@@ -22,8 +23,12 @@ export default function App() {
         <Route path="/register" element={<Register />} />
 
         {/* Rotas protegidas */}
-        <Route element={<PrivateRoute />}>
-          <Route path="/home" element={<Home />} />
+        <Route element={<PrivateRoute allowedRoles={["ADMIN", "GERENTE"]} />}>
+          <Route path="/home" element={<HomeAdmin />} />
+        </Route>
+
+        <Route element={<PrivateRoute allowedRoles={["MEMBRO"]} />}>
+          <Route path="/home-membro" element={<HomeMembro />} />
         </Route>
       </Routes>
     </AuthProvider>

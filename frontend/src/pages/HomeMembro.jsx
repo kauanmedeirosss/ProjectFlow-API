@@ -1,25 +1,24 @@
 import { useState } from "react";
 import "./Home.css";
+import { useAuth } from "../context/AuthContext";
+import ButtonLogout from "../components/ButtonLogout";
 
-export default function Home() {
+export default function HomeMembro() {
   const [open, setOpen] = useState(false);
+  const { logout } = useAuth();
 
   return (
     <div className="home-wrapper">
-
-      {/* SIDEBAR */}
       <aside className={`sidebar ${open ? "open" : ""}`}>
         <h2 className="sidebar-title">ProjectFlow</h2>
-
         <ul className="sidebar-menu">
-          <li>Dashboard</li>
-          <li>Projetos</li>
-          <li>Equipes</li>
-          <li>Configurações</li>
+          <li>Meus Projetos</li>
+          <li>Minhas Tarefas</li>
+          <li>Equipe</li>
+          <li>Perfil</li>
         </ul>
       </aside>
 
-      {/* NAVBAR */}
       <nav className="navbar">
         <button className="hamburger-btn" onClick={() => setOpen(!open)}>
           <span className="bar"></span>
@@ -27,16 +26,13 @@ export default function Home() {
           <span className="bar"></span>
         </button>
 
+        <ButtonLogout onClick={logout} />
       </nav>
 
-      {/* CONTEÚDO */}
       <main className="home-content">
-        <h2 className="home-title">Bem-vindo ao ProjectFlow</h2>
-        <p className="home-description">
-          Aqui é onde sua organização de projetos começa.
-        </p>
+        <h2 className="home-title">Bem-vindo ao ProjectFlow (Membro)</h2>
+        <p className="home-description">Aqui você pode acompanhar suas tarefas e projetos.</p>
       </main>
-
     </div>
   );
 }

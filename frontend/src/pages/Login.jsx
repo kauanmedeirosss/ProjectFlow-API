@@ -34,11 +34,14 @@ export default function Login() {
         const data = await response.json();
 
         // Salva token e role no contexto e localStorage
-        login(data.tokenJWT); // função do AuthContext
+        login(data.tokenJWT, data.role); // função do AuthContext
         localStorage.setItem("role", data.role);
 
-        // Redireciona para Home
-        navigate("/home");
+        if (data.role === "MEMBRO") {
+          navigate("/home-membro");
+        } else {
+          navigate("/home"); // ADMIN e GERENTE
+         }
       } else if (response.status === 400) {
         const errData = await response.json();
         if (errData.fieldErrors && errData.fieldErrors.length > 0) {
