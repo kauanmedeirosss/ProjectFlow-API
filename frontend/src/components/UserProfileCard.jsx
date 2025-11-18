@@ -2,20 +2,21 @@ import React from "react";
 
 export default function UserProfileCard({ nome, email, role }) {
   return (
-    <div
-      style={{
-        background: "#161b22",
-        padding: "20px",
-        borderRadius: "12px",
-        border: "1px solid #30363d",
-        color: "white",
-        width: "100%",
-        maxWidth: "400px",
-      }}
-    >
-      <h3 style={{ marginBottom: "10px" }}>{nome}</h3>
-      <p style={{ marginBottom: "5px" }}>Email: {email}</p>
-      <p style={{ marginBottom: "0px" }}>Role: {role}</p>
+    <div className="profile-card">
+      <div className="profile-header">
+        <div className="avatar-circle">
+          {nome.charAt(0).toUpperCase()}
+        </div>
+
+        <div>
+          <h2 className="profile-name">{nome}</h2>
+        </div>
+      </div>
+
+      <div className="profile-info">
+        <p><strong>Email:</strong> {email}</p>
+        <p><strong>Função:</strong> {role}</p>
+      </div>
     </div>
   );
 }
