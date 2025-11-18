@@ -98,7 +98,13 @@ export default function MeusProjetos() {
                   </p>
                 </div>
 
-                <button className="projeto-btn">Ver Detalhes</button>
+                <button
+                  className="projeto-btn"
+                  onClick={() => navigate(`/projetos/${proj.id}`)}
+                >
+                  Ver Detalhes
+                </button>
+
               </div>
             ))}
           </div>

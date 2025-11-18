@@ -81,3 +81,23 @@
   color: #9aa4b5;
   font-size: 1.1rem;
 }
+
+.projeto-detalhes-container {
+  background: #111;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px #000;
+  margin-top: 20px;
+}
+
+.projeto-detalhes-desc {
+  margin-top: 10px;
+  color: #ccc;
+  line-height: 1.6;
+}
+
+.projeto-detalhes-btns {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
