@@ -1,9 +1,19 @@
 import React from "react";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
-export default function ButtonLogout({ onClick }) {
+export default function ButtonLogout() {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();          // limpa token e usuário
+    navigate("/login"); // redireciona
+  };
+
   return (
     <button
-      onClick={onClick}
+      onClick={handleLogout}
       style={{
         backgroundColor: "#0090ff",
         color: "white",
@@ -15,8 +25,12 @@ export default function ButtonLogout({ onClick }) {
         marginRight: "15px",
         transition: "background 0.2s",
       }}
-      onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#007acc")}
-      onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#0090ff")}
+      onMouseEnter={(e) =>
+        (e.currentTarget.style.backgroundColor = "#007acc")
+      }
+      onMouseLeave={(e) =>
+        (e.currentTarget.style.backgroundColor = "#0090ff")
+      }
     >
       Logout
     </button>

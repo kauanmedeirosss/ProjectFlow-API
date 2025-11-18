@@ -1,0 +1,33 @@
+/* RESET GLOBAL */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* TIPOGRAFIA BASE */
+html, body {
+  height: 100%;
+  font-family: "Inter", Arial, sans-serif;
+  background: #0d1117; /* integrado ao tema dark */
+  color: #c9d1d9;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* LINKS */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* LISTAS */
+ul {
+  list-style: none;
+}
+
+/* BOTÕES */
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}

@@ -2,14 +2,14 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import icon from "../assets/icon.png";
 import Button from "../components/Button";
-import { useAuth } from "../context/AuthContext"; // Importa o contexto
+import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState("");
   const navigate = useNavigate();
-  const { login } = useAuth(); // Pega a função de login do contexto
+  const { login } = useAuth(); // Pega função 'login' do contexto
 
   async function handleSubmit(e) {
     e.preventDefault();
