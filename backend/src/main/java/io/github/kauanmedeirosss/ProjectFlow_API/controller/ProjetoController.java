@@ -5,6 +5,7 @@ import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoA
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoAtualizadoStatusDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoCriadoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoRetornoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa.TarefaRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.exception.BusinessRuleException;
 import io.github.kauanmedeirosss.ProjectFlow_API.model.Usuario;
 import io.github.kauanmedeirosss.ProjectFlow_API.service.AutenticacaoService;
@@ -158,5 +159,13 @@ public class ProjetoController {
         return service.listarProjetosDoUsuario(usuarioId);
     }
 
+    @GetMapping("/{id}/tarefas")
+    @Operation(summary = "Lista todas as tarefas de um projeto")
+    public ResponseEntity<List<TarefaRetornoDTO>> listarTarefasDoProjeto(
+            @PathVariable Long id
+    ) {
+        List<TarefaRetornoDTO> tarefas = service.listarTarefasDoProjeto(id);
+        return ResponseEntity.ok(tarefas);
+    }
 
 }

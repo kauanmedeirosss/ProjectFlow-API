@@ -9,6 +9,8 @@ import { AuthProvider } from "./context/AuthContext";
 import PrivateRoute from "./utils/PrivateRoute";
 import MeusProjetos from "./pages/MeusProjetos";
 import ProjetoDetalhes from "./pages/ProjetoDetalhes";
+import TarefasProjeto from "./pages/TarefasProjeto";
+
 
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -33,6 +35,7 @@ export default function App() {
           <Route path="/home-membro" element={<HomeMembro />} />
           <Route path="/meus-projetos" element={<MeusProjetos />} />
           <Route path="/projetos/:id" element={<ProjetoDetalhes />} />
+          <Route path="/projetos/:id/tarefas" element={<TarefasProjeto />} />
         </Route>
 
       </Routes>

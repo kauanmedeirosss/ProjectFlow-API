@@ -5,12 +5,16 @@ import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoA
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoAtualizadoStatusDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoCriadoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoRetornoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa.TarefaRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.exception.ResourceNotFoundException;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper.ProjetoMapper;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper.TarefaMapper;
 import io.github.kauanmedeirosss.ProjectFlow_API.model.Projeto;
+import io.github.kauanmedeirosss.ProjectFlow_API.model.Tarefa;
 import io.github.kauanmedeirosss.ProjectFlow_API.model.enums.StatusProjeto;
 import io.github.kauanmedeirosss.ProjectFlow_API.repository.EquipeRepository;
 import io.github.kauanmedeirosss.ProjectFlow_API.repository.ProjetoRepository;
+import io.github.kauanmedeirosss.ProjectFlow_API.repository.TarefaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,7 +28,9 @@ public class ProjetoService {
 
     private final ProjetoRepository repository;
     private final EquipeRepository equipeRepository;
+    private final TarefaRepository tarefaRepository;
     private final ProjetoMapper mapper;
+    private final TarefaMapper tarefaMapper;
 
     public ProjetoRetornoDTO salvar(ProjetoCriadoDTO dto){
         var projeto = mapper.toEntity(dto);
@@ -90,6 +96,17 @@ public class ProjetoService {
         List<Projeto> projetos = repository.findByUsuarioMembro(usuarioId);
         return projetos.stream()
                 .map(mapper::toRetornoDTO)
+                .toList();
+    }
+
+    public List<TarefaRetornoDTO> listarTarefasDoProjeto(Long projetoId) {
+        Projeto projeto = repository.findById(projetoId)
+                .orElseThrow(() -> new ResourceNotFoundException("Projeto não encontrado."));
+
+        List<Tarefa> tarefas = tarefaRepository.findByProjetoId(projetoId);
+
+        return tarefas.stream()
+                .map(tarefaMapper::toRetornoDTO)
                 .toList();
     }
 

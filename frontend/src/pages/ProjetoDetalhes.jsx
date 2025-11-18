@@ -103,7 +103,7 @@ export default function ProjetoDetalhes() {
 
               <button
                 className="projeto-btn"
-                onClick={() => navigate(`/projetos/${id}/tarefas`)}
+                onClick={() => navigate(`/projetos/${projeto.id}/tarefas`)}
               >
                 Ver Tarefas
               </button>
