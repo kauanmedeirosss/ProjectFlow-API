@@ -7,6 +7,7 @@ import HomeAdmin from "./pages/HomeAdmin";
 import HomeMembro from "./pages/HomeMembro";
 import { AuthProvider } from "./context/AuthContext";
 import PrivateRoute from "./utils/PrivateRoute";
+import MeusProjetos from "./pages/MeusProjetos";
 
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -29,7 +30,9 @@ export default function App() {
 
         <Route element={<PrivateRoute allowedRoles={["MEMBRO"]} />}>
           <Route path="/home-membro" element={<HomeMembro />} />
+          <Route path="/meus-projetos" element={<MeusProjetos />} />
         </Route>
+
       </Routes>
     </AuthProvider>
   );

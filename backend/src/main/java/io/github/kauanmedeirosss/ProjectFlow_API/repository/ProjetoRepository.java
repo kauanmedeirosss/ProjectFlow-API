@@ -10,4 +10,12 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ProjetoRepository extends JpaRepository<Projeto, Long> {
+    @Query("""
+            SELECT p 
+            FROM Projeto p 
+            JOIN p.equipe e 
+            JOIN e.membros m 
+            WHERE m.id = :usuarioId
+            """)
+    List<Projeto> findByUsuarioMembro(Long usuarioId);
 }

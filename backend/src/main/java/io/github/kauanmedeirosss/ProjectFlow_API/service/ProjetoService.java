@@ -86,4 +86,11 @@ public class ProjetoService {
         repository.save(projeto);
     }
 
+    public List<ProjetoRetornoDTO> listarProjetosDoUsuario(Long usuarioId) {
+        List<Projeto> projetos = repository.findByUsuarioMembro(usuarioId);
+        return projetos.stream()
+                .map(mapper::toRetornoDTO)
+                .toList();
+    }
+
 }

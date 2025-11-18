@@ -102,3 +102,46 @@ INSERT INTO comentarios (conteudo, tarefa_id, autor_id) VALUES
 INSERT INTO anexos (nome_arquivo, url_arquivo, tarefa_id) VALUES
 ('user_entity.png', 'https://storage.com/user_entity.png', 1),
 ('jwt_diagram.pdf', 'https://storage.com/jwt_diagram.pdf', 2);
+
+
+
+
+
+
+
+-- ======================================================
+-- 1) USUÁRIO MEMBRO
+-- ======================================================
+INSERT INTO usuarios (id, nome, email, senha, role)
+VALUES (1, 'João Membro', 'joao@example.com',
+        '$2a$10$CwTycUXWue0Thq9StjUM0uJ8u1Y.y2NqUP8Y1YgnSUZXoqBYwyg5m', 'MEMBRO');
+
+
+-- ======================================================
+-- 2) EQUIPE
+-- ======================================================
+INSERT INTO equipeS (nome, descricao) VALUES
+('Equipe Desenvolvimento', 'Time responsável pelo desenvolvimento do software'),
+('Equipe Design', 'Time responsável pelo design e UX');
+
+
+-- ======================================================
+-- 3) ASSOCIAÇÃO USUÁRIO ↔ EQUIPE (tabela many-to-many)
+-- ======================================================
+INSERT INTO membros_equipe (equipe_id, USUARIO_id)
+VALUES (1, 1);
+
+
+-- ======================================================
+-- 4) PROJETO vinculado à equipe
+-- ======================================================
+INSERT INTO projetoS (nome, descricao, status, data_inicio, deadline, orcamento, equipe_id)
+VALUES (
+    'Projeto Teste',
+    'Projeto usado para testes no front Meus Projetos.',
+    'EM_PROGRESSO',
+    CURRENT_DATE,
+    DATEADD('DAY', 30, CURRENT_DATE),
+    5000,
+    1
+);

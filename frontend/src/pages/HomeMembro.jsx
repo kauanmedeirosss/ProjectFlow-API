@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 import ButtonLogout from "../components/ButtonLogout";
 import UserProfileCard from "../components/UserProfileCard";
 import "./Home.css";
@@ -7,6 +8,7 @@ import "./Home.css";
 export default function HomeUsuario() {
   const { user } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const navigate = useNavigate();
 
   if (!user) return <p>Carregando...</p>;
 
@@ -30,16 +32,14 @@ export default function HomeUsuario() {
       <aside className={`sidebar ${sidebarOpen ? "open" : ""}`}>
         <h3 className="sidebar-title">Menu</h3>
         <ul className="sidebar-menu">
-          <li>Dashboard</li>
-          <li>Meus Projetos</li>
-          <li>Minhas Tarefas</li>
-          <li>Configurações</li>
+          <li onClick={() => navigate("/meus-projetos")}>Meus Projetos</li>
+          <li onClick={() => navigate("/minhas-tarefas")}>Minhas Tarefas</li>
+          <li onClick={() => navigate("/home-membro")}>Perfil</li>
         </ul>
       </aside>
 
       {/* CONTEÚDO */}
       <div className="home-content">
-
         <UserProfileCard
           nome={user.nome}
           email={user.email}
