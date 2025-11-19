@@ -2,20 +2,20 @@ package io.github.kauanmedeirosss.ProjectFlow_API.service;
 
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.PaginaResponseDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.anexo.AnexoRetornoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.comentario.ComentarioRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa.TarefaAtualizadaDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa.TarefaAtualizadaStatusDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa.TarefaCriadaDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa.TarefaRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.exception.ResourceNotFoundException;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper.AnexoMapper;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper.ComentarioMapper;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper.TarefaMapper;
 import io.github.kauanmedeirosss.ProjectFlow_API.model.Anexo;
+import io.github.kauanmedeirosss.ProjectFlow_API.model.Comentario;
 import io.github.kauanmedeirosss.ProjectFlow_API.model.Tarefa;
 import io.github.kauanmedeirosss.ProjectFlow_API.model.enums.StatusTarefa;
-import io.github.kauanmedeirosss.ProjectFlow_API.repository.AnexoRepository;
-import io.github.kauanmedeirosss.ProjectFlow_API.repository.ProjetoRepository;
-import io.github.kauanmedeirosss.ProjectFlow_API.repository.TarefaRepository;
-import io.github.kauanmedeirosss.ProjectFlow_API.repository.UsuarioRepository;
+import io.github.kauanmedeirosss.ProjectFlow_API.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,9 +31,11 @@ public class TarefaService {
     private final TarefaRepository repository;
     private final TarefaMapper mapper;
     private final AnexoMapper anexoMapper;
+    private final ComentarioMapper comentarioMapper;
     private final UsuarioRepository usuarioRepository;
     private final ProjetoRepository projetoRepository;
     private final AnexoRepository anexoRepository;
+    private final ComentarioRepository comentarioRepository;
 
     public Tarefa obterPorId(Long id){
         return repository.findById(id)
@@ -85,6 +87,23 @@ public class TarefaService {
         List<AnexoRetornoDTO> conteudo = pagina.getContent()
                 .stream()
                 .map(anexoMapper::toRetornoDTO)
+                .collect(Collectors.toList());
+
+        return PaginaResponseDTO.of(
+                conteudo,
+                pagina.getNumber(),
+                pagina.getSize(),
+                pagina.getTotalElements(),
+                pagina.getTotalPages()
+        );
+    }
+
+    public PaginaResponseDTO<ComentarioRetornoDTO> listarComentariosDaTarefaId(Long id, Pageable pageable) {
+        Page<Comentario> pagina = comentarioRepository.findByTarefaIdPaginado(id, pageable);
+
+        List<ComentarioRetornoDTO> conteudo = pagina.getContent()
+                .stream()
+                .map(comentarioMapper::toRetornoDTO)
                 .collect(Collectors.toList());
 
         return PaginaResponseDTO.of(

@@ -2,6 +2,7 @@ package io.github.kauanmedeirosss.ProjectFlow_API.controller;
 
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.PaginaResponseDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.anexo.AnexoRetornoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.comentario.ComentarioRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa.TarefaAtualizadaDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa.TarefaAtualizadaStatusDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa.TarefaCriadaDTO;
@@ -149,6 +150,26 @@ public class TarefaController {
         Pageable pageable = PageRequest.of(pagina, tamanho);
         var anexos = service.listarAnexosDaTarefaId(id, pageable);
         return ResponseEntity.ok(anexos);
+    }
+
+    @Operation(summary = "Listar comentários de uma tarefa por ID da tarefa")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Comentários listados com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Tarefa não encontrada")
+    })
+    @GetMapping("/{id}/comentarios")
+    public ResponseEntity<PaginaResponseDTO<ComentarioRetornoDTO>> listarComentariosTarefa(
+            @PathVariable Long id,
+            @Parameter(description = "Número da página (0-based)", example = "0")
+            @RequestParam(defaultValue = "0") int pagina,
+
+            @Parameter(description = "Tamanho da página", example = "10")
+            @RequestParam(defaultValue = "10") int tamanho) {
+
+
+        Pageable pageable = PageRequest.of(pagina, tamanho);
+        var comentarios = service.listarComentariosDaTarefaId(id, pageable);
+        return ResponseEntity.ok(comentarios);
     }
 
 }

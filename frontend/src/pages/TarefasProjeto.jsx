@@ -128,6 +128,13 @@ export default function TarefasProjeto() {
                     </option>
                   ))}
                 </select>
+
+                <button
+                    className="projeto-btn"
+                    onClick={() => navigate(`/tarefas/${tarefa.id}`)}
+                >
+                    Ver Detalhes
+                </button>
               </div>
             ))}
           </div>

@@ -10,6 +10,7 @@ import PrivateRoute from "./utils/PrivateRoute";
 import MeusProjetos from "./pages/MeusProjetos";
 import ProjetoDetalhes from "./pages/ProjetoDetalhes";
 import TarefasProjeto from "./pages/TarefasProjeto";
+import TarefaDetalhes from "./pages/TarefaDetalhes";
 
 
 export default function App() {
@@ -36,6 +37,7 @@ export default function App() {
           <Route path="/meus-projetos" element={<MeusProjetos />} />
           <Route path="/projetos/:id" element={<ProjetoDetalhes />} />
           <Route path="/projetos/:id/tarefas" element={<TarefasProjeto />} />
+          <Route path="/tarefas/:id" element={<TarefaDetalhes />} />
         </Route>
 
       </Routes>
