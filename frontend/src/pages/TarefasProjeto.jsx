@@ -72,6 +72,29 @@ export default function TarefasProjeto() {
         <ButtonLogout />
       </div>
 
+      <div style={{ padding: "10px 20px" }}>
+        <button
+          onClick={() => navigate("/meus-projetos")}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            background: "#21262d",
+            border: "1px solid #30363d",
+            color: "white",
+            padding: "8px 14px",
+            borderRadius: "8px",
+            cursor: "pointer",
+            fontSize: "14px",
+            transition: "0.2s",
+          }}
+          onMouseEnter={(e) => (e.target.style.background = "#30363d")}
+          onMouseLeave={(e) => (e.target.style.background = "#21262d")}
+        >
+          ← Voltar
+        </button>
+      </div>
+
       {/* SIDEBAR */}
       <aside className={`sidebar ${sidebarOpen ? "open" : ""}`}>
         <h3 className="sidebar-title">Menu</h3>

@@ -1,6 +1,7 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper;
 
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoCriadoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoMembroDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoProgressoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.model.Projeto;
@@ -16,5 +17,9 @@ public interface ProjetoMapper {
     ProjetoRetornoDTO toRetornoDTO(Projeto projeto);
 
     ProjetoProgressoDTO toProgressoDTO(Projeto projeto);
+
+    @Mapping(target = "status", expression = "java(projeto.getStatus().name())")
+    @Mapping(target = "equipeNome", source = "equipe.nome")
+    ProjetoMembroDTO toProjetoMembroDTO(Projeto projeto);
 
 }

@@ -1,10 +1,7 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.service;
 
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.PaginaResponseDTO;
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoAtualizadoDTO;
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoAtualizadoStatusDTO;
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoCriadoDTO;
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoRetornoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.*;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa.TarefaRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.exception.ResourceNotFoundException;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper.ProjetoMapper;
@@ -92,10 +89,11 @@ public class ProjetoService {
         repository.save(projeto);
     }
 
-    public List<ProjetoRetornoDTO> listarProjetosDoUsuario(Long usuarioId) {
-        List<Projeto> projetos = repository.findByUsuarioMembro(usuarioId);
+    public List<ProjetoMembroDTO> listarMeusProjetos(Long usuarioId) {
+        List<Projeto> projetos = repository.findByEquipeMembrosId(usuarioId);
+
         return projetos.stream()
-                .map(mapper::toRetornoDTO)
+                .map(mapper::toProjetoMembroDTO)
                 .toList();
     }
 

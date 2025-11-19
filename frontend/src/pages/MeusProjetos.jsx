@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";   
+import { useNavigate } from "react-router-dom";
 import ButtonLogout from "../components/ButtonLogout";
 import api from "../services/api";
 import "./Home.css";
@@ -8,7 +8,7 @@ import "./Projetos.css";
 
 export default function MeusProjetos() {
   const { user } = useAuth();
-  const navigate = useNavigate();               
+  const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [projetos, setProjetos] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -65,7 +65,9 @@ export default function MeusProjetos() {
 
       {/* CONTEÚDO PRINCIPAL */}
       <div className="home-content">
+
         <h1 className="home-title">Meus Projetos</h1>
+
         <p className="home-description">
           Aqui estão todos os projetos vinculados a você.
         </p>
@@ -82,29 +84,24 @@ export default function MeusProjetos() {
 
                 <p className="projeto-desc">{proj.descricao}</p>
 
-                <span className={`status-badge ${statusColors[proj.status]}`}>
-                  {proj.status}
-                </span>
+                <div className="projeto-info">
+                  <p>
+                    <strong>Status:</strong> {proj.status}
+                  </p>
+                </div>
 
                 <div className="projeto-info">
                   <p>
                     <strong>Equipe:</strong> {proj.equipeNome}
                   </p>
-                  <p>
-                    <strong>Início:</strong> {proj.dataInicio}
-                  </p>
-                  <p>
-                    <strong>Deadline:</strong> {proj.deadline}
-                  </p>
                 </div>
 
                 <button
                   className="projeto-btn"
-                  onClick={() => navigate(`/projetos/${proj.id}`)}
+                  onClick={() => navigate(`/projetos/${proj.id}/tarefas`)}
                 >
                   Ver Detalhes
                 </button>
-
               </div>
             ))}
           </div>

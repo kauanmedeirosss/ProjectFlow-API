@@ -8,7 +8,6 @@ import HomeMembro from "./pages/HomeMembro";
 import { AuthProvider } from "./context/AuthContext";
 import PrivateRoute from "./utils/PrivateRoute";
 import MeusProjetos from "./pages/MeusProjetos";
-import ProjetoDetalhes from "./pages/ProjetoDetalhes";
 import TarefasProjeto from "./pages/TarefasProjeto";
 import TarefaDetalhes from "./pages/TarefaDetalhes";
 
@@ -35,7 +34,6 @@ export default function App() {
         <Route element={<PrivateRoute allowedRoles={["MEMBRO"]} />}>
           <Route path="/home-membro" element={<HomeMembro />} />
           <Route path="/meus-projetos" element={<MeusProjetos />} />
-          <Route path="/projetos/:id" element={<ProjetoDetalhes />} />
           <Route path="/projetos/:id/tarefas" element={<TarefasProjeto />} />
           <Route path="/tarefas/:id" element={<TarefaDetalhes />} />
         </Route>

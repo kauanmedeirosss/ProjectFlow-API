@@ -1,10 +1,7 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.controller;
 
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.PaginaResponseDTO;
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoAtualizadoDTO;
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoAtualizadoStatusDTO;
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoCriadoDTO;
-import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoRetornoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.*;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa.TarefaRetornoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.exception.BusinessRuleException;
 import io.github.kauanmedeirosss.ProjectFlow_API.model.Usuario;
@@ -148,7 +145,7 @@ public class ProjetoController {
 
     @GetMapping("/meus")
     @Operation(summary = "Lista os projetos do usuário logado")
-    public List<ProjetoRetornoDTO> listarMeusProjetos() {
+    public List<ProjetoMembroDTO> listarMeusProjetos() {
 
         Long usuarioId = autenticacaoService.getUsuarioLogadoId();
 
@@ -156,7 +153,7 @@ public class ProjetoController {
             throw new BusinessRuleException("Usuário não autenticado");
         }
 
-        return service.listarProjetosDoUsuario(usuarioId);
+        return service.listarMeusProjetos(usuarioId);
     }
 
     @GetMapping("/{id}/tarefas")
