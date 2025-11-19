@@ -1,16 +1,27 @@
 .projetos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
-  margin-top: 25px;
+  margin-top: 20px;
+
+  /* impede que o conteúdo estoure a tela */
+  max-width: 100%;
+
+  /* permite scrollar quando houver muitas tarefas */
+  overflow-y: auto;
+  padding-bottom: 20px;
+
+  /* limite opcional */
+  max-height: calc(100vh - 180px);
 }
 
 .projeto-card {
   background: #161b22;
   border: 1px solid #30363d;
+  border-radius: 10px;
   padding: 20px;
-  border-radius: 12px;
-  transition: 0.2s;
+  width: 100%;          
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
 }
 
 .projeto-card:hover {

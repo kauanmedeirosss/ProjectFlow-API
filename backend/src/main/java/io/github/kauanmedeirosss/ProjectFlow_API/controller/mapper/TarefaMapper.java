@@ -11,6 +11,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 
 @Mapper(componentModel = "spring")
 public interface TarefaMapper {
@@ -25,6 +26,8 @@ public interface TarefaMapper {
                     @Context UsuarioRepository usuarioRepository,
                     @Context ProjetoRepository projetoRepository);
 
+    @Mapping(target = "projetoNome", source = "tarefa", qualifiedByName = "mapProjetoNome")
+    @Mapping(target = "cessionario", source = "tarefa", qualifiedByName = "mapCessionarioNome")
     TarefaRetornoDTO toRetornoDTO(Tarefa tarefa);
 
     default Usuario mapCessionario(Long cessionarioId, @Context UsuarioRepository usuarioRepository) {
@@ -37,6 +40,18 @@ public interface TarefaMapper {
         if (projetoId == null) return null;
         return projetoRepository.findById(projetoId)
                 .orElseThrow(() -> new EntityNotFoundException("Projeto não encontrado"));
+    }
+
+    @Named("mapProjetoNome")
+    default String mapProjetoNome(Tarefa tarefa) {
+        if (tarefa.getProjeto() == null) return null;
+        return tarefa.getProjeto().getNome();
+    }
+
+    @Named("mapCessionarioNome")
+    default String mapCessionarioNome(Tarefa tarefa) {
+        if (tarefa.getCessionario() == null) return "Não atribuído";
+        return tarefa.getCessionario().getNome();
     }
 
 }

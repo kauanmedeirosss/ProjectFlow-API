@@ -7,13 +7,12 @@ import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa.TarefaAtu
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa.TarefaAtualizadaStatusDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa.TarefaCriadaDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.tarefa.TarefaRetornoDTO;
+import io.github.kauanmedeirosss.ProjectFlow_API.controller.exception.BusinessRuleException;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.exception.ResourceNotFoundException;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper.AnexoMapper;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper.ComentarioMapper;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper.TarefaMapper;
-import io.github.kauanmedeirosss.ProjectFlow_API.model.Anexo;
-import io.github.kauanmedeirosss.ProjectFlow_API.model.Comentario;
-import io.github.kauanmedeirosss.ProjectFlow_API.model.Tarefa;
+import io.github.kauanmedeirosss.ProjectFlow_API.model.*;
 import io.github.kauanmedeirosss.ProjectFlow_API.model.enums.StatusTarefa;
 import io.github.kauanmedeirosss.ProjectFlow_API.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +21,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,6 +36,7 @@ public class TarefaService {
     private final ProjetoRepository projetoRepository;
     private final AnexoRepository anexoRepository;
     private final ComentarioRepository comentarioRepository;
+    private final AutenticacaoService autenticacaoService;
 
     public Tarefa obterPorId(Long id){
         return repository.findById(id)
@@ -113,6 +114,32 @@ public class TarefaService {
                 pagina.getTotalElements(),
                 pagina.getTotalPages()
         );
+    }
+
+    public List<TarefaRetornoDTO> listarMinhasTarefas() {
+        Long usuarioId = autenticacaoService.getUsuarioLogadoId();
+
+        if (usuarioId == null) {
+            throw new BusinessRuleException("Usuário não autenticado.");
+        }
+
+        Usuario usuarioLogado = usuarioRepository.findById(usuarioId)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado."));
+
+        Set<Equipe> equipes = usuarioLogado.getEquipe();
+        if (equipes == null || equipes.isEmpty()) {
+            throw new BusinessRuleException("Usuário não está vinculado a nenhuma equipe.");
+        }
+
+        List<Long> equipeIds = equipes.stream()
+                .map(Equipe::getId)
+                .toList();
+
+        List<Tarefa> tarefas = repository.findAllByEquipeIds(equipeIds);
+
+        return tarefas.stream()
+                .map(mapper::toRetornoDTO)
+                .toList();
     }
 
     public TarefaRetornoDTO atualizar(TarefaAtualizadaDTO dto){

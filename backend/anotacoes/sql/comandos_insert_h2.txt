@@ -17,16 +17,22 @@ INSERT INTO membros_equipe (equipe_id, usuario_id) VALUES
 
 INSERT INTO projetos (nome, descricao, status, data_inicio, deadline, equipe_id) VALUES
 ('API ProjectFlow', 'Desenvolvimento da API de gestão de projetos', 'EM_PROGRESSO', DATE '2025-09-16', DATE '2026-01-01', 1),
+('API BeesCaatinga', 'Desenvolvimento da API de gestão de mel', 'EM_PROGRESSO', DATE '2025-09-16', DATE '2026-01-01', 1),
 ('Redesign Interface', 'Redesign completo da interface do usuário', 'PLANEJAMENTO', DATE '2025-09-16', DATE '2026-01-01', 2);
 
 INSERT INTO tarefas (titulo, descricao, status, prioridade, horas_estimadas, projeto_id, cessionario_id) VALUES
-('Criar entidade User', 'Implementar model User com JPA', 'FEITA', 'ALTA', 8, 1, 3),
-('Implementar autenticação JWT', 'Configurar Spring Security com JWT', 'EM_PROGRESSO', 'ALTA', 16, 1, 3),
-('Criar design sistema', 'Desenvolver wireframes do sistema', 'A_FAZER', 'MEDIA', 24, 2, 4);
+('Criar Entidade User', 'Implementar model User com JPA', 'FEITA', 'ALTA', 8, 1, 3),
+('Implementar Autenticação JWT', 'Configurar Spring Security com JWT', 'EM_PROGRESSO', 'ALTA', 16, 1, 3),
+('Criar Design Sistema', 'Desenvolver wireframes do sistema', 'A_FAZER', 'MEDIA', 24, 3, 4),
+('Revisar Build do Projeto', 'Build', 'FEITA', 'ALTA', 1, 1, 3),
+('Revisar Entidade User', 'Verificação', 'FEITA', 'ALTA', 1, 1, 3),
+('Revisar Dependências do Projeto', 'Verificação', 'FEITA', 'ALTA', 1, 1, 3),
+('Revisar Build do Projeto', 'Build', 'FEITA', 'ALTA', 1, 2, 3);
 
 INSERT INTO comentarios (conteudo, tarefa_id, autor_id) VALUES
 ('Entidade User criada com sucesso!', 1, 3),
 ('Preciso revisar as annotations de validação', 1, 2),
+('Dependencia de segurança desativada', 6, 3),
 ('Vou começar os wireframes na próxima semana', 3, 4);
 
 INSERT INTO anexos (nome_arquivo, url_arquivo, tarefa_id) VALUES

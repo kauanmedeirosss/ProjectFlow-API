@@ -172,4 +172,11 @@ public class TarefaController {
         return ResponseEntity.ok(comentarios);
     }
 
+    @GetMapping("/minhas")
+    @Operation(summary = "Lista todas as tarefas vinculadas ao usuário logado")
+    public ResponseEntity<List<TarefaRetornoDTO>> listarMinhasTarefas() {
+        List<TarefaRetornoDTO> tarefas = service.listarMinhasTarefas();
+        return ResponseEntity.ok(tarefas);
+    }
+
 }
