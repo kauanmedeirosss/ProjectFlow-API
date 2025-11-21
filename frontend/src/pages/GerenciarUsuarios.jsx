@@ -7,32 +7,33 @@ import api from "../services/api";
 import "./Home.css";
 import "./Projetos.css";
 
-export default function GerenciarProjetos() {
+export default function GerenciarUsuarios() {
   const navigate = useNavigate();
   const { user } = useAuth();
 
-  const [projetos, setProjetos] = useState([]);
+  const [usuarios, setUsuarios] = useState([]);
   const [loading, setLoading] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
-    async function fetchProjetos() {
+    async function fetchUsuarios() {
       try {
-        const response = await api.get("/projetos");
-        setProjetos(response.data.content || []);
+        const response = await api.get("/usuarios");
+        setUsuarios(response.data.content || []);
       } catch (error) {
-        console.error("Erro ao buscar projetos", error);
+        console.error("Erro ao buscar usuários", error);
       } finally {
         setLoading(false);
       }
     }
-    fetchProjetos();
+    fetchUsuarios();
   }, []);
 
   if (!user) return <p className="loading">Carregando...</p>;
 
   return (
     <div className="home-wrapper">
+
       {/* NAVBAR */}
       <div className="navbar">
         <button
@@ -53,53 +54,47 @@ export default function GerenciarProjetos() {
 
         <ul className="sidebar-menu">
           <li onClick={() => navigate("/home")}>Dashboard</li>
+
           <li onClick={() => navigate("/home")}>
             Gerenciar Usuários
           </li>
+
           <li onClick={() => navigate("/gerenciar-projetos")}>
             Gerenciar Projetos
           </li>
+
           <li onClick={() => navigate("/home")}>Perfil</li>
         </ul>
       </aside>
 
       {/* CONTEÚDO */}
       <div className="home-content">
-        <h1 className="home-title">Gerenciar Projetos</h1>
+        <h1 className="home-title">Gerenciar Usuários</h1>
         <p className="home-description">
-          Aqui você pode visualizar, adicionar, editar ou excluir qualquer projeto da
-          plataforma.
+          Aqui você pode visualizar, editar ou excluir qualquer usuário da plataforma.
         </p>
 
         {loading ? (
-          <p className="loading">Carregando projetos...</p>
-        ) : projetos.length === 0 ? (
+          <p className="loading">Carregando usuários...</p>
+        ) : usuarios.length === 0 ? (
           <p className="empty-text">
-            Nenhum projeto encontrado no sistema.
+            Nenhum usuário encontrado no sistema.
           </p>
         ) : (
           <div className="projetos-grid">
-            {projetos.map((proj) => (
-              <div key={proj.id} className="projeto-card">
-                <h3 className="projeto-title">{proj.nome}</h3>
+            {usuarios.map((u) => (
+              <div key={u.id} className="projeto-card">
+                <h3 className="projeto-title">{u.nome}</h3>
 
-                <p className="projeto-desc">{proj.descricao}</p>
+                <p className="projeto-desc">{u.email}</p>
 
-                <span className="status-badge badge-blue">
-                  {proj.status}
+                <span className="status-badge badge-purple">
+                  {u.role}
                 </span>
-
-                <div className="projeto-info">
-                  <p>
-                    <strong>Deadline:</strong> {proj.deadline || "--"}
-                  </p>
-                </div>
 
                 <button
                   className="projeto-btn"
-                  onClick={() =>
-                    navigate(`/projetos/${proj.id}/gerenciar`)
-                  }
+                  onClick={() => navigate(`/usuarios/${u.id}/gerenciar`)}
                 >
                   Gerenciar
                 </button>
