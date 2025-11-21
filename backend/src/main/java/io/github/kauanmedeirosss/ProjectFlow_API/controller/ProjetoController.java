@@ -80,7 +80,7 @@ public class ProjetoController {
             @RequestParam(defaultValue = "10") int tamanho,
 
             @Parameter(description = "Campo para ordenação", example = "nome")
-            @RequestParam(defaultValue = "nome") String ordenarPor)
+            @RequestParam(defaultValue = "id") String ordenarPor)
     {
         Pageable pageable = PageRequest.of(pagina, tamanho, Sort.by(ordenarPor));
         var projetos = service.listarTodas(pageable);

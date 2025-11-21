@@ -89,13 +89,14 @@ public class ComentarioController {
             @ApiResponse(responseCode = "400", description = "Dados inválidos"),
             @ApiResponse(responseCode = "404", description = "Comentário não encontrado"),
     })
-    @PutMapping
+    @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<ComentarioRetornoDTO> atualizar(@io.swagger.v3.oas.annotations.parameters.RequestBody(
             description = "Dados do comentário a ser atualizado",
             required = true)
+            @PathVariable Long id,
             @RequestBody @Valid ComentarioAtualizadoDTO dto){
-        var comentario = service.atualizar(dto);
+        var comentario = service.atualizar(id, dto);
         return ResponseEntity.ok(comentario);
     }
 

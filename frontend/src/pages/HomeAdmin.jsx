@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 import ButtonLogout from "../components/ButtonLogout";
 import UserProfileCard from "../components/UserProfileCard";
 import "./Home.css";
 
 export default function HomeAdministrador() {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   if (!user) return <p>Carregando...</p>;
@@ -32,8 +34,8 @@ export default function HomeAdministrador() {
         <ul className="sidebar-menu">
           <li>Dashboard</li>
           <li>Gerenciar Usuários</li>
-          <li>Gerenciar Projetos</li>
-          <li>Configurações</li>
+          <li onClick={() => navigate("/gerenciar-projetos")}>Gerenciar Projetos</li>
+          <li onClick={() => navigate("/home")}>Perfil</li>
         </ul>
       </aside>
 

@@ -127,7 +127,7 @@ export default function TarefasProjeto() {
                 <div className="projeto-info">
                   <p>
                     <strong>Cessionário:</strong>{" "}
-                    {tarefa.cessionario ? tarefa.cessionario.nome : "Não atribuído"}
+                    {tarefa.cessionario || "Não atribuído"}
                   </p>
                 </div>
 

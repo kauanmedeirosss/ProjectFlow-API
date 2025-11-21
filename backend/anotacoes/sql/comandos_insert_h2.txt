@@ -22,8 +22,8 @@ INSERT INTO projetos (nome, descricao, status, data_inicio, deadline, equipe_id)
 
 INSERT INTO tarefas (titulo, descricao, status, prioridade, horas_estimadas, projeto_id, cessionario_id) VALUES
 ('Criar Entidade User', 'Implementar model User com JPA', 'FEITA', 'ALTA', 8, 1, 3),
-('Implementar Autenticação JWT', 'Configurar Spring Security com JWT', 'EM_PROGRESSO', 'ALTA', 16, 1, 3),
-('Criar Design Sistema', 'Desenvolver wireframes do sistema', 'A_FAZER', 'MEDIA', 24, 3, 4),
+('Implementar JWT', 'Configurar Spring Security', 'EM_PROGRESSO', 'ALTA', 16, 1, 3),
+('Criar Design Sistema', 'Desenvolver wireframes', 'A_FAZER', 'MEDIA', 24, 3, 4),
 ('Revisar Build do Projeto', 'Build', 'FEITA', 'ALTA', 1, 1, 3),
 ('Revisar Entidade User', 'Verificação', 'FEITA', 'ALTA', 1, 1, 3),
 ('Revisar Dependências do Projeto', 'Verificação', 'FEITA', 'ALTA', 1, 1, 3),

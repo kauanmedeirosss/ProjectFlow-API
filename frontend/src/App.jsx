@@ -11,7 +11,7 @@ import MeusProjetos from "./pages/MeusProjetos";
 import TarefasProjeto from "./pages/TarefasProjeto";
 import TarefaDetalhes from "./pages/TarefaDetalhes";
 import MinhasTarefas from "./pages/MinhasTarefas";
-
+import GerenciarProjetos from "./pages/GerenciarProjetos";
 
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -30,6 +30,7 @@ export default function App() {
         {/* Rotas protegidas */}
         <Route element={<PrivateRoute allowedRoles={["ADMIN", "GERENTE"]} />}>
           <Route path="/home" element={<HomeAdmin />} />
+          <Route path="/gerenciar-projetos" element={<GerenciarProjetos />} />
         </Route>
 
         <Route element={<PrivateRoute allowedRoles={["MEMBRO"]} />}>

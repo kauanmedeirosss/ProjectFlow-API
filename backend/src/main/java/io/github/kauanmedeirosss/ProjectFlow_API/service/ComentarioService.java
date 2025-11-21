@@ -66,8 +66,8 @@ public class ComentarioService {
         );
     }
 
-    public ComentarioRetornoDTO atualizar(ComentarioAtualizadoDTO dto){
-        var comentario = repository.findById(dto.id())
+    public ComentarioRetornoDTO atualizar(Long id, ComentarioAtualizadoDTO dto){
+        var comentario = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Comentário não encontrado!"));
         comentario.setConteudo(dto.conteudo());
         repository.save(comentario);
