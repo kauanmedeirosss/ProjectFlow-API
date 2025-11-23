@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import icon from "../assets/icon.png";
 import Button from "../components/Button";
+import "./Login.css";
 import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
@@ -9,7 +10,7 @@ export default function Login() {
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState("");
   const navigate = useNavigate();
-  const { login } = useAuth(); // Pega função 'login' do contexto
+  const { login } = useAuth();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -34,13 +35,13 @@ export default function Login() {
         const data = await response.json();
 
         // Salva token e role no contexto e localStorage
-        login(data.tokenJWT, data.role); // função do AuthContext
+        login(data.tokenJWT, data.role);
         localStorage.setItem("role", data.role);
 
         if (data.role === "MEMBRO") {
           navigate("/home-membro");
         } else {
-          navigate("/home"); // ADMIN e GERENTE
+          navigate("/home");
          }
       } else if (response.status === 400) {
         const errData = await response.json();

@@ -1,7 +1,9 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.github.kauanmedeirosss.ProjectFlow_API.model.enums.StatusProjeto;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -19,6 +21,10 @@ public record ProjetoAtualizadoDTO(
         String nome,
         @Schema(description = "Descrição do projeto", example = "Projeção de Fluxos BPMN para os processos internos da instituição", required = false)
         String descricao,
+        @Schema(description = "Data de início do projeto", example = "01/01/2026", required = true)
+        @NotNull(message = "Campo obrigatório")
+        @JsonFormat(pattern = "dd/MM/yyyy")
+        LocalDate dataInicio,
         @Schema(description = "Deadline do projeto", example = "01/01/2026", required = true)
         @NotNull(message = "Campo obrigatório")
         @Future(message = "Data não pode ser passada")
@@ -26,6 +32,13 @@ public record ProjetoAtualizadoDTO(
         LocalDate deadline,
         @Schema(description = "Orçamento do projeto", example = "6000.00", required = true)
         @Positive(message = "Valor não pode ser negativo!")
-        BigDecimal orcamento
+        BigDecimal orcamento,
+        @Schema(description = "Novo status do projeto", example = "COMPLETO", required = true)
+        @Enumerated
+        @NotNull(message = "Campo obrigatório!")
+        StatusProjeto status,
+        @Schema(description = "ID da equipe a qual o projeto pertence", example = "1", required = true)
+        @NotNull(message = "Campo obrigatório")
+        Long equipe_id
 ) {
 }

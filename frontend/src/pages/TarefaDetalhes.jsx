@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import api from "../services/api";
+import "./TarefaDetalhes.css";
 
 function extractArrayFromResponse(resData) {
   if (Array.isArray(resData)) return resData;
@@ -244,391 +245,222 @@ export default function TarefaDetalhes() {
   }
 
   return (
-    <div style={{ padding: "20px", color: "white" }}>
-
-      {/* Voltar */}
+    <div className="tarefa-detalhes-container">
+      {/* Botão Voltar */}
       <button
         onClick={() => window.history.back()}
-        style={{
-          background: "#21262d",
-          border: "1px solid #30363d",
-          color: "white",
-          padding: "8px 14px",
-          borderRadius: "8px",
-          cursor: "pointer",
-          marginBottom: "15px",
-          fontSize: "14px",
-        }}
+        className="btn-voltar"
       >
         ⬅ Voltar
       </button>
 
-      <h1 style={{ marginBottom: "10px" }}>{tarefa.titulo}</h1>
+      {/* Header da Tarefa */}
+      <div className="tarefa-header">
+        <h1 className="tarefa-titulo">{tarefa.titulo}</h1>
 
-      <p><strong>Status:</strong> {tarefa.status}</p>
-      <p>
-        <strong>Cessionário:</strong>{" "}
-        {tarefa.cessionario ? tarefa.cessionario : "Não atribuído"}
-      </p>
+        <div className="tarefa-info">
+          <div className="info-item">
+            <span className="info-label">Status</span>
+            <span className="info-value">{tarefa.status}</span>
+          </div>
 
-      <hr style={{ margin: "20px 0", borderColor: "#30363d" }} />
+          <div className="info-item">
+            <span className="info-label">Cessionário</span>
+            <span className="info-value">
+              {tarefa.cessionario ? tarefa.cessionario : "Não atribuído"}
+            </span>
+          </div>
 
-      {/* === COMENTÁRIOS === */}
-      <h2>Comentários</h2>
+          <div className="info-item">
+            <span className="info-label">Prioridade</span>
+            <span className="info-value">{tarefa.prioridade || "Não informada"}</span>
+          </div>
 
-      {/* Caixa de adicionar comentário */}
-      <div style={{
-        backgroundColor: "#13161b",
-        padding: "16px",
-        borderRadius: 8,
-        marginBottom: 12
-      }}>
-        <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+          <div className="info-item">
+            <span className="info-label">Horas Estimadas</span>
+            <span className="info-value">{tarefa.horasEstimadas ?? "--"}</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Seção de Comentários */}
+      <h2 className="secao-titulo">Comentários</h2>
+
+      {/* Formulário de Comentário */}
+      <div className="comentario-form">
+        <div className="comentario-input-container">
           <textarea
             placeholder="Adicionar comentário..."
-            style={{
-              flex: 1,
-              backgroundColor: "#0d0f12",
-              color: "white",
-              padding: 10,
-              borderRadius: 6,
-              border: "1px solid #2a2f36",
-              height: 70,
-              resize: "none"
-            }}
+            className="comentario-textarea"
             value={novoComentario}
             onChange={(e) => setNovoComentario(e.target.value)}
             disabled={isSubmitting}
           />
-
           <button
             onClick={handleAddComentario}
             disabled={isSubmitting}
-            style={{
-              backgroundColor: isSubmitting ? "#2e7d32" : "#28a745",
-              color: "white",
-              padding: "10px 20px",
-              borderRadius: 6,
-              border: "none",
-              cursor: isSubmitting ? "not-allowed" : "pointer",
-              fontSize: 15,
-            }}
+            className="btn-adicionar"
           >
             {isSubmitting ? "Enviando..." : "Adicionar"}
           </button>
         </div>
-
-        {addError && (
-          <div style={{ marginTop: 8, color: "#ffb3b3", fontSize: 13 }}>
-            {String(addError)}
-          </div>
-        )}
+        {addError && <div className="erro-mensagem">{String(addError)}</div>}
       </div>
 
-      {/* Lista de comentários */}
+      {/* Lista de Comentários */}
       {(!comentarios || comentarios.length === 0) ? (
-        <p style={{ color: "#7d8590" }}>Nenhum comentário.</p>
+        <p className="empty-text">Nenhum comentário.</p>
       ) : (
-        comentarios.map((c) => (
-          <div
-            key={c.id}
-            style={{
-              background: "#161b22",
-              border: "1px solid #30363d",
-              borderRadius: "8px",
-              padding: "12px 16px",
-              marginBottom: "10px",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              position: "relative",
-              minHeight: "50px"
-            }}
-          >
-
-            {editandoId === c.id ? (
-              <>
-                <textarea
-                  style={{
-                    width: "100%",
-                    backgroundColor: "#0d0f12",
-                    color: "white",
-                    padding: 10,
-                    borderRadius: 6,
-                    border: "1px solid #2a2f36",
-                    resize: "none"
-                  }}
-                  value={novoConteudo}
-                  onChange={(e) => setNovoConteudo(e.target.value)}
-                />
-
-                <div style={{ marginTop: 10, display: "flex", gap: 10 }}>
-                  <button
-                    onClick={() => salvarEdicao(c.id)}
-                    style={{
-                      backgroundColor: "#238636",
-                      color: "white",
-                      padding: "6px 12px",
-                      borderRadius: 6,
-                      border: "none",
-                      cursor: "pointer"
-                    }}
-                  >
-                    Salvar
-                  </button>
-
-                  <button
-                    onClick={cancelarEdicao}
-                    style={{
-                      backgroundColor: "#6c757d",
-                      color: "white",
-                      padding: "6px 12px",
-                      borderRadius: 6,
-                      border: "none",
-                      cursor: "pointer"
-                    }}
-                  >
-                    Cancelar
-                  </button>
-                </div>
-              </>
-            ) : (
-              <>
-                <p style={{ margin: 0 }}>{c.conteudo}</p>
-
-                {c.autor && (
-                  <small style={{ color: "#9aa4b5", display: "block", marginTop: 6 }}>
-                    — {c.autor}
-                  </small>
-                )}
-
-                <div style={{ display: "flex", justifyContent: "flex-end", gap: "10px", marginTop: "10px" }}>
-                  <button
-                    onClick={() => iniciarEdicao(c)}
-                    style={{
-                      backgroundColor: "#0d6efd",
-                      border: "none",
-                      padding: "6px 14px",
-                      borderRadius: "6px",
-                      color: "white",
-                      cursor: "pointer",
-                      fontSize: "14px",
-                    }}
-                  >
-                    Editar
-                  </button>
-
-                  <button
-                    onClick={() => deletarComentario(c.id)}
-                    style={{
-                      backgroundColor: "#dc3545",
-                      border: "none",
-                      padding: "6px 14px",
-                      borderRadius: "6px",
-                      color: "white",
-                      cursor: "pointer",
-                      fontSize: "14px",
-                    }}
-                  >
-                    Excluir
-                  </button>
-                </div>
-              </>
-            )}
-          </div>
-        ))
-      )}
-
-      <hr style={{ margin: "20px 0", borderColor: "#30363d" }} />
-
-      {/* === ANEXOS === */}
-      <h2>Anexos</h2>
-
-      <div style={{
-        backgroundColor: "#13161b",
-        padding: "16px",
-        borderRadius: 8,
-        marginBottom: 12
-      }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-
-          <input
-            type="text"
-            placeholder="Nome do arquivo"
-            style={{
-              backgroundColor: "#0d0f12",
-              color: "white",
-              padding: 10,
-              borderRadius: 6,
-              border: "1px solid #2a2f36"
-            }}
-            value={novoNomeArquivo}
-            onChange={(e) => setNovoNomeArquivo(e.target.value)}
-          />
-
-          <input
-            type="text"
-            placeholder="URL do arquivo"
-            style={{
-              backgroundColor: "#0d0f12",
-              color: "white",
-              padding: 10,
-              borderRadius: 6,
-              border: "1px solid #2a2f36"
-            }}
-            value={novoURLArquivo}
-            onChange={(e) => setNovoURLArquivo(e.target.value)}
-          />
-
-          <button
-            onClick={handleAddAnexo}
-            disabled={isEnviandoAnexo}
-            style={{
-              backgroundColor: "#28a745",
-              color: "white",
-              padding: "10px 20px",
-              borderRadius: 6,
-              border: "none",
-              cursor: "pointer",
-              fontSize: 15
-            }}
-          >
-            {isEnviandoAnexo ? "Enviando..." : "Adicionar Anexo"}
-          </button>
-        </div>
-
-        {anexoErro && (
-          <div style={{ marginTop: 8, color: "#ffb3b3", fontSize: 13 }}>
-            {String(anexoErro)}
-          </div>
-        )}
-      </div>
-
-      {!anexos || anexos.length === 0 ? (
-        <p style={{ color: "#7d8590" }}>Nenhum anexo.</p>
-      ) : (
-        anexos.map((anexo) => (
-          <div
-            key={anexo.id}
-            style={{
-              backgroundColor: "#13161b",
-              padding: "16px",
-              borderRadius: 8,
-              marginBottom: 12,
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center"
-            }}
-          >
-            <div style={{ flex: 1 }}>
-
-              {editandoAnexoId === anexo.id ? (
-                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                  <input
-                    style={{
-                      backgroundColor: "#0d0f12",
-                      color: "white",
-                      padding: 8,
-                      borderRadius: 6,
-                      border: "1px solid #2a2f36",
-                    }}
-                    value={editNomeArquivo}
-                    onChange={(e) => setEditNomeArquivo(e.target.value)}
+        <div className="comentarios-lista">
+          {comentarios.map((c) => (
+            <div key={c.id} className="comentario-item">
+              {editandoId === c.id ? (
+                <>
+                  <textarea
+                    className="comentario-textarea"
+                    value={novoConteudo}
+                    onChange={(e) => setNovoConteudo(e.target.value)}
+                    style={{ minHeight: "120px", marginBottom: "15px" }}
                   />
-
-                  <input
-                    style={{
-                      backgroundColor: "#0d0f12",
-                      color: "white",
-                      padding: 8,
-                      borderRadius: 6,
-                      border: "1px solid #2a2f36",
-                    }}
-                    value={editURLArquivo}
-                    onChange={(e) => setEditURLArquivo(e.target.value)}
-                  />
-
-                  <button
-                    onClick={salvarEdicaoAnexo}
-                    style={{
-                      marginTop: 6,
-                      backgroundColor: "#28a745",
-                      border: "none",
-                      color: "white",
-                      padding: "8px 14px",
-                      borderRadius: 6,
-                      cursor: "pointer"
-                    }}
-                  >
-                    Salvar
-                  </button>
-
-                  <button
-                    onClick={() => setEditandoAnexoId(null)}
-                    style={{
-                      backgroundColor: "#6c757d",
-                      border: "none",
-                      color: "white",
-                      marginTop: 6,
-                      padding: "8px 14px",
-                      borderRadius: 6,
-                      cursor: "pointer"
-                    }}
-                  >
-                    Cancelar
-                  </button>
-                </div>
+                  <div style={{ display: "flex", gap: "10px" }}>
+                    <button
+                      onClick={() => salvarEdicao(c.id)}
+                      className="btn-salvar"
+                    >
+                      Salvar
+                    </button>
+                    <button
+                      onClick={cancelarEdicao}
+                      className="btn-cancelar"
+                    >
+                      Cancelar
+                    </button>
+                  </div>
+                </>
               ) : (
                 <>
-                  <div style={{ color: "white", fontSize: 15 }}>
-                    <strong>{anexo.nomeArquivo}</strong><br />
-
-                    {/* 🔥 AQUI O ERRO FOI CORRIGIDO */}
-                    <a
-                      href={anexo.URLarquivo}
-                      target="_blank"
-                      style={{ color: "#6ab0ff" }}
+                  <p className="comentario-conteudo">{c.conteudo}</p>
+                  {c.autor && (
+                    <p className="comentario-autor">— {c.autor}</p>
+                  )}
+                  <div className="comentario-acoes">
+                    <button
+                      onClick={() => iniciarEdicao(c)}
+                      className="btn-editar"
                     >
-                      {anexo.URLarquivo}
-                    </a>
+                      Editar
+                    </button>
+                    <button
+                      onClick={() => deletarComentario(c.id)}
+                      className="btn-excluir"
+                    >
+                      Excluir
+                    </button>
                   </div>
                 </>
               )}
             </div>
+          ))}
+        </div>
+      )}
 
-            {editandoAnexoId !== anexo.id && (
-              <div style={{ display: "flex", gap: 10 }}>
-                <button
-                  onClick={() => iniciarEdicaoAnexo(anexo)}
-                  style={{
-                    backgroundColor: "#007bff",
-                    border: "none",
-                    color: "white",
-                    padding: "8px 14px",
-                    borderRadius: 6,
-                    cursor: "pointer"
-                  }}
-                >
-                  Editar
-                </button>
+      {/* Seção de Anexos */}
+      <h2 className="secao-titulo">Anexos</h2>
 
-                <button
-                  onClick={() => handleDeleteAnexo(anexo.id)}
-                  style={{
-                    backgroundColor: "#dc3545",
-                    border: "none",
-                    color: "white",
-                    padding: "8px 14px",
-                    borderRadius: 6,
-                    cursor: "pointer"
-                  }}
-                >
-                  Excluir
-                </button>
-              </div>
-            )}
-          </div>
-        ))
+      {/* Formulário de Anexo */}
+      <div className="anexo-form">
+        <div className="anexo-inputs">
+          <input
+            type="text"
+            placeholder="Nome do arquivo"
+            className="anexo-input"
+            value={novoNomeArquivo}
+            onChange={(e) => setNovoNomeArquivo(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="URL do arquivo"
+            className="anexo-input"
+            value={novoURLArquivo}
+            onChange={(e) => setNovoURLArquivo(e.target.value)}
+          />
+        </div>
+        <button
+          onClick={handleAddAnexo}
+          disabled={isEnviandoAnexo}
+          className="btn-adicionar"
+        >
+          {isEnviandoAnexo ? "Enviando..." : "Adicionar Anexo"}
+        </button>
+        {anexoErro && <div className="erro-mensagem">{String(anexoErro)}</div>}
+      </div>
+
+      {/* Lista de Anexos */}
+      {!anexos || anexos.length === 0 ? (
+        <p className="empty-text">Nenhum anexo.</p>
+      ) : (
+        <div className="anexos-lista">
+          {anexos.map((anexo) => (
+            <div key={anexo.id} className="anexo-item">
+              {editandoAnexoId === anexo.id ? (
+                <div className="anexo-inputs">
+                  <input
+                    className="anexo-input"
+                    value={editNomeArquivo}
+                    onChange={(e) => setEditNomeArquivo(e.target.value)}
+                  />
+                  <input
+                    className="anexo-input"
+                    value={editURLArquivo}
+                    onChange={(e) => setEditURLArquivo(e.target.value)}
+                  />
+                  <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
+                    <button
+                      onClick={salvarEdicaoAnexo}
+                      className="btn-salvar"
+                    >
+                      Salvar
+                    </button>
+                    <button
+                      onClick={() => setEditandoAnexoId(null)}
+                      className="btn-cancelar"
+                    >
+                      Cancelar
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <div className="anexo-info">
+                    <h4 className="anexo-nome">{anexo.nomeArquivo}</h4>
+                    <a
+                      href={anexo.URLarquivo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="anexo-url"
+                    >
+                      {anexo.URLarquivo}
+                    </a>
+                  </div>
+                  <div className="anexo-acoes">
+                    <button
+                      onClick={() => iniciarEdicaoAnexo(anexo)}
+                      className="btn-editar"
+                    >
+                      Editar
+                    </button>
+                    <button
+                      onClick={() => handleDeleteAnexo(anexo.id)}
+                      className="btn-excluir"
+                    >
+                      Excluir
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );

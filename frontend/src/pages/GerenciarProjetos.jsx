@@ -15,11 +15,17 @@ export default function GerenciarProjetos() {
   const [loading, setLoading] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+
   useEffect(() => {
     async function fetchProjetos() {
       try {
-        const response = await api.get("/projetos");
-        setProjetos(response.data.content || []);
+        setLoading(true);
+        const response = await api.get(`/projetos?page=${page}&size=12`);
+
+        setProjetos(response.data.conteudo || []);
+        setTotalPages(response.data.totalPaginas || 1);
       } catch (error) {
         console.error("Erro ao buscar projetos", error);
       } finally {
@@ -27,7 +33,7 @@ export default function GerenciarProjetos() {
       }
     }
     fetchProjetos();
-  }, []);
+  }, [page]);
 
   if (!user) return <p className="loading">Carregando...</p>;
 
@@ -53,10 +59,13 @@ export default function GerenciarProjetos() {
 
         <ul className="sidebar-menu">
           <li onClick={() => navigate("/home")}>Dashboard</li>
-          <li onClick={() => navigate("/home")}>
-            Gerenciar Usuários
+          <li onClick={() => navigate("/gerenciar-equipes")}>
+            Gerenciar Equipes
           </li>
-          <li onClick={() => navigate("/gerenciar-projetos")}>
+          <li
+            className="active"
+            onClick={() => navigate("/gerenciar-projetos")}
+          >
             Gerenciar Projetos
           </li>
           <li onClick={() => navigate("/home")}>Perfil</li>
@@ -74,38 +83,59 @@ export default function GerenciarProjetos() {
         {loading ? (
           <p className="loading">Carregando projetos...</p>
         ) : projetos.length === 0 ? (
-          <p className="empty-text">
-            Nenhum projeto encontrado no sistema.
-          </p>
+          <p className="empty-text">Nenhum projeto encontrado no sistema.</p>
         ) : (
-          <div className="projetos-grid">
-            {projetos.map((proj) => (
-              <div key={proj.id} className="projeto-card">
-                <h3 className="projeto-title">{proj.nome}</h3>
+          <>
+            <div className="projetos-grid">
+              {projetos.map((proj) => (
+                <div key={proj.id} className="projeto-card">
+                  <h3 className="projeto-title">{proj.nome}</h3>
 
-                <p className="projeto-desc">{proj.descricao}</p>
+                  <p className="projeto-desc">{proj.descricao}</p>
 
-                <span className="status-badge badge-blue">
-                  {proj.status}
-                </span>
+                  <span className="status-badge badge-blue">
+                    {proj.status}
+                  </span>
 
-                <div className="projeto-info">
-                  <p>
-                    <strong>Deadline:</strong> {proj.deadline || "--"}
-                  </p>
+                  <div className="projeto-info">
+                    <p>
+                      <strong>Status:</strong> {proj.status || "--"}
+                    </p>
+                  </div>
+
+                  <button
+                    className="projeto-btn"
+                    onClick={() =>
+                      navigate(`/projetos/${proj.id}/gerenciar`)
+                    }
+                  >
+                    Gerenciar
+                  </button>
                 </div>
+              ))}
+            </div>
 
-                <button
-                  className="projeto-btn"
-                  onClick={() =>
-                    navigate(`/projetos/${proj.id}/gerenciar`)
-                  }
-                >
-                  Gerenciar
-                </button>
-              </div>
-            ))}
-          </div>
+            {/* PAGINAÇÃO */}
+            <div className="pagination">
+              <button
+                disabled={page === 0}
+                onClick={() => setPage((prev) => prev - 1)}
+              >
+                ◀ Anterior
+              </button>
+
+              <span>
+                Página {page + 1} de {totalPages}
+              </span>
+
+              <button
+                disabled={page + 1 >= totalPages}
+                onClick={() => setPage((prev) => prev + 1)}
+              >
+                Próxima ▶
+              </button>
+            </div>
+          </>
         )}
       </div>
     </div>

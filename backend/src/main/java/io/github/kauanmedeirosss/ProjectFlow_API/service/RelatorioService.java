@@ -2,7 +2,7 @@ package io.github.kauanmedeirosss.ProjectFlow_API.service;
 
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.dto.projeto.ProjetoProgressoDTO;
 import io.github.kauanmedeirosss.ProjectFlow_API.controller.mapper.ProjetoMapper;
-import io.github.kauanmedeirosss.ProjectFlow_API.repository.ProjetoRepository;
+import io.github.kauanmedeirosss.ProjectFlow_API.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,13 +13,15 @@ import java.util.List;
 public class RelatorioService {
 
     private final ProjetoRepository projetoRepository;
+    private final UsuarioRepository usuarioRepository;
+    private final TarefaRepository tarefaRepository;
+    private final EquipeRepository equipeRepository;
     private final ProjetoMapper projetoMapper;
 
-    public List<ProjetoProgressoDTO> listarProgressosProjetos(){
-        var lista = projetoRepository.findAll();
-        return lista.stream()
+    public List<ProjetoProgressoDTO> listarProgressosProjetos() {
+        return projetoRepository.findAll()
+                .stream()
                 .map(projetoMapper::toProgressoDTO)
                 .toList();
     }
-
 }

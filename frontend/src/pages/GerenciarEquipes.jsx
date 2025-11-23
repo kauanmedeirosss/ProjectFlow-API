@@ -55,8 +55,8 @@ export default function GerenciarUsuarios() {
         <ul className="sidebar-menu">
           <li onClick={() => navigate("/home")}>Dashboard</li>
 
-          <li onClick={() => navigate("/home")}>
-            Gerenciar Usuários
+          <li onClick={() => navigate("/gerenciar-equipes")}>
+            Gerenciar Equipes
           </li>
 
           <li onClick={() => navigate("/gerenciar-projetos")}>

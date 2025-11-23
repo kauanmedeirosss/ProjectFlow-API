@@ -14,6 +14,7 @@ public interface ProjetoMapper {
     @Mapping(target = "id", ignore = true)
     Projeto toEntity(ProjetoCriadoDTO dto);
 
+    @Mapping(target = "nomeEquipe", source = "equipe.nome")
     ProjetoRetornoDTO toRetornoDTO(Projeto projeto);
 
     ProjetoProgressoDTO toProgressoDTO(Projeto projeto);

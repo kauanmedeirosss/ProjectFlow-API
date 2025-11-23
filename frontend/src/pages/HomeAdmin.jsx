@@ -33,7 +33,7 @@ export default function HomeAdministrador() {
         <h3 className="sidebar-title">Menu</h3>
         <ul className="sidebar-menu">
           <li onClick={() => navigate("/home")}>Dashboard</li>
-          <li onClick={() => navigate("/home")}>Gerenciar Usuários</li>
+          <li onClick={() => navigate("/gerenciar-equipes")}>Gerenciar Equipes</li>
           <li onClick={() => navigate("/gerenciar-projetos")}>Gerenciar Projetos</li>
           <li onClick={() => navigate("/home")}>Perfil</li>
         </ul>
