@@ -21,6 +21,7 @@ public class Equipe {
             inverseJoinColumns = @JoinColumn(name = "usuario_id")
     )
     private Set<Usuario> membros = new HashSet<>();
+    private int quantidadeMembros;
     @OneToMany(mappedBy = "equipe", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Projeto> projetos = new ArrayList<>();
 
@@ -35,5 +36,9 @@ public class Equipe {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    public void calculaQtMembros(){
+        quantidadeMembros = membros.size();
     }
 }

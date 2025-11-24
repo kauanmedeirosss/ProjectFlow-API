@@ -1,0 +1,77 @@
+.ge-container {
+    padding: 40px;
+}
+
+.ge-title {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.ge-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.ge-loading,
+.ge-empty {
+    font-size: 18px;
+    margin-top: 20px;
+    opacity: 0.8;
+}
+
+.ge-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.ge-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: 0.25s ease;
+}
+
+.ge-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.ge-card h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.ge-card p {
+    font-size: 15px;
+    color: #555;
+    min-height: 50px;
+}
+
+.ge-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.ge-pagination {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.ge-pagination button {
+    padding: 10px 18px;
+    background: #eee;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.ge-pagination button:disabled {
+    opacity: 0.5;
+    cursor: default;
+}

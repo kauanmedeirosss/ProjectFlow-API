@@ -46,6 +46,7 @@ public class EquipeService {
 
         List<EquipeRetornoDTO> conteudo = pagina.getContent()
                 .stream()
+                .peek(Equipe::calculaQtMembros)
                 .map(mapper::toRetornoDTO)
                 .toList();
 
@@ -87,6 +88,7 @@ public class EquipeService {
 
         // Adicionar usuário à equipe (lado proprietário)
         equipe.getMembros().add(usuario);
+        equipe.calculaQtMembros();
         // Adicionar equipe ao usuário (lado inverso - mantém consistência)
         usuario.getEquipe().add(equipe);
         repository.save(equipe);
@@ -104,6 +106,7 @@ public class EquipeService {
 
         // Remover usuário da equipe (lado proprietário)
         equipe.getMembros().remove(usuario);
+        equipe.calculaQtMembros();
         // Remover equipe do usuário (lado inverso - mantém consistência)
         usuario.getEquipe().remove(equipe);
         repository.save(equipe);

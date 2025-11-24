@@ -13,9 +13,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public record ProjetoAtualizadoDTO(
-        @Schema(description = "ID do projeto", example = "1", required = true)
-        @NotNull(message = "Campo obrigatório!")
-        Long id,
         @Schema(description = "Nome do projeto", example = "Projeção de Fluxos", required = true)
         @NotBlank(message = "Campo obrigatório!")
         String nome,
@@ -36,9 +33,6 @@ public record ProjetoAtualizadoDTO(
         @Schema(description = "Novo status do projeto", example = "COMPLETO", required = true)
         @Enumerated
         @NotNull(message = "Campo obrigatório!")
-        StatusProjeto status,
-        @Schema(description = "ID da equipe a qual o projeto pertence", example = "1", required = true)
-        @NotNull(message = "Campo obrigatório")
-        Long equipe_id
+        StatusProjeto status
 ) {
 }

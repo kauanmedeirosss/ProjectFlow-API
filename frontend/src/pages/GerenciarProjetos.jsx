@@ -80,6 +80,13 @@ export default function GerenciarProjetos() {
           plataforma.
         </p>
 
+        <button
+          className="projeto-btn criar-btn"
+          onClick={() => navigate("/projetos/criar")}
+        >
+          + Criar Novo Projeto
+        </button>
+
         {loading ? (
           <p className="loading">Carregando projetos...</p>
         ) : projetos.length === 0 ? (
@@ -106,7 +113,7 @@ export default function GerenciarProjetos() {
                   <button
                     className="projeto-btn"
                     onClick={() =>
-                      navigate(`/projetos/${proj.id}/gerenciar`)
+                      navigate(`/projetos/${proj.id}`)
                     }
                   >
                     Gerenciar

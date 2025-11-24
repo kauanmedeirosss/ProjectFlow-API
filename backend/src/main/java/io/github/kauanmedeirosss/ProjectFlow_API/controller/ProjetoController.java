@@ -97,14 +97,15 @@ public class ProjetoController {
             @ApiResponse(responseCode = "404", description = "Projeto não encontrado"),
             @ApiResponse(responseCode = "403", description = "Acesso negado - requer role ADMIN ou GERENTE")
     })
-    @PutMapping
+    @PutMapping("/{id}")
     @Transactional
     @PreAuthorize("hasAnyRole('ADMIN', 'GERENTE')")
     public ResponseEntity<ProjetoRetornoDTO> atualizar(@io.swagger.v3.oas.annotations.parameters.RequestBody(
             description = "Dados do projeto a ser atualizado",
             required = true)
+            @PathVariable Long id,
             @RequestBody @Valid ProjetoAtualizadoDTO dto){
-        var projeto = service.atualizar(dto);
+        var projeto = service.atualizar(id, dto);
         return ResponseEntity.ok(projeto);
     }
 

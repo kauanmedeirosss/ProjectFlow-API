@@ -64,14 +64,17 @@ public class ProjetoService {
         );
     }
 
-    public ProjetoRetornoDTO atualizar(ProjetoAtualizadoDTO dto){
-        var projeto = repository.findById(dto.id())
+    public ProjetoRetornoDTO atualizar(Long id, ProjetoAtualizadoDTO dto){
+        var projeto = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Projeto não encontrado!"));
 
         projeto.setNome(dto.nome());
         projeto.setDescricao(dto.descricao());
+        projeto.setDataInicio(dto.dataInicio());
         projeto.setDeadline(dto.deadline());
         projeto.setOrcamento(dto.orcamento());
+        projeto.setStatus(dto.status());
+
         repository.save(projeto);
         return mapper.toRetornoDTO(projeto);
     }
