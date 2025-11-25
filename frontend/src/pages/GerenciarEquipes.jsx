@@ -78,7 +78,7 @@ export default function GerenciarEquipes() {
 
                 <button
                     className="projeto-btn criar-btn"
-                    onClick={() => navigate("/criar-equipe")}
+                    onClick={() => navigate("/equipes/criar")}
                 >
                     + Nova Equipe
                 </button>

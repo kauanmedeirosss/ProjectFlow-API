@@ -5,9 +5,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record EquipeAtualizadaDTO(
-        @Schema(description = "ID da equipe", example = "1", required = true)
-        @NotNull(message = "Campo obrigatório!")
-        Long id,
         @Schema(description = "Nome da equipe", example = "Equipe de Desenvolvimento", required = true)
         @NotBlank(message = "Campo obrigatório!")
         String nome,

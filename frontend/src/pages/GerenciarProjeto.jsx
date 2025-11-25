@@ -74,6 +74,7 @@ export default function GerenciarProjeto() {
             const response = await api.delete(`/projetos/${id}`);
 
             if (response.status === 200 || response.status === 204) {
+                alert("Equipe removida com sucesso!");
                 navigate("/gerenciar-projetos", { replace: true });
                 return;
             }

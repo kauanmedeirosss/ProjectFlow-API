@@ -15,6 +15,8 @@ import GerenciarProjetos from "./pages/GerenciarProjetos";
 import GerenciarEquipes from "./pages/GerenciarEquipes";
 import CriarProjeto from "./pages/CriarProjeto";
 import GerenciarProjeto from "./pages/GerenciarProjeto";
+import GerenciarEquipe from "./pages/GerenciarEquipe";
+import CriarEquipe from "./pages/CriarEquipe";
 
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -37,6 +39,8 @@ export default function App() {
           <Route path="/gerenciar-equipes" element={<GerenciarEquipes />} />
           <Route path="/projetos/criar" element={<CriarProjeto />} />
           <Route path="/projetos/:id" element={<GerenciarProjeto />} />
+          <Route path="/equipes/:id" element={<GerenciarEquipe />} />
+          <Route path="/equipes/criar" element={<CriarEquipe />} />
         </Route>
 
         <Route element={<PrivateRoute allowedRoles={["MEMBRO"]} />}>

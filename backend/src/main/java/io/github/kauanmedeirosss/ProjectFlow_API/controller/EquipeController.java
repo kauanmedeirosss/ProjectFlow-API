@@ -92,14 +92,15 @@ public class EquipeController {
             @ApiResponse(responseCode = "404", description = "Equipe não encontrada"),
             @ApiResponse(responseCode = "403", description = "Acesso negado - requer role ADMIN ou GERENTE")
     })
-    @PutMapping
+    @PutMapping("/{id}")
     @Transactional
     @PreAuthorize("hasAnyRole('ADMIN', 'GERENTE')")
     public ResponseEntity<EquipeRetornoDTO> atualizar(@io.swagger.v3.oas.annotations.parameters.RequestBody(
             description = "Dados da equipe a ser atualizada",
             required = true)
+            @PathVariable Long id,
             @RequestBody @Valid EquipeAtualizadaDTO dto){
-        var equipe = service.atualizar(dto);
+        var equipe = service.atualizar(id, dto);
         return ResponseEntity.ok(equipe);
     }
 

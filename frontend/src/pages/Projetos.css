@@ -570,3 +570,38 @@ select option {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+.criar-equipe-btn {
+  margin-bottom: 25px;
+  background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: auto;
+  text-align: center;
+  width: 100%;
+  margin-top: 10px !important;
+}
+
+.criar-equipe-btn:hover {
+  background: linear-gradient(135deg, #27ae60 0%, #219653 100%);
+  transform: translateY(-3px);
+  box-shadow: 
+    0 8px 25px rgba(46, 204, 113, 0.4),
+    0 0 0 1px rgba(46, 204, 113, 0.2);
+}
+
+.criar-equipe-btn:hover::before {
+  left: 100%;
+}
+
+.criar-equipe-btn:active {
+  transform: translateY(-1px);
+  box-shadow: 
+    0 4px 15px rgba(46, 204, 113, 0.3),
+    0 0 0 1px rgba(46, 204, 113, 0.1);
+}

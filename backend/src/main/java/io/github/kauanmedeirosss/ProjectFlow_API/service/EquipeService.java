@@ -38,6 +38,7 @@ public class EquipeService {
     public EquipeRetornoDTO buscarPorId(Long id){
         var equipe = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Equipe não encontrada!"));
+        equipe.calculaQtMembros();
         return mapper.toRetornoDTO(equipe);
     }
 
@@ -59,8 +60,8 @@ public class EquipeService {
         );
     }
 
-    public EquipeRetornoDTO atualizar(EquipeAtualizadaDTO dto){
-        var equipe = repository.findById(dto.id())
+    public EquipeRetornoDTO atualizar(Long id, EquipeAtualizadaDTO dto){
+        var equipe = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Equipe não encontrada!"));
         equipe.setNome(dto.nome());
         equipe.setDescricao(dto.descricao());
