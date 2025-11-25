@@ -48,6 +48,11 @@ npm run dev
 #### Outras pastas: `utils`, `theme` e `routes`
 #### Para o vscode reconhecer css dentro de js, instalar a extensão "vscode-styled-components"
 
+# Instalação para trabalhar com gráficos:
+````bash
+npm install recharts
+````
+
 # Comandos úteis
 #### Quer parar o projeto no terminal?
 * `Ctrl + C`, em seguida: `s`

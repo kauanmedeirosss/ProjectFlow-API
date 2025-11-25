@@ -32,7 +32,7 @@ export default function HomeAdministrador() {
       <aside className={`sidebar ${sidebarOpen ? "open" : ""}`}>
         <h3 className="sidebar-title">Menu</h3>
         <ul className="sidebar-menu">
-          <li onClick={() => navigate("/home")}>Dashboard</li>
+          <li onClick={() => navigate("/dashboard")}>Dashboard</li>
           <li onClick={() => navigate("/gerenciar-equipes")}>Gerenciar Equipes</li>
           <li onClick={() => navigate("/gerenciar-projetos")}>Gerenciar Projetos</li>
           <li onClick={() => navigate("/home")}>Perfil</li>

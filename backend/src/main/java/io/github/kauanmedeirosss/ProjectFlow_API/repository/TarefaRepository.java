@@ -1,6 +1,7 @@
 package io.github.kauanmedeirosss.ProjectFlow_API.repository;
 
 import io.github.kauanmedeirosss.ProjectFlow_API.model.Tarefa;
+import io.github.kauanmedeirosss.ProjectFlow_API.model.enums.StatusTarefa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,4 +20,5 @@ public interface TarefaRepository extends JpaRepository<Tarefa, Long> {
         """)
     List<Tarefa> findAllByEquipeIds(@Param("equipeIds") Collection<Long> equipeIds);
     List<Tarefa> findByProjetoId(Long projetoId);
+    long countByStatus(StatusTarefa status);
 }

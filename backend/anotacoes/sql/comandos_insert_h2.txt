@@ -1,24 +1,48 @@
 INSERT INTO equipes (nome, descricao) VALUES
 ('Equipe Desenvolvimento', 'Time responsável pelo desenvolvimento do software'),
-('Equipe Design', 'Time responsável pelo design e UX');
+('Equipe Design', 'Time responsável pelo design e UX'),
+('Equipe QA', 'Time responsável pelos testes e garantia de qualidade'),
+('Equipe DevOps', 'Time responsável por CI/CD e infraestrutura'),
+('Equipe Mobile', 'Desenvolvimento do aplicativo mobile');
 
 INSERT INTO usuarios (nome, email, senha, role) VALUES
 ('Admin User', 'admin@projectflow.com', '$2a$10$i84FynAHxd7E1GgP/6LT6.bpNANSW.Rpy/uE4CWygtAB4ckPfzKly', 'ADMIN'),
 ('Manager User', 'manager@projectflow.com', '$2a$10$i84FynAHxd7E1GgP/6LT6.bpNANSW.Rpy/uE4CWygtAB4ckPfzKly', 'GERENTE'),
 ('John Developer', 'john@projectflow.com', '$2a$10$i84FynAHxd7E1GgP/6LT6.bpNANSW.Rpy/uE4CWygtAB4ckPfzKly', 'MEMBRO'),
 ('Kauan', 'kauanmedeirosdev@gmail.com', '$2a$10$i84FynAHxd7E1GgP/6LT6.bpNANSW.Rpy/uE4CWygtAB4ckPfzKly', 'ADMIN'),
-('Jane Designer', 'jane@projectflow.com', '$2a$10$i84FynAHxd7E1GgP/6LT6.bpNANSW.Rpy/uE4CWygtAB4ckPfzKly', 'MEMBRO');
+('Jane Designer', 'jane@projectflow.com', '$2a$10$i84FynAHxd7E1GgP/6LT6.bpNANSW.Rpy/uE4CWygtAB4ckPfzKly', 'MEMBRO'),
+('QA Leader', 'qa@projectflow.com', '$2a$10$i84FynAHxd7E1GgP/6LT6.bpNANSW.Rpy/uE4CWygtAB4ckPfzKly', 'GERENTE'),
+('Mobile Dev', 'mobile@projectflow.com', '$2a$10$i84FynAHxd7E1GgP/6LT6.bpNANSW.Rpy/uE4CWygtAB4ckPfzKly', 'MEMBRO'),
+('DevOps Master', 'devops@projectflow.com', '$2a$10$i84FynAHxd7E1GgP/6LT6.bpNANSW.Rpy/uE4CWygtAB4ckPfzKly', 'GERENTE'),
+('QA Tester Junior', 'qa2@projectflow.com', '$2a$10$i84FynAHxd7E1GgP/6LT6.bpNANSW.Rpy/uE4CWygtAB4ckPfzKly', 'MEMBRO');
 
 INSERT INTO membros_equipe (equipe_id, usuario_id) VALUES
 (1, 1),
 (1, 2),
 (1, 3),
-(2, 4);
+(2, 4),
+(3, 6),
+(3, 9),
+(4, 8),
+(5, 7);
 
 INSERT INTO projetos (nome, descricao, status, data_inicio, deadline, equipe_id) VALUES
 ('API ProjectFlow', 'Desenvolvimento da API de gestão de projetos', 'EM_PROGRESSO', DATE '2025-09-16', DATE '2026-01-01', 1),
 ('API BeesCaatinga', 'Desenvolvimento da API de gestão de mel', 'EM_PROGRESSO', DATE '2025-09-16', DATE '2026-01-01', 1),
-('Redesign Interface', 'Redesign completo da interface do usuário', 'PLANEJAMENTO', DATE '2025-09-16', DATE '2026-01-01', 2);
+('Redesign Interface', 'Redesign completo da interface do usuário', 'PLANEJAMENTO', DATE '2025-09-16', DATE '2026-01-01', 2),
+('Test Automation Suite', 'Criação de suíte automatizada de testes', 'EM_PROGRESSO', DATE '2025-10-01', DATE '2026-02-15', 3),
+('Pipeline CI/CD', 'Configuração do pipeline completo no GitHub Actions', 'EM_PROGRESSO', DATE '2025-09-20', DATE '2026-01-20', 4),
+('App Mobile ProjectFlow', 'Versão mobile do sistema', 'PLANEJAMENTO', DATE '2025-11-01', DATE '2026-03-10', 5),
+('Refatoração do Módulo de Autenticação', 'Reescrita completa do módulo de login e JWT', 'COMPLETO', DATE '2025-05-10', DATE '2025-08-01', 1),
+('Redesign do Dashboard', 'Novo visual completo para o dashboard principal', 'COMPLETO', DATE '2025-02-01', DATE '2025-06-15', 2),
+('Testes End-to-End do Sistema', 'Implementação dos testes E2E', 'COMPLETO', DATE '2025-04-20', DATE '2025-09-05', 3),
+('Infraestrutura Inicial do CI/CD', 'Primeira versão estável do pipeline CI/CD', 'COMPLETO', DATE '2025-03-01', DATE '2025-07-10', 4),
+('Protótipo Mobile ProjectFlow', 'Protótipo navegável do aplicativo mobile', 'COMPLETO', DATE '2025-06-01', DATE '2025-10-01', 5),
+('Sistema de Chat Interno', 'Implementação de um chat interno entre equipes', 'CANCELADO', DATE '2025-07-10', DATE '2025-12-01', 1),
+('Portal Externo para Clientes', 'Uma interface externa para clientes monitorarem seus projetos', 'CANCELADO', DATE '2025-03-15', DATE '2025-09-30', 2),
+('Testes Automatizados de Performance', 'Automação de testes de carga e stress', 'CANCELADO', DATE '2025-04-01', DATE '2025-08-20', 3),
+('Integração com AWS Full', 'Migração completa para infraestrutura em AWS', 'CANCELADO', DATE '2025-05-25', DATE '2025-11-10', 4),
+('Aplicativo Mobile para Parceiros', 'Versão exclusiva do app para parceiros externos', 'CANCELADO', DATE '2025-06-05', DATE '2025-10-30', 5);
 
 INSERT INTO tarefas (titulo, descricao, status, prioridade, horas_estimadas, projeto_id, cessionario_id) VALUES
 ('Criar Entidade User', 'Implementar model User com JPA', 'FEITA', 'ALTA', 8, 1, 3),
@@ -27,17 +51,29 @@ INSERT INTO tarefas (titulo, descricao, status, prioridade, horas_estimadas, pro
 ('Revisar Build do Projeto', 'Build', 'FEITA', 'ALTA', 1, 1, 3),
 ('Revisar Entidade User', 'Verificação', 'FEITA', 'ALTA', 1, 1, 3),
 ('Revisar Dependências do Projeto', 'Verificação', 'FEITA', 'ALTA', 1, 1, 3),
-('Revisar Build do Projeto', 'Build', 'FEITA', 'ALTA', 1, 2, 3);
+('Revisar Build do Projeto', 'Build', 'FEITA', 'ALTA', 1, 2, 3),
+('Criar Testes de Login', 'Implementar testes automatizados para login', 'A_FAZER', 'MEDIA', 12, 4, 9),
+('Configurar Pipeline Build', 'Criar workflow de build e testes', 'EM_PROGRESSO', 'ALTA', 20, 5, 8),
+('Criar Telas Mobile', 'Desenvolver telas iniciais do app', 'A_FAZER', 'ALTA', 40, 6, 7),
+('Testar Fluxo de Cadastro', 'Testes automatizados do cadastro de usuário', 'A_FAZER', 'MEDIA', 16, 4, 9),
+('Estruturar Deploy Automatizado', 'Configurar deploy contínuo', 'REVISAO', 'CRITICA', 30, 5, 8);
 
 INSERT INTO comentarios (conteudo, tarefa_id, autor_id) VALUES
 ('Entidade User criada com sucesso!', 1, 3),
 ('Preciso revisar as annotations de validação', 1, 2),
 ('Dependencia de segurança desativada', 6, 3),
-('Vou começar os wireframes na próxima semana', 3, 4);
+('Vou começar os wireframes na próxima semana', 3, 4),
+('Iniciando criação dos testes de login', 8, 9),
+('Pipeline de build quase pronto!', 9, 8),
+('Vou começar as telas mobile amanhã', 10, 7),
+('Precisamos validar o fluxo de cadastro com o cliente', 11, 6);
 
 INSERT INTO anexos (nome_arquivo, url_arquivo, tarefa_id) VALUES
 ('user_entity.png', 'https://storage.com/user_entity.png', 1),
-('jwt_diagram.pdf', 'https://storage.com/jwt_diagram.pdf', 2);
+('jwt_diagram.pdf', 'https://storage.com/jwt_diagram.pdf', 2),
+('login_test_plan.pdf', 'https://storage.com/login_test_plan.pdf', 8),
+('cicd_workflow.yml', 'https://storage.com/cicd_workflow.yml', 9),
+('mobile_screens.png', 'https://storage.com/mobile_screens.png', 10);
 
 
 // https://bcrypt-generator.com

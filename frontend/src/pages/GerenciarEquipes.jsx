@@ -58,7 +58,7 @@ export default function GerenciarEquipes() {
                 <h3 className="sidebar-title">Menu</h3>
 
                 <ul className="sidebar-menu">
-                    <li onClick={() => navigate("/home")}>Dashboard</li>
+                    <li onClick={() => navigate("/dashboard")}>Dashboard</li>
                     <li className="active" onClick={() => navigate("/gerenciar-equipes")}>
                         Gerenciar Equipes
                     </li>

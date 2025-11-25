@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "49ef3e58-04c3-42ca-8e4d-9820e8274364",
+		"_postman_id": "3e83a33e-a924-4225-b2d8-726264ca7c55",
 		"name": "ProjectFlow_API",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "43586212"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "48842472",
+		"_collection_link": "https://kauanmedeirosss-77628.postman.co/workspace/Kauan-Medeiros-Local's-Workspac~0bf25aa0-c095-4c60-8ce9-c3e34c5097ac/collection/48842472-3e83a33e-a924-4225-b2d8-726264ca7c55?action=share&source=collection_link&creator=48842472"
 	},
 	"item": [
 		{
@@ -16,24 +17,14 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"login\":\"\",\r\n    \"senha\":\"\"\r\n}",
+							"raw": "{\r\n    \"login\":\"kauanmedeirosdev@gmail.com\",\r\n    \"senha\":\"123456\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/login",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"login"
-							]
-						}
+						"url": "http://localhost:8080/login"
 					},
 					"response": []
 				}
@@ -56,56 +47,37 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/usuarios",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"usuarios"
-							]
-						}
+						"url": "http://localhost:8080/usuarios"
 					},
 					"response": []
 				},
 				{
 					"name": "Listar",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJQcm9qZWN0Rmxvdy1BUEkiLCJzdWIiOiJrYXVhbm1lZGVpcm9zZGV2QGdtYWlsLmNvbSIsImV4cCI6MTc2NDA0MjQzOX0.chU7DeuSO5acO8Lzajd6JzW2bpJLN1n5JBC8s5w11dM"
+							}
+						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/usuarios",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"usuarios"
-							]
-						}
+						"url": "http://localhost:8080/usuarios"
 					},
 					"response": []
 				},
 				{
 					"name": "Buscar",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJQcm9qZWN0Rmxvdy1BUEkiLCJzdWIiOiJrYXVhbm1lZGVpcm9zZGV2QGdtYWlsLmNvbSIsImV4cCI6MTc2NDA0MjQzOX0.chU7DeuSO5acO8Lzajd6JzW2bpJLN1n5JBC8s5w11dM"
+							}
+						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/usuarios/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"usuarios",
-								"1"
-							]
-						}
+						"url": "http://localhost:8080/usuarios/1"
 					},
 					"response": []
 				},
@@ -123,17 +95,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/usuarios",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"usuarios"
-							]
-						}
+						"url": "http://localhost:8080/usuarios"
 					},
 					"response": []
 				},
@@ -142,18 +104,7 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/usuarios/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"usuarios",
-								"1"
-							]
-						}
+						"url": "http://localhost:8080/usuarios/1"
 					},
 					"response": []
 				}
@@ -170,20 +121,7 @@
 							"request": {
 								"method": "POST",
 								"header": [],
-								"url": {
-									"raw": "http://localhost:8080/equipes/1/membros/1",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"equipes",
-										"1",
-										"membros",
-										"1"
-									]
-								}
+								"url": "http://localhost:8080/equipes/1/membros/1"
 							},
 							"response": []
 						},
@@ -192,20 +130,7 @@
 							"request": {
 								"method": "DELETE",
 								"header": [],
-								"url": {
-									"raw": "http://localhost:8080/equipes/1/membros/1",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"equipes",
-										"1",
-										"membros",
-										"1"
-									]
-								}
+								"url": "http://localhost:8080/equipes/1/membros/1"
 							},
 							"response": []
 						},
@@ -214,19 +139,7 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "http://localhost:8080/equipes/1/membros",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"equipes",
-										"1",
-										"membros"
-									]
-								}
+								"url": "http://localhost:8080/equipes/1/membros"
 							},
 							"response": []
 						}
@@ -246,17 +159,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/equipes",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"equipes"
-							]
-						}
+						"url": "http://localhost:8080/equipes"
 					},
 					"response": []
 				},
@@ -265,17 +168,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/equipes",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"equipes"
-							]
-						}
+						"url": "http://localhost:8080/equipes"
 					},
 					"response": []
 				},
@@ -284,18 +177,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/equipes/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"equipes",
-								"1"
-							]
-						}
+						"url": "http://localhost:8080/equipes/1"
 					},
 					"response": []
 				},
@@ -306,24 +188,14 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\":1,\r\n    \"nome\":\"Squad de Desenvolvimento\",\r\n    \"descricao\":\"Squad de Desenvolvimento Back-End Java\"\r\n}",
+							"raw": "{\r\n    \"nome\":\"Squad de Desenvolvimento\",\r\n    \"descricao\":\"Squad de Desenvolvimento Back-End Java\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/equipes",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"equipes"
-							]
-						}
+						"url": "http://localhost:8080/equipes/1"
 					},
 					"response": []
 				},
@@ -332,18 +204,7 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/equipes/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"equipes",
-								"1"
-							]
-						}
+						"url": "http://localhost:8080/equipes/1"
 					},
 					"response": []
 				}
@@ -366,17 +227,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/projetos",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"projetos"
-							]
-						}
+						"url": "http://localhost:8080/projetos"
 					},
 					"response": []
 				},
@@ -385,17 +236,22 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/projetos",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"projetos"
-							]
-						}
+						"url": "http://localhost:8080/projetos"
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Tarefas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJQcm9qZWN0Rmxvdy1BUEkiLCJzdWIiOiJrYXVhbm1lZGVpcm9zZGV2QGdtYWlsLmNvbSIsImV4cCI6MTc2MzQ0Mzc1OX0.CK-n74bm_zbA3Gkxnz9EjbZwa4Wx3WG_hvxLVTWrJSQ"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/projetos/1/tarefas"
 					},
 					"response": []
 				},
@@ -404,18 +260,22 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/projetos/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"projetos",
-								"1"
-							]
-						}
+						"url": "http://localhost:8080/projetos/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Meus",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJQcm9qZWN0Rmxvdy1BUEkiLCJzdWIiOiJqb2huQHByb2plY3RmbG93LmNvbSIsImV4cCI6MTc2MzQzOTg1MH0.2bsPTXmtGs7zDtnBOVk_I5ttOsY46pTRyHcl3tVgqYo"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/projetos/meus"
 					},
 					"response": []
 				},
@@ -426,24 +286,14 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\":1,\r\n    \"nome\":\"Modelagem de Fluxos\",\r\n    \"descricao\":\"Criação de fluxos BPMN para modelar processos\",\r\n    \"deadline\":\"01/01/2027\",\r\n    \"orcamento\":15000.00\r\n}",
+							"raw": "{\r\n    \"nome\":\"Modelagem de Fluxos\",\r\n    \"descricao\":\"Criação de fluxos BPMN para modelar processos\",\r\n    \"deadline\":\"01/01/2027\",\r\n    \"orcamento\":15000.00\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/projetos",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"projetos"
-							]
-						}
+						"url": "http://localhost:8080/projetos/1"
 					},
 					"response": []
 				},
@@ -461,19 +311,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/projetos/1/status",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"projetos",
-								"1",
-								"status"
-							]
-						}
+						"url": "http://localhost:8080/projetos/1/status"
 					},
 					"response": []
 				},
@@ -482,18 +320,7 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/projetos/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"projetos",
-								"1"
-							]
-						}
+						"url": "http://localhost:8080/projetos/1"
 					},
 					"response": []
 				}
@@ -516,17 +343,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/tarefas",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"tarefas"
-							]
-						}
+						"url": "http://localhost:8080/tarefas"
 					},
 					"response": []
 				},
@@ -535,17 +352,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/tarefas",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"tarefas"
-							]
-						}
+						"url": "http://localhost:8080/tarefas"
 					},
 					"response": []
 				},
@@ -554,18 +361,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/tarefas/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"tarefas",
-								"1"
-							]
-						}
+						"url": "http://localhost:8080/tarefas/1"
 					},
 					"response": []
 				},
@@ -574,19 +370,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/tarefas/1/anexos",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"tarefas",
-								"1",
-								"anexos"
-							]
-						}
+						"url": "http://localhost:8080/tarefas/1/anexos"
 					},
 					"response": []
 				},
@@ -604,17 +388,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/tarefas",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"tarefas"
-							]
-						}
+						"url": "http://localhost:8080/tarefas"
 					},
 					"response": []
 				},
@@ -632,19 +406,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/tarefas/1/status",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"tarefas",
-								"1",
-								"status"
-							]
-						}
+						"url": "http://localhost:8080/tarefas/1/status"
 					},
 					"response": []
 				},
@@ -653,18 +415,7 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/tarefas/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"tarefas",
-								"1"
-							]
-						}
+						"url": "http://localhost:8080/tarefas/1"
 					},
 					"response": []
 				}
@@ -687,17 +438,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/anexos",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"anexos"
-							]
-						}
+						"url": "http://localhost:8080/anexos"
 					},
 					"response": []
 				},
@@ -706,17 +447,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/anexos",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"anexos"
-							]
-						}
+						"url": "http://localhost:8080/anexos"
 					},
 					"response": []
 				},
@@ -725,18 +456,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/anexos/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"anexos",
-								"1"
-							]
-						}
+						"url": "http://localhost:8080/anexos/1"
 					},
 					"response": []
 				},
@@ -754,17 +474,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/anexos",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"anexos"
-							]
-						}
+						"url": "http://localhost:8080/anexos"
 					},
 					"response": []
 				},
@@ -773,18 +483,7 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/anexos/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"anexos",
-								"1"
-							]
-						}
+						"url": "http://localhost:8080/anexos/1"
 					},
 					"response": []
 				}
@@ -807,17 +506,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/comentarios",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"comentarios"
-							]
-						}
+						"url": "http://localhost:8080/comentarios"
 					},
 					"response": []
 				},
@@ -826,17 +515,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/comentarios",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"comentarios"
-							]
-						}
+						"url": "http://localhost:8080/comentarios"
 					},
 					"response": []
 				},
@@ -845,18 +524,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/comentarios/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"comentarios",
-								"1"
-							]
-						}
+						"url": "http://localhost:8080/comentarios/1"
 					},
 					"response": []
 				},
@@ -874,17 +542,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/comentarios",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"comentarios"
-							]
-						}
+						"url": "http://localhost:8080/comentarios"
 					},
 					"response": []
 				},
@@ -893,43 +551,42 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/comentarios/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"comentarios",
-								"1"
-							]
-						}
+						"url": "http://localhost:8080/comentarios/1"
 					},
 					"response": []
 				}
 			]
 		},
 		{
-			"name": "Relatorios",
+			"name": "Relatórios/Dashboard",
 			"item": [
 				{
-					"name": "Progresso Projetos",
+					"name": "Relatórios - Progresso",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJQcm9qZWN0Rmxvdy1BUEkiLCJzdWIiOiJrYXVhbm1lZGVpcm9zZGV2QGdtYWlsLmNvbSIsImV4cCI6MTc2NDA0MjQzOX0.chU7DeuSO5acO8Lzajd6JzW2bpJLN1n5JBC8s5w11dM"
+							}
+						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/relatorios/progresso",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"relatorios",
-								"progresso"
-							]
-						}
+						"url": "http://localhost:8080/relatorios/progresso"
+					},
+					"response": []
+				},
+				{
+					"name": "Dashboard - Resumo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJQcm9qZWN0Rmxvdy1BUEkiLCJzdWIiOiJrYXVhbm1lZGVpcm9zZGV2QGdtYWlsLmNvbSIsImV4cCI6MTc2NDA0MjQzOX0.chU7DeuSO5acO8Lzajd6JzW2bpJLN1n5JBC8s5w11dM"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/dashboard/resumo"
 					},
 					"response": []
 				}

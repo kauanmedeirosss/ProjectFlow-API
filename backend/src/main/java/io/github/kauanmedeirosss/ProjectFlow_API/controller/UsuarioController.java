@@ -63,7 +63,7 @@ public class UsuarioController {
     }
 
     /*
-    Exemplo de uso:
+    Exemplo de uso alternativo:
     GET /usuarios?pagina=0&tamanho=5&ordenarPor=email
     */
     @Operation(
